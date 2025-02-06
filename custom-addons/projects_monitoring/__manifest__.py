@@ -8,7 +8,9 @@
     'data': [
         'data/data.xml',
         'security/ir.model.access.csv',
-        'views/classrooms.xml'
+        'views/projects_monitoring.xml',
+        'views/work.xml',
+        'views/topic.xml'
     ],
     'demo': [],
     'installable': True,

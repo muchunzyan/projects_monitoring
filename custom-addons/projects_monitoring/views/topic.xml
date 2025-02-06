@@ -1,0 +1,91 @@
+<odoo>
+    <record id="topic_action" model="ir.actions.act_window">
+        <field name="name">Topics</field>
+        <field name="res_model">topic_model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="topic_tree_view" model="ir.ui.view">
+        <field name="name">topic_model.tree</field>
+        <field name="model">topic_model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="author_id"/>
+                <field name="initiative_topic"/>
+                <field name="title_en"/>
+                <field name="title_ru"/>
+                <field name="annotation"/>
+                <field name="key_words"/>
+                <field name="work_purpose"/>
+                <field name="expected_results"/>
+                <field name="work_type"/>
+                <field name="executor_type"/>
+                <field name="work_objectives"/>
+                <field name="applied_methods"/>
+                <field name="tools_used"/>
+                <field name="additional_info"/>
+                <field name="supervisor"/>
+                <field name="approved"/>
+                <field name="academic_year_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="topic_from_view" model="ir.ui.view">
+        <field name="name">topic_model.form</field>
+        <field name="model">topic_model</field>
+        <field name="arch" type="xml">
+            <form string="Topic">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="author_id" required="1"/>
+                            <field name="initiative_topic" required="1"/>
+                            <field name="title_en" required="1"/>
+                            <field name="title_ru" required="1"/>
+                            <field name="annotation"/>
+                            <field name="key_words"/>
+                            <field name="work_purpose"/>
+                            <field name="expected_results"/>
+                            <field name="work_type" required="1"/>
+                            <field name="executor_type"/>
+                            <field name="work_objectives"/>
+                            <field name="applied_methods"/>
+                            <field name="tools_used"/>
+                            <field name="additional_info"/>
+                            <field name="supervisor"/>
+                            <field name="approved"/>
+                            <field name="academic_year_id" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="topic_search_view" model="ir.ui.view">
+        <field name="name">topic_model.search</field>
+        <field name="model">topic_model</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="author_id"/>
+                <field name="initiative_topic"/>
+                <field name="title_en"/>
+                <field name="title_ru"/>
+                <field name="annotation"/>
+                <field name="key_words"/>
+                <field name="work_purpose"/>
+                <field name="expected_results"/>
+                <field name="work_type"/>
+                <field name="executor_type"/>
+                <field name="work_objectives"/>
+                <field name="applied_methods"/>
+                <field name="tools_used"/>
+                <field name="additional_info"/>
+                <field name="supervisor"/>
+                <field name="approved"/>
+                <field name="academic_year_id"/>
+            </search>
+        </field>
+    </record>
+</odoo>
