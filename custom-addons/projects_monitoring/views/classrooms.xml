@@ -1,0 +1,58 @@
+<odoo>
+<!--    <record id="classroom_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Classrooms</field>-->
+<!--        <field name="res_model">classroom_model</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--    </record>-->
+
+<!--    <record id="classroom_tree_view" model="ir.ui.view">-->
+<!--        <field name="name">classroom_model.tree</field>-->
+<!--        <field name="model">classroom_model</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                <field name="number"/>-->
+<!--                <field name="cluster_id"/>-->
+<!--                <field name="building_id"/>-->
+<!--                <field name="type_id"/>-->
+<!--                <field name="capacity"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="classroom_from_view" model="ir.ui.view">-->
+<!--        <field name="name">classroom_model.form</field>-->
+<!--        <field name="model">classroom_model</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="Classroom">-->
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--                        <group>-->
+<!--                            <field name="number" required="1"/>-->
+<!--                            <field name="building_id" required="1"/>-->
+<!--                            <field name="hide_cluster_id" invisible="1"/>-->
+<!--                            <field name="cluster_id" required="1" invisible="hide_cluster_id == True"/>-->
+<!--                            <field name="equipment_ids"/>-->
+<!--                            <field name="type_id" required="1"/>-->
+<!--                            <field name="capacity" required="1"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="classroom_search_view" model="ir.ui.view">-->
+<!--        <field name="name">classroom_model.search</field>-->
+<!--        <field name="model">classroom_model</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search>-->
+<!--                <field name="number"/>-->
+<!--                <field name="building_id"/>-->
+<!--                <field name="cluster_id"/>-->
+<!--                <field name="equipment_ids"/>-->
+<!--                <field name="type_id"/>-->
+<!--                <field name="capacity"/>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>
