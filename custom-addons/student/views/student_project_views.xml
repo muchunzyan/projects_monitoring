@@ -1,0 +1,497 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="student_project_view_form" model="ir.ui.view">
+            <field name="name">student.project.form</field>
+            <field name="model">student.project</field>
+            <field name="arch" type="xml">
+                <form duplicate="0">
+                    <header>
+                        <button name="action_view_project_submit"
+                            string="SUBMIT"
+                            type="object"
+                            class="oe_highlight"
+                            confirm="Are you sure you want to submit this project?"
+                            groups="student.group_professor"
+                            invisible="state_evaluation != 'draft' or create_uid != uid"/>
+                        <button name="action_view_project_cancel"
+                            string="CANCEL SUBMISSION"
+                            type="object"
+                            class="oe_highlight"
+                            confirm="Are you sure you want to cancel your project submission?"
+                            groups="student.group_professor"
+                            invisible="state_evaluation != 'progress' or state_publication not in ['ineligible','published'] or create_uid != uid"/>
+
+                        <!-- DEBUG COMMANDS - MAY DELETE -->
+                        <button name="action_view_project_reset"
+                            string="RESET"
+                            type="object"
+                            class="btn-warning"
+                            confirm="WARNING! This is a development command. Are you sure that you want to reset the project?"
+                            groups="student.group_administrator"/>
+
+                        <button name="create_project_project"
+                            string="CREATE PROJECT"
+                            type="object"
+                            class="btn-warning"
+                            confirm="WARNING! This is a development command. Are you sure that you want create the Odoo project?"
+                            groups="student.group_administrator"/>
+                        <!-- ### -->
+
+                        <button name="action_view_project_apply"
+                            string="APPLY"
+                            type="object"
+                            class="oe_highlight"
+                            groups="student.group_student"
+                            invisible="state_publication not in ['published', 'applied']"/>
+
+                        <button name="action_view_project_complete"
+                            string="COMPLETE"
+                            type="object"
+                            class="btn-success"
+                            confirm="Are you sure you want to complete this project?"
+                            groups="student.group_professor,student.group_student"
+                            invisible="state_publication != 'assigned'"/>
+                        <field name="state_publication" 
+                               widget="statusbar" 
+                               statusbar_visible="published,applied,assigned,completed"
+                               invisible="state_publication in ['ineligible','dropped']" 
+                               readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="current_user_follower" invisible="1"/>
+                            <field name="create_uid" invisible="1"/>
+                            
+                            <group string="Basic Info" cols="2"> 
+                                <group colspan="2">
+                                    <field name="name" style="color: #384f85; font-weight: bold" readonly="state_evaluation != 'draft'"/> 
+                                    <field name="project_project_id" readonly="1" invisible="state_publication not in ['assigned', 'completed', 'dropped'] or not current_user_follower"/>
+                                </group>   
+                                <group>
+                                    <field name="professor_id"/>
+                                    <field name="create_date"/>
+                                    <field name="write_date"/>
+                                </group>
+                                <group>
+                                    <field name="format" readonly="state_evaluation != 'draft'"/>
+                                    <field name="language" readonly="state_evaluation != 'draft'"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="Workflow" colspan="2">
+                                    <field name="state_evaluation"/>
+                                    <field name="state_publication" invisible="state_publication == 'ineligible'"/>
+                                </group>
+
+                                <group string="Assignment" colspan="2">
+                                    <field name="assigned"/>
+                                    <field name="proposal_id" invisible="proposal_id == False"/>
+                                    <!-- If based on a proposal -->
+                                    <field name="student_elected" widget="many2many_tags" string="Proposed by" invisible="proposal_id == False"/>
+                                    <!-- If NOT based on a proposal -->
+                                    <field name="student_elected" widget="many2many_tags" invisible="proposal_id != False or state_publication not in ['assigned', 'completed', 'dropped']"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Additional Details">
+                                    <group>
+                                        <field name="description" placeholder="Short project description to inspire potential applicants. &#10;Description in both English and Russian is suggested." readonly="state_evaluation != 'draft'"/>
+                                        <field name="requirements" placeholder="> Minimum requirements for applications can be listed here. &#10;> Please use bullet points." readonly="state_evaluation != 'draft' or proposal_id != False"/>
+                                        <field name="results" placeholder="> Expected outcomes at the end of given implementation/research period. &#10;> Please use bullet points." style="margin-bottom:20 px" readonly="state_evaluation != 'draft'"/>
+                                    </group>
+                                    
+                                    <group string="Files" invisible="state_evaluation != 'draft' and file_count == 0" col="3">
+                                        <p colspan="2" style="color:gray" invisible="id != False">
+                                            <i>Save the project to add additional files.</i>
+                                        </p>
+                                        <group colspan="2">
+                                            <field name="additional_files" widget="many2many_binary" string="Attach a file" readonly="state_evaluation != 'draft'" invisible="id == False" help="Additional files to describe the content of the project further."/>
+                                        </group>
+                                        <group colspan="1">
+                                            <field name="file_count" invisible="id == False"/>
+                                        </group>
+                                    </group>
+
+                                    <group string="Eligibility" invisible="id != False">
+                                        <p colspan="2" style="color:gray">
+                                            <i>Save the project to set up the academic programs for submission.</i>
+                                        </p>
+                                    </group>
+                                    <group string="Eligibility" invisible="id == False or state_publication == 'assigned'">
+                                        <!-- ♥ COPY THE BUTTONS HERE FOR USER CONVENIENCE -->
+
+                                        <group col="6" colspan="2">
+                                            <group colspan="2">
+                                                <field name="campus_id" help="The campus is automatically assigned based on the project professor." widget="many2many_tags" readonly="1"/>
+                                            </group>
+                                            <group colspan="4">
+                                                <field name="faculty_id" help="The faculty is automatically assigned based on the project professor." widget="many2many_tags" readonly="1"/>
+                                            </group>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="availability_ids" context="{'project_id': active_id, 'project_faculty_id': faculty_id}" readonly="state_evaluation != 'draft' or assigned"
+                                                   help="Professors can define the application criteria for each academic program. Once a program supervisor approves the project, it becomes available for applications of students from this particular program. Students of other programs can view the project, but cannot apply.">
+                                                <tree>
+                                                    <field name="state" string="Submission State"/>
+                                                    <field name="program_id" string="Submitted to"/>
+                                                    <field name="type" string="Type"/>
+                                                    <field name="degree_ids" widget="many2many_tags" string="Available for"/>
+                                                    <button name="action_view_availability_branch"
+                                                        string="BRANCH"
+                                                        type="object"
+                                                        class="oe_highlight"
+                                                        confirm="Are you sure you want to create a new branch for this project?"
+                                                        invisible="state != 'returned'"
+                                                        groups="student.group_professor"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </group>
+                                </page>
+                                <page string="Applications" invisible="state_publication not in ['published', 'applied']">
+                                    <p>
+                                        <label for="applications" class="oe_inline"/>
+                                        <field name="applications" style="margin-left:10px" class="oe_inline"/>
+                                    </p>
+                                    <field name="application_ids">
+                                        <tree>
+                                            <field name="applicant"/>
+                                            <field name="email"/>
+                                            <field name="student_program"/>
+                                            <field name="student_degree"/>
+                                            <button name="action_view_application_accept" 
+                                                    string="Accept ✔"
+                                                    type="object"
+                                                    class="btn-success"
+                                                    confirm="Are you sure to accept the application? Other applications will be rejected automatically."
+                                                    groups="student.group_professor"
+                                                    invisible="state != 'sent'"/>  
+                                            <button name="action_view_application_reject" 
+                                                    string="Reject ✘"
+                                                    type="object"
+                                                    class="btn-danger"
+                                                    confirm="Are you sure to reject the application?"
+                                                    groups="student.group_professor"
+                                                    invisible="state != 'sent'"/>  
+                                            <field name="state"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Activities" invisible="state_publication not in ['assigned', 'completed', 'dropped'] or not current_user_follower">
+                                    <div class="text-center">
+                                        <button name="action_view_project_events" 
+                                                string="GO TO PROJECT TASKS ►"
+                                                type="object"
+                                                class="btn-secondary"/>  
+                                    </div>
+                                    <field name="project_project_tasks" style="margin-top:10px"/>
+                                </page>
+                                <page string="Results" invisible="state_publication not in ['assigned', 'completed']">
+                                    <group string="Student">
+                                        <field name="student_account" invisible="1"/>
+
+                                        <p colspan="2" style="color:gray;font-style: italic;" invisible="student_account == uid"> Only the assigned student can edit this section. </p>
+                                        
+                                        <group>
+                                            <field name="project_report_file" filename="project_report_filename" readonly="student_account != uid or state_publication != 'assigned'"/>
+                                            <field name="project_report_filename" invisible="1"/>
+                                        </group>
+                                        <group>
+                                            <div style="width: 200px">
+                                                <button name="hide_show_report_preview" 
+                                                    string="Show/Hide Report Preview"
+                                                    type="object"
+                                                    invisible="not project_report_file"/>
+                                            </div>
+                                            <field name="project_preview_toggle" invisible="1"/>
+                                        </group>
+                                        <field name="project_report_file" widget="pdf_viewer" invisible="not project_preview_toggle" readonly="1"/>
+
+                                        <group colspan="2">
+                                            <field name="plagiarism_check_file" filename="plagiarism_check_filename" readonly="student_account != uid or state_publication != 'assigned'"/>
+                                            <field name="plagiarism_check_filename" invisible="1"/>
+
+                                            <field name="additional_resources" placeholder="Specify if there are any additional links, resources or repositories related to the project. Files can be added to 'Additional Files' section." readonly="student_account != uid or state_publication != 'assigned'"/>
+                                            <field name="student_feedback" placeholder="Here the student can express negative or positive experiences related to the project." readonly="student_account != uid or state_publication != 'assigned'"/>
+                                        </group>
+                                    </group>
+                                    <group string="Professor">
+                                        <field name="professor_account" invisible="1"/>
+
+                                        <p colspan="2" style="color:gray;font-style: italic;" invisible="professor_account == uid"> Only the project professor can edit this section. </p>
+                        
+                                        <field name="professor_review_file" filename="professor_review_filename" readonly="professor_account != uid or state_publication != 'assigned'"/>
+                                        <field name="professor_review_filename" invisible="1"/>
+                                        <field name="professor_feedback" placeholder="Here the professor can express their experience of working on the project with the assigned student." readonly="professor_account != uid or state_publication != 'assigned'"/>
+                                        <field name="professor_grade" readonly="professor_account != uid or state_publication != 'assigned'"/>
+                                    </group>
+                                    <group string="Commission" invisible="state_publication != 'completed'">
+                                        <field name="commission_id" readonly="1" invisible="not commission_id"/>
+                                        <field name="result_text" placeholder="List project results (summary, links, etc.) here. Additional files can be added in the section below."/>
+                                        <field name="notes"/>
+                                        <field name="grade" readonly="1" help="Please use the Commission interface to grade the project."/>
+                                    </group>
+                                    <group string="Common">
+                                        <field colspan="2" name="result_files" widget="many2many_binary" string="Additional Files" readonly="state_publication != 'assigned'" help="Additional files that may include reports, source files, analysis, etc."/>
+                                    </group>
+                                </page>
+                                <page string="Technical Log &amp; Details" groups="student.group_administrator">
+                                    <field name="message_follower_ids" widget="mail_followers"/>
+                                    <field name="activity_ids"/>
+                                    <field name="message_ids"/>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter" groups="student.group_administrator, student.group_supervisor, student.group_professor">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="student_project_list_view" model="ir.ui.view">
+            <field name="name">Projects - Tree View</field>
+            <field name="model">student.project</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="professor_id"/>
+                    <field name="format"/>
+                    <field name="language"/>
+                    <field name="program_ids" widget="many2many_tags"/>
+                    <field name="approval_ids" widget="many2many_tags"/>
+                    <field name="applications"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="student_project_graph_view" model="ir.ui.view">
+            <field name="name">Projects - Graph View</field>
+            <field name="model">student.project</field>
+            <field name="type">graph</field>
+            <field name="arch" type="xml">
+                <graph string="Project Evaluation" type="pie">
+                    <field name="state_evaluation"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- The graph view that student_menus.xml refers to -->
+        <record id="student_project_view_action_graph" model="ir.actions.act_window">
+            <field name="name">Project Status Report</field>
+            <field name="res_model">student.project</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="student_project_graph_view"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    There are no projects yet. Report cannot be generated.
+                </p>
+            </field>
+        </record>
+
+        <record id="student_project_kanban_view_evaluation" model="ir.ui.view">
+            <field name="name">Projects - Kanban View for Professors</field>
+            <field name="model">student.project</field>
+            <field name="arch" type="xml">
+                <kanban quick_create="false" 
+                        records_draggable="false" 
+                        default_group_by="state_evaluation" 
+                        class="o_res_partner_kanban o_kanban_large_column" 
+                        name="student_project_kanban"
+                        default_order="write_date desc">
+                    <field name="state_evaluation"/>
+                    <field name="name"/>
+                    <field name="professor_id"/>
+                    <field name="applications"/>
+                    <field name="write_date"/>
+
+                    <templates>
+                        <field name="color_evaluation"/>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color_evaluation.raw_value)} oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <div class="oe_kanban_title">
+                                        <strong>Last update: </strong>
+                                        <field name="write_date"/>
+                                    </div>
+                                    <div class="oe_kanban_subtitle">
+                                        <field name="program_ids_count" invisible="1"/>
+                                        <field name="pending_program_ids_count" invisible="1"/>
+                                        <field name="approved_program_ids_count" invisible="1"/>
+                                        <div style="color:gray" t-if="record.state_evaluation.value == 'Progress'">
+                                            (Reacted: <t t-esc="record.program_ids_count.value - record.pending_program_ids_count.value"/>/<t t-esc="record.program_ids_count.value"/> • Approved: <t t-esc="record.approved_program_ids_count.value"/>)
+                                        </div>
+                                        Project Name:
+                                        <field name="name"/>
+                                    </div>
+                                    <i class="oe_kanban_content">
+                                        <div t-if="record.professor_id.value">
+                                            Professor:
+                                            <t t-esc="record.professor_id.value"/>
+                                        </div>
+                                        <div t-if="record.applications.value &gt; 0">
+                                            Applications:
+                                            <t t-esc="record.applications.value"/>
+                                        </div>
+                                    </i>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- student_menus.xml refers to this in the menu (for professors) -->
+        <record id="student_project_kanban_professor_evaluation" model="ir.actions.act_window">
+            <field name="name">Project Evaluation Board</field>
+            <field name="res_model">student.project</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="student_project_kanban_view_evaluation"/>
+            <field name="context">{'view_type': 'project_board'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    There are no projects yet. You can create the first one. Yay!
+                </p>
+            </field>
+            <field name="domain">[('professor_account', '=', uid)]</field>
+        </record>
+
+        <record id="student_project_kanban_view_publication" model="ir.ui.view">
+            <field name="name">Projects - Kanban View for Professors</field>
+            <field name="model">student.project</field>
+            <field name="arch" type="xml">
+                <kanban create="false"
+                        quick_create="false" 
+                        records_draggable="false" 
+                        default_group_by="state_publication" 
+                        class="o_res_partner_kanban o_kanban_large_column" 
+                        name="student_project_kanban"
+                        default_order="write_date desc">
+                    <field name="state_publication"/>
+                    <field name="name"/>
+                    <field name="professor_id"/>
+                    <field name="applications"/>
+                    <field name="write_date"/>
+
+                    <templates>
+                        <field name="color_publication"/>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color_publication.raw_value)} oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <div class="oe_kanban_title">
+                                        <strong>Last update: </strong>
+                                        <field name="write_date"/>
+                                    </div>
+                                    <div class="oe_kanban_subtitle">
+                                        <field name="program_ids_count" invisible="1"/>
+                                        <field name="pending_program_ids_count" invisible="1"/>
+                                        <field name="approved_program_ids_count" invisible="1"/>
+                                        Project Name:
+                                        <field name="name"/>
+                                    </div>
+                                    <i class="oe_kanban_content">
+                                        <div t-if="record.professor_id.value">
+                                            Professor:
+                                            <t t-esc="record.professor_id.value"/>
+                                        </div>
+                                        <div t-if="record.applications.value &gt; 0">
+                                            Applications:
+                                            <t t-esc="record.applications.value"/>
+                                        </div>
+                                    </i>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- student_menus.xml refers to this in the menu (for professors) -->
+        <record id="student_project_kanban_professor_publication" model="ir.actions.act_window">
+            <field name="name">Published Projects Board</field>
+            <field name="res_model">student.project</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="student_project_kanban_view_publication"/>
+            <field name="context">{'search_default_my_projects': 1, 'view_type': 'project_board'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    There are no published projects. You can create the first one and send it for approval.
+                </p>
+            </field>
+            <field name="domain">[('state_publication', '!=', 'ineligible')]</field>
+        </record>
+
+        <!-- The view for students that student_menus.xml refers to -->
+        <record id="student_project_view_action_list" model="ir.actions.act_window">
+            <field name="name">Available Projects</field>
+            <field name="res_model">student.project</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="student_project_list_view"/>
+            <field name="context">{'search_default_available': 1, 'view_type': 'available_projects'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    There are no projects yet. You can create the first one. Yay!
+                </p>
+            </field>
+            <field name="domain">[('state_publication', 'in', ['published', 'applied'])]</field>
+        </record>
+
+        <!-- Define the action to open the tree view of projects from the professor form-->
+        <record id="action_project" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.project</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('professor_id', '=', active_id)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    There are no projects yet. You can create the first one. Yay!
+                </p>
+            </field>
+        </record>
+    </data>
+
+    <record id="student_project_view_search" model="ir.ui.view">
+        <field name="name">student.project.search</field>
+        <field name="model">student.project</field>
+        <field name="arch" type="xml">
+            <search string="Professor List">
+                <field name="name" string="Project" />
+                <filter string="My projects" groups="student.group_professor" name="my_projects" domain="[('professor_account', '=', uid)]"/>
+                <filter string="Available for application" groups="student.group_student" name="available" domain="[('state_publication', 'in', ['published', 'applied'])]"/>
+                <filter string="Requires attention" groups="student.group_professor" name="attention_professor" domain="[('professor_account', '=', uid), ('state_publication', '=', 'applied')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Professor" name="professor" context="{'group_by':'professor_id'}"/>
+                    <filter string="Project Format" name="project_format" context="{'group_by':'format'}"/>
+                    <filter string="Faculty" name="faculty" context="{'group_by':'faculty_id'}"/>
+                    <filter string="Target Program" name="program" context="{'group_by':'program_ids'}" groups="student.group_administrator, student.group_supervisor, student.group_professor"/>
+                    <filter string="Applicable Program" name="program" context="{'group_by':'approved_program_ids'}" groups="student.group_student"/>
+                </group>
+            </search>
+        </field>
+    </record>   
+
+    <record id="student_project_view_personal" model="ir.actions.server">
+        <field name="name">𝗠𝘆 𝗣𝗿𝗼𝗷𝗲𝗰𝘁</field>
+        <field name="model_id" ref="model_student_project"/>
+        <field name="state">code</field>
+        <field name="code">
+student_project_id = env['student.project'].sudo().search([('student_elected.student_account.id', '=', env.uid)], limit=1).id
+if not student_project_id:
+    raise UserError("You are not assigned to a project yet. Try applying to projects first.")
+action = {
+    "name": "My Project (Server)",
+    "type": "ir.actions.act_window",
+    "res_model": "student.project",
+    "view_mode": "form",
+    "res_id": student_project_id,
+}
+        </field>
+    </record>
+</odoo>

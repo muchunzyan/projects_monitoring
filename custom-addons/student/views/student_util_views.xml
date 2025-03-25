@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<odoo>
+
+     <!-- Inherit the existing server menu item -->
+    <record id="student_menu_action_server_my_tasks" model="ir.actions.server">
+        <field name="name">My Tasks</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="state">code</field>
+        <field name="code">
+            model._ensure_personal_stages(); action = env["ir.actions.actions"]._for_xml_id("project.action_view_my_task")
+        </field>
+    </record>
+
+    <!-- DEGREE -->
+    <record id="student_degree_view_action" model="ir.actions.act_window">
+        <field name="name">Degrees of Education</field>
+        <field name="res_model">student.degree</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new degree of education.
+            </p>
+        </field>
+    </record>
+
+    <record id="student_degree_view_form" model="ir.ui.view">
+        <field name="name">student.degree.form</field>
+        <field name="model">student.degree</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Degree Details">
+                        <field name="name"/>
+                        <field name="level"/>
+                        <field name="year"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- CAMPUS -->
+    <record id="student_campus_view_action" model="ir.actions.act_window">
+        <field name="name">University Campuses</field>
+        <field name="res_model">student.campus</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new campus for the university.
+            </p>
+        </field>
+    </record>
+
+    <record id="student_campus_view_form" model="ir.ui.view">
+        <field name="name">student.campus.form</field>
+        <field name="model">student.campus</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Campus Details">
+                        <field name="name"/>
+                        <field name="university_name"/>
+                        <field name="legal_address"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Define the action to open the Tree View of events from the project form -->
+    <record id="action_open_project_tasks" model="ir.actions.act_window">
+        <field name="name">Project Tasks</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,calendar,tree,form</field>
+        <!-- Dynamic domain to filter tasks by project_id -->
+        <field name="domain">[('project_id', '=', context.get('default_project_id'))]</field>
+        <field name="context">{'search_default_project_id': context.get('default_project_id')}</field>
+    </record>
+</odoo>

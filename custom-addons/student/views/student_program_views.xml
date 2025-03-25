@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="student_program_view_action" model="ir.actions.act_window">
+        <field name="name">Programs</field>
+        <field name="res_model">student.program</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new program registry.
+            </p>
+        </field>
+    </record>
+
+    <record id="student_program_view_tree" model="ir.ui.view">
+        <field name="name">student.program.tree</field>
+        <field name="model">student.program</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="degree"/>
+                <field name="program_faculty_id"/>
+                <field name="supervisor"/>
+                <field name="length"/>
+                <field name="language"/>
+                <field name="student_number"/>
+                <field name="project_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_program_view_search" model="ir.ui.view">
+        <field name="name">student.program.search</field>
+        <field name="model">student.program</field>
+        <field name="arch" type="xml">
+            <search string="Program List">
+                <field name="name" string="Program Name"/>
+                <field name="supervisor" string="Supervisor"/>
+                <filter string="Has students" name="has_students" domain="[('student_number', '>', 0)]"/>
+                <filter string="Has projects  " name="has_students" domain="[('project_number', '>', 0)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Degree of Education" name="degree" context="{'group_by':'degree'}"/>
+                    <filter string="Supervisor" name="supervisor" context="{'group_by':'supervisor'}"/>
+                    <filter string="Program Length" name="length" context="{'group_by':'length'}"/>
+                    <filter string="Program Faculty" name="program_faculty_id" context="{'group_by':'program_faculty_id'}"/>
+                    <filter string="Language" name="language" context="{'group_by':'language'}"/>
+                    <filter string="Mode of Education" name="type" context="{'group_by':'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>       
+
+    <record id="student_program_graph_view" model="ir.ui.view">
+        <field name="name">Programs - Graph View</field>
+        <field name="model">student.program</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Program Stats" type="bar">
+                <field name="project_number"/>
+                <field name="name"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- The graph view that student_menus.xml refers to -->
+    <record id="student_program_view_action_graph" model="ir.actions.act_window">
+        <field name="name">Program Summary</field>
+        <field name="res_model">student.program</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="student_program_graph_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                There are no programs yet. Report cannot be generated.
+            </p>
+        </field>
+    </record>
+
+    <record id="student_program_view_form" model="ir.ui.view">
+        <field name="name">student.program.form</field>
+        <field name="model">student.program</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="6">
+                        <group string="Basic Info" colspan="4">
+                            <group>
+                                <field name="name"/>
+                                <field name="degree"/>
+                                <field name="program_faculty_id"/>
+                            </group>
+                            <group>
+                                <field name="type"/>
+                                <field name="length"/>
+                                <field name="language"/>
+                            </group>
+                        </group>
+                        <group string="Management" colspan="2">
+                            <field name="supervisor"/>
+                            <field name="manager"/>
+                        </group>
+                        <notebook>
+                            <page string="Students">
+                                <p>
+                                    <label for="student_number" class="oe_inline"/>
+                                    <field name="student_number" style="margin-left:10px" class="oe_inline"/>
+                                </p>
+                                <field name="student_ids"/>
+                            </page>
+                            <page string="Projects">
+                                <p>
+                                    <label for="project_number" class="oe_inline"/>
+                                    <field name="project_number" style="margin-left:10px" class="oe_inline"/>
+                                </p>
+                                <field name="project_ids" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

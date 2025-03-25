@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="student_student_view_action" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">student.student</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new student registry.
+            </p>
+        </field>
+    </record>
+
+    <record id="student_student_view_tree" model="ir.ui.view">
+        <field name="name">student.student.tree</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="student_email"/>
+                <field name="student_program"/>
+                <field name="degree"/>
+                <field name="application_number"/>
+                <field name="proposal_number"/>
+                <field name="current_project"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_student_view_search" model="ir.ui.view">
+        <field name="name">student.student.search</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <search string="Student List">
+                <field name="name" string="Name" />
+                <field name="student_id" string="ID"/>
+                <field name="student_email" string="Email" />
+                <field name="student_phone" string="Phone"/>
+                <field name="current_project" string="Assigned Project"/>
+                <filter string="Assigned to a Project" name="my_projects" domain="[('current_project', '!=', False)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Program" name="student_program" context="{'group_by':'student_program'}"/>
+                    <filter string="Year of Enrollment" name="enrolled" context="{'group_by':'enrolled'}"/>
+                    <filter string="Current Academic Year" name="progress" context="{'group_by':'progress'}"/>
+                    <!-- <filter string="Year of Graduation" name="graduation" context="{'group_by':'graduation'}"/> -->
+                    <filter string="Assigned Project" name="enrolled" context="{'group_by':'current_project'}"/>
+                </group>
+            </search>
+        </field>
+    </record>   
+
+    <record id="student_student_view_form" model="ir.ui.view">
+        <field name="name">student.student.form</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Basic Info">
+                            <field name="student_account"/>
+                            <field name="name" readonly="True"/>
+                            <field name="student_id" readonly="True"/>
+                            <field name="student_email" readonly="True"/>
+                            <field name="student_phone" placeholder="+7 XXX XXX XXXX"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Academic Info">
+                            <field name="student_program"/>
+                            <field name="student_faculty" readonly="True"/>
+                            <field name="enrolled"/>
+                            <field name="progress"/>
+                            <field name="graduation"/>
+                            <field name="degree"/>
+                        </group>
+                        <notebook>
+                            <page string="Applications">        
+                                <p>
+                                    <label for="application_number" class="oe_inline"/>
+                                    <field name="application_number" style="margin-left:10px" class="oe_inline"/>
+                                </p>
+                                <p>
+                                    <label for="current_project" class="oe_inline"/>
+                                    <field name="current_project" style="margin-left:10px" readonly="True" class="oe_inline"/>
+                                </p>
+                                <field name="application_ids"/>
+                            </page>
+                            <page string="Proposals">        
+                                <p>
+                                    <label for="proposal_number" class="oe_inline"/>
+                                    <field name="proposal_number" style="margin-left:10px" class="oe_inline"/>
+                                </p>
+                                <field name="proposal_ids"/>
+                            </page>                            
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
