@@ -108,6 +108,12 @@ student_proposal_supervisor,Proposal for Supervisor,model_student_proposal,stude
 student_proposal_professor,Proposal for Professor,model_student_proposal,student.group_professor,1,1,0,0
 student_proposal_student,Proposal for Student,model_student_proposal,student.group_student,1,1,1,1
 
+student_tag_admin,Tags for Administrator,model_student_tag,student.group_administrator,1,1,1,1
+student_tag_manager,Tags for Manager,model_student_tag,student.group_manager,1,1,1,1
+student_tag_supervisor,Tags for Supervisor,model_student_tag,student.group_supervisor,0,0,0,0
+student_tag_professor,Tags for Professor,model_student_tag,student.group_professor,0,0,0,0
+student_tag_student,Tags for Student,model_student_tag,student.group_student,0,0,0,0
+
 
 
 student_project_project_admin,Odoo Project for Administrator,project.model_project_project,student.group_administrator,1,1,1,1

@@ -100,6 +100,12 @@ class StudentCampus(models.Model):
     faculty_id = fields.One2many('student.faculty', 'campus', string='Faculties', readonly=True)
     project_ids = fields.Many2many('student.project', string='Projects', readonly=True)
 
+class StudentTag(models.Model):
+    _name = 'student.tag'
+    _description = 'PaLMS - Tags'
+
+    name = fields.Char('Name', required=True)
+
 class StudentApproval(models.Model):
     _name = 'student.approval'
     _description = 'PaLMS - Approvals'

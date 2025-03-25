@@ -21,6 +21,7 @@
                 <field name="commission_faculty"/>
                 <field name="professor_ids"/>
                 <field name="defense_ids"/>
+                <field name="tag_ids"/>
                 <field name="meeting_date"/>
             </tree>
         </field>
@@ -103,6 +104,9 @@
                                         <field name="defense_time" widget="float_time"/>
                                     </tree>
                                 </field>
+                            </page>
+                            <page string="Tags">
+                                <field name="tag_ids"/>
                             </page>
                         </notebook>
                     </group>
