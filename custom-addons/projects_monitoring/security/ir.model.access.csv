@@ -1,7 +1,1 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-
-access_utils,Utilities,model_utils_model,base.group_user,1,1,1,1
-
-access_work,Work,model_work_model,base.group_user,1,1,1,1
-
-access_topic,Topic,model_topic_model,base.group_user,1,1,1,1

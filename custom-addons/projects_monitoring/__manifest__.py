@@ -7,10 +7,10 @@
     'depends': ['base', 'mail', 'student'],
     'data': [
         'data/data.xml',
-        'security/ir.model.access.csv',
-        'views/projects_monitoring.xml',
-        'views/work.xml',
-        'views/topic.xml'
+        'security/ir.model.access.csv'
+        # 'views/projects_monitoring.xml',
+        # 'views/work.xml',
+        # 'views/topic.xml'
     ],
     'demo': [],
     'installable': True,
