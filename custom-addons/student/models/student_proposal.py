@@ -8,8 +8,9 @@ class Proposal(models.Model):
 	_inherit = ['mail.thread', 'student.utils']
 
 
-	name = fields.Char('Proposal Name', required=True, translate=True)
-		
+	name = fields.Char('Proposal Name (English)', required=True)
+	name_ru = fields.Char('Proposal Name (Russian)', required=True)
+
 	@api.depends('proponent')
 	def _compute_student_details(self):
 		self.email = self.proponent.student_email
