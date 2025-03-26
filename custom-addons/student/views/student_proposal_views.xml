@@ -94,8 +94,13 @@
                 <sheet>
                     <group>
                         <group string="Overview">
-                            <field name="name" readonly="state != 'draft'"/>
-                            <field name="name_ru" readonly="state != 'draft'"/>
+<!--                            <field name="name" readonly="state != 'draft'"/>-->
+<!--                            <field name="name_ru" readonly="state != 'draft'"/>-->
+                            <field name="name" readonly="name_readonly"/>
+                            <field name="name_ru" readonly="name_readonly"/>
+
+                            <field name="name_readonly" invisible="False"/>
+
                             <field name="proposal_professor" readonly="state != 'draft'"/>
                             <field name="state"/>
                             <field name="project_id" invisible="state in ['draft', 'rejected']"/>

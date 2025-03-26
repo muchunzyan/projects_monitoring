@@ -11,6 +11,17 @@ class Proposal(models.Model):
 	name = fields.Char('Proposal Name (English)', required=True)
 	name_ru = fields.Char('Proposal Name (Russian)', required=True)
 
+	name_readonly = fields.Boolean("Name Readonly", compute="_compute_name_readonly", store=False)
+
+	def _compute_name_readonly(self):
+		for rec in self:
+			user = self.env.user
+			rec.name_readonly = not ((
+					user.has_group('student.group_student') and rec.state == 'draft') or
+									 user.has_group('student.group_administrator') or
+									 user.has_group('student.group_supervisor') or
+									 user.has_group('student.group_professor')) ## TODO Change to the Head of commission
+
 	@api.depends('proponent')
 	def _compute_student_details(self):
 		self.email = self.proponent.student_email
