@@ -21,7 +21,6 @@
                 <field name="commission_faculty"/>
                 <field name="professor_ids"/>
                 <field name="defense_ids"/>
-                <field name="tag_ids"/>
                 <field name="meeting_date"/>
             </tree>
         </field>

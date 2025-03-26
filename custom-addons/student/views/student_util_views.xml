@@ -79,6 +79,16 @@
         </field>
     </record>
 
+    <record id="student_tag_view_tree" model="ir.ui.view">
+        <field name="name">student.tag.tree</field>
+        <field name="model">student.tag</field>
+        <field name="arch" type="xml">
+            <tree default_order="name asc">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="student_tag_view_form" model="ir.ui.view">
         <field name="name">student.tag.form</field>
         <field name="model">student.tag</field>
