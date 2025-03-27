@@ -163,7 +163,7 @@
                             <div class="o_row" style="margin:25px 0px">
                                 <field name="final_grade_lock" invisible="1"/>
                                 <label for="final_grade" style="font-weight:bold"/>
-                                <p invisible="final_grade_lock" style="color:gray;font-style: italic;margin-left:10px" >
+                                <p invisible="final_grade_lock" style="color:gray;font-style: italic;margin-left:10px">
                                     Final grade cannot be set until all commission members grade the project.
                                 </p> 
                                 <field name="final_grade" invisible="not final_grade_lock" class="oe_inline" help="The ultimate commission grade for the project. Set to the average of member grades by default, can be modified by the commission head."/>

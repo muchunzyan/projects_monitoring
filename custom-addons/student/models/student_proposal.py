@@ -12,15 +12,20 @@ class Proposal(models.Model):
 	name_ru = fields.Char('Proposal Name (Russian)', required=True)
 
 	name_readonly = fields.Boolean("Name Readonly", compute="_compute_name_readonly", store=False)
+	commission_head = fields.Many2one('student.professor', string='Head of the Commission')
 
 	def _compute_name_readonly(self):
 		for rec in self:
 			user = self.env.user
-			rec.name_readonly = not ((
-					user.has_group('student.group_student') and rec.state == 'draft') or
-									 user.has_group('student.group_administrator') or
-									 user.has_group('student.group_supervisor') or
-									 user.has_group('student.group_professor')) ## TODO Change to the Head of commission
+			rec.name_readonly = not (
+					(user.has_group('student.group_student') and rec.state == 'draft') or
+					user.has_group('student.group_administrator') or
+					user.has_group('student.group_supervisor') or
+					(user.has_group('student.group_professor')
+					 and user.id == self.commission_head.professor_account.id))
+
+			print(user.id, "---", self.commission_head.professor_account.id)
+			print(user, "---", self.commission_head.professor_account)
 
 	@api.depends('proponent')
 	def _compute_student_details(self):
