@@ -65,7 +65,11 @@
                             
                             <group string="Basic Info" cols="2"> 
                                 <group colspan="2">
-                                    <field name="name" style="color: #384f85; font-weight: bold" readonly="state_evaluation != 'draft'"/> 
+                                    <field name="name" style="color: #384f85; font-weight: bold" readonly="name_readonly"/>
+                                    <field name="name_ru" style="color: #384f85; font-weight: bold" readonly="name_readonly"/>
+
+                                    <field name="name_readonly" invisible="1"/>
+
                                     <field name="project_project_id" readonly="1" invisible="state_publication not in ['assigned', 'completed', 'dropped'] or not current_user_follower"/>
                                 </group>
                                 <group>

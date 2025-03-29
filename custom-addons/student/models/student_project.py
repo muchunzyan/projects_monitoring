@@ -32,7 +32,23 @@ class Project(models.Model):
                                           ('dropped', 'Dropped')],           
                                           group_expand='_expand_publication_groups', default='ineligible', string='Publication State', readonly=True, tracking=True)
 
-    name = fields.Char('Project Name', required=True, translate=True)
+    name = fields.Char('Project Name (English)', required=True, translate=True)
+    name_ru = fields.Char('Project Name (Russian)', required=True, translate=True)
+
+    name_readonly = fields.Boolean("Name Readonly", compute="_compute_name_readonly", store=False)
+    commission_head = fields.Many2one('student.professor', string='Head of the Commission')
+
+    def _compute_name_readonly(self):
+        for rec in self:
+            user = self.env.user
+            rec.name_readonly = not (
+                    ((user.has_group('student.group_student') or user.has_group('student.group_professor'))
+                     and rec.state_evaluation == 'draft') or
+                    user.has_group('student.group_administrator') or
+                    user.has_group('student.group_supervisor') or
+                    (user.has_group('student.group_professor')
+                     and user.id == self.commission_head.professor_account.id))
+
     format = fields.Selection([('research', 'Research'), ('project', 'Project'), ('startup', 'Start-up')], string="Format", default="research", required=True)
     language = fields.Selection([('en', 'English'), ('ru', 'Russian')], default="en", string="Language", required=True)
 

@@ -98,7 +98,6 @@
                             <field name="name_ru" readonly="name_readonly"/>
 
                             <field name="name_readonly" invisible="1"/>
-                            <field name="commission_head" readonly="1" invisible="1"/>
 
                             <field name="proposal_professor" readonly="state != 'draft'"/>
                             <field name="state"/>

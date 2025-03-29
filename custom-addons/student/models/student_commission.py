@@ -101,9 +101,9 @@ class Commission(models.Model):
         return super(Commission, self).unlink()
 
     @api.onchange("commission_head")
-    def _update_proposals_commission_head(self):
-        print("change")
+    def _update_projects_and_proposals_commission_head(self):
         for defense in self.defense_ids:
+            defense.project_id.commission_head = self.commission_head
             defense.project_id.proposal_id.commission_head = self.commission_head
 
 class CommissionDefense(models.Model):

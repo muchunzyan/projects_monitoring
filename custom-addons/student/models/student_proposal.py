@@ -18,7 +18,8 @@ class Proposal(models.Model):
 		for rec in self:
 			user = self.env.user
 			rec.name_readonly = not (
-					(user.has_group('student.group_student') and rec.state == 'draft') or
+					((user.has_group('student.group_student') or user.has_group('student.group_professor'))
+					 and rec.state == 'draft') or
 					user.has_group('student.group_administrator') or
 					user.has_group('student.group_supervisor') or
 					(user.has_group('student.group_professor')
@@ -152,6 +153,7 @@ class Proposal(models.Model):
 		if self.state == 'sent':
 			self.project_id = self.env['student.project'].sudo().create({
 				'name': self.name,
+				'name_ru': self.name_ru,
 				'description': self.description,
 				'requirements': 'Not applicable for proposed projects...',
 				'results': self.results,

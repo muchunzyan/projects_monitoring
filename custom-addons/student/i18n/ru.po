@@ -332,10 +332,10 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:student.student_availability_kanban_view_supervision
 msgid ""
 "<br/>\n"
-"                                    <strong>Project Name: </strong>"
+"                                    <strong>Project Name (English): </strong>"
 msgstr ""
 "<br/>\n"
-"                                    <strong>Название проекта: </strong>"
+"                                    <strong>Название проекта (Английский): </strong>"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_application_kanban_view
@@ -344,8 +344,8 @@ msgstr "<i>Электронная почта:</i>"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_application_kanban_view
-msgid "<i>Project Name:  </i>"
-msgstr "<i>Название проекта: </i>"
+msgid "<i>Project Name (Engish):  </i>"
+msgstr "<i>Название проекта (Английский): </i>"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_application_view_form
@@ -2234,14 +2234,14 @@ msgstr "Оценка проекта (из 10)"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_availability__name
 #: model:ir.model.fields,field_description:student.field_student_project__name
-msgid "Project Name"
-msgstr "Название проекта"
+msgid "Project Name (English)"
+msgstr "Название проекта (Английский)"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_evaluation
 #: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_publication
-msgid "Project Name:"
-msgstr "Название проекта:"
+msgid "Project Name (English):"
+msgstr "Название проекта (Английский):"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_project__project_project_tasks
