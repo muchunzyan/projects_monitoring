@@ -24,9 +24,6 @@ class Proposal(models.Model):
 					(user.has_group('student.group_professor')
 					 and user.id == self.commission_head.professor_account.id))
 
-			print(user.id, "---", self.commission_head.professor_account.id)
-			print(user, "---", self.commission_head.professor_account)
-
 	@api.depends('proponent')
 	def _compute_student_details(self):
 		self.email = self.proponent.student_email

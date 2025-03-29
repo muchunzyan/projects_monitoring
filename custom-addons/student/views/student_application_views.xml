@@ -181,8 +181,11 @@
                         </notebook>
                     </group>
                 </sheet>
-                
-                <div class="oe_chatter">
+
+                <field name="chat_invisible" invisible="1"/>
+                <div class="oe_chatter" invisible="chat_invisible"
+                     groups="student.group_administrator, student.group_supervisor, student.group_professor,
+                     student.group_student">
                     <field name="message_follower_ids" widget="mail_followers"/>
                     <field name="message_ids" widget="mail_thread"/>
                 </div>

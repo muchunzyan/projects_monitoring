@@ -294,3 +294,22 @@ class Application(models.Model):
 
 			# Use the send_message utility function to send the message
 			self.env['student.utils'].send_message('application', Markup(message_text), self.applicant_account, odoobot, (str(self.id),str(self.project_id.name)))
+
+	# Chat visibility
+	chat_invisible = fields.Boolean("Chat Invisible", compute="_compute_chat_invisible", store=False)
+
+	def _compute_chat_invisible(self):
+		print("user id:", self.env.user.id)
+		accepted_ids = [
+			self.application_professor.id,
+			self.applicant.student_account.id
+		]
+		print("professor id:", self.application_professor.id)
+		print("student id:", self.applicant.student_account.id)
+
+		for project in self:
+			user = self.env.user
+			project.chat_invisible = not (
+					(user.id in accepted_ids) or
+					self.env.user.has_group('student.group_administrator'))
+		print("accepted_ids:", accepted_ids)

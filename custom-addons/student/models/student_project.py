@@ -686,3 +686,18 @@ class Project(models.Model):
 
     def _compute_project_project_tasks(self):
         self.project_project_tasks = self.env['project.project'].sudo().browse(self.project_project_id.id).tasks
+
+    # Chat visibility
+    chat_invisible = fields.Boolean("Chat Invisible", compute="_compute_chat_invisible", store=False)
+
+    def _compute_chat_invisible(self):
+        accepted_ids = [self.professor_id.professor_account.id, self.student_elected.student_account.id]
+
+        for supervisor in self.program_supervisors:
+            accepted_ids.append(supervisor.id)
+
+        for project in self:
+            user = self.env.user
+            project.chat_invisible = not (
+                    (user.id in accepted_ids) or
+                    self.env.user.has_group('student.group_administrator'))

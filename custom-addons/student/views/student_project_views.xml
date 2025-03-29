@@ -67,7 +67,7 @@
                                 <group colspan="2">
                                     <field name="name" style="color: #384f85; font-weight: bold" readonly="state_evaluation != 'draft'"/> 
                                     <field name="project_project_id" readonly="1" invisible="state_publication not in ['assigned', 'completed', 'dropped'] or not current_user_follower"/>
-                                </group>   
+                                </group>
                                 <group>
                                     <field name="professor_id"/>
                                     <field name="create_date"/>
@@ -244,7 +244,11 @@
                             </notebook>
                         </group>
                     </sheet>
-                    <div class="oe_chatter" groups="student.group_administrator, student.group_supervisor, student.group_professor">
+
+                    <field name="chat_invisible" invisible="1"/>
+                    <div class="oe_chatter" invisible="chat_invisible"
+                         groups="student.group_administrator, student.group_supervisor, student.group_professor,
+                         student.group_student">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="activity_ids"/>
                         <field name="message_ids" widget="mail_thread"/>
