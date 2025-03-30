@@ -21,18 +21,21 @@
 
         <menuitem sequence="2" id="faculty_first_level_menu" name="Faculty">
 
-            <menuitem id="faculty_first_department_menu" name="Departments">
+            <menuitem id="faculty_first_department_menu" name="Departments"
+                      groups="student.group_administrator,student.group_manager,student.group_supervisor">
                 <menuitem id="faculty_model_menu_action" action="student_faculty_view_action"/>
                 <menuitem id="program_model_menu_action" action="student_program_view_action"/>
             </menuitem>
 
             <menuitem id="faculty_first_member_menu" name="Users">
                 <menuitem id="faculty_manager_menu_action" sequence="1" action="student_manager_view_action"
-                groups="student.group_supervisor,student.group_administrator"/>
+                          groups="student.group_administrator"/>
                 <menuitem id="faculty_supervisor_menu_action" sequence="2" action="student_supervisor_view_action"
-                groups="student.group_supervisor,student.group_administrator"/>
-                <menuitem id="faculty_professor_menu_action" sequence="3" action="student_professor_view_action"/>
-                <menuitem id="faculty_student_menu_action" sequence="4" action="student_student_view_action"/>
+                          groups="student.group_administrator"/>
+                <menuitem id="faculty_professor_menu_action" sequence="3" action="student_professor_view_action"
+                          groups="student.group_administrator,student.group_manager,student.group_supervisor"/>
+                <menuitem id="faculty_student_menu_action" sequence="4" action="student_student_view_action"
+                          groups="student.group_administrator,student.group_manager,student.group_supervisor"/>
             </menuitem>
             
             <menuitem id="faculty_first_group_menu" name="Groups">
@@ -43,7 +46,8 @@
 
         <menuitem sequence="3" id="project_first_level_menu" name="Project">
 
-            <menuitem id="project_first_proposal_menu" name="Proposals">
+            <menuitem id="project_first_proposal_menu" name="Proposals"
+                      groups="student.group_administrator,student.group_manager,student.group_supervisor,student.group_professor">
                 <menuitem id="project_proposal_list" action="student_proposal_view_public" groups="student.group_student,student.group_professor"/>
             </menuitem>
             
