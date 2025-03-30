@@ -27,8 +27,10 @@
             </menuitem>
 
             <menuitem id="faculty_first_member_menu" name="Users">
-                <menuitem id="faculty_manager_menu_action" sequence="1" action="student_manager_view_action"/>
-                <menuitem id="faculty_supervisor_menu_action" sequence="2" action="student_supervisor_view_action"/>
+                <menuitem id="faculty_manager_menu_action" sequence="1" action="student_manager_view_action"
+                groups="student.group_supervisor,student.group_administrator"/>
+                <menuitem id="faculty_supervisor_menu_action" sequence="2" action="student_supervisor_view_action"
+                groups="student.group_supervisor,student.group_administrator"/>
                 <menuitem id="faculty_professor_menu_action" sequence="3" action="student_professor_view_action"/>
                 <menuitem id="faculty_student_menu_action" sequence="4" action="student_student_view_action"/>
             </menuitem>

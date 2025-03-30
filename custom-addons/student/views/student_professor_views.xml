@@ -51,9 +51,9 @@
             <form string="Test">
                 <header>
                     <button name="action_view_professor_projects"
-                        string="PROJECTS"
-                        type="object"
-                        class="oe_highlight"/>
+                            string="PROJECTS"
+                            type="object"
+                            class="oe_highlight"/>
                 </header>
                 <sheet>
                     <group>

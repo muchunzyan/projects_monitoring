@@ -39,6 +39,6 @@ class Professor(models.Model):
             professor.offered_projects = len(professor.project_ids)
 
     def action_view_professor_projects(self):
-        action = self.env.ref('student.action_project').read()[0]
+        action = self.env.ref('student.action_project').sudo().read()[0]
         action['domain'] = [('professor_id', '=', self.id)]
         return action
