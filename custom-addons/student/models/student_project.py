@@ -527,7 +527,9 @@ class Project(models.Model):
             
     @api.constrains("name", "format", "language", "description", "requirements", "results", "additional_files", "professor_review_file", "professor_feedback", "professor_grade")
     def _check_modifier_professor(self):
-        if self.env.user.id != self.professor_account.id:
+        if (self.env.user.id != self.professor_account.id and
+                not (self.env.user.has_group('student.group_supervisor') or
+                     self.env.user.has_group('student.group_administrator'))):
             raise UserError("You cannot modify projects of other professors.")
         
     @api.constrains("project_report_file", "project_check_file", "student_feedback", "additional_resources")
