@@ -208,8 +208,8 @@ class Application(models.Model):
 	def action_view_application_accept(self):
 		self._check_professor_identity()
 
-		if self.applicant.current_project:
-			raise ValidationError("This student is already assigned to another project.")
+		# if self.applicant.current_project:
+		# 	raise ValidationError("This student is already assigned to another project.")
 
 		if self.state == 'sent':
 			self.write({'state': 'accepted'})

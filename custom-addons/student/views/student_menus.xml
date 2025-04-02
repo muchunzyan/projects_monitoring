@@ -46,11 +46,6 @@
 
         <menuitem sequence="3" id="project_first_level_menu" name="Project">
 
-            <menuitem id="project_first_proposal_menu" name="Proposals"
-                      groups="student.group_administrator,student.group_manager,student.group_supervisor,student.group_professor">
-                <menuitem id="project_proposal_list" action="student_proposal_view_public" groups="student.group_student,student.group_professor"/>
-            </menuitem>
-            
             <menuitem id="project_first_project_menu" name="Projects">
                 <menuitem id="project_project_kanban_evaluation" action="student_project_kanban_professor_evaluation" groups="student.group_manager,student.group_professor"/>
                 <menuitem id="project_project_kanban_publication" action="student_project_kanban_professor_publication" groups="student.group_manager,student.group_professor"/>
@@ -69,7 +64,16 @@
 
         </menuitem>
 
-        <menuitem sequence="4" id="util_first_level_menu" name="Utility" groups="student.group_administrator,student.group_manager">
+        <menuitem sequence="4" id="proposal_first_level_menu" name="Proposal"
+                      groups="student.group_administrator,student.group_manager,student.group_supervisor">
+
+            <menuitem id="proposal_first_proposal_menu" name="Proposals">
+                <menuitem id="proposal_proposal_list" action="student_proposal_view_public"/>
+            </menuitem>
+
+        </menuitem>
+
+        <menuitem sequence="5" id="util_first_level_menu" name="Utility" groups="student.group_administrator,student.group_manager">
 
             <menuitem sequence="1" id="util_second_level_menu_a" name="Project Details" groups="student.group_administrator">
                 <menuitem id="degree_model_menu_action" action="student_degree_view_action"/>

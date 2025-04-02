@@ -44,7 +44,7 @@
     </record>
     
     <record id="student_proposal_view_public" model="ir.actions.act_window">
-        <field name="name">Proposal List</field>
+        <field name="name">All Proposals</field>
         <field name="res_model">student.proposal</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="student_proposal_view_tree"/>

@@ -147,8 +147,8 @@ class Proposal(models.Model):
 	def action_view_proposal_accept(self):
 		self._check_professor_identity()
 
-		if self.proponent.current_project:
-			raise ValidationError("This student is already assigned to another project.")
+		# if self.proponent.current_project:
+		# 	raise ValidationError("This student is already assigned to another project.")
 
 		if self.state == 'sent':
 			self.project_id = self.env['student.project'].sudo().create({
@@ -230,7 +230,9 @@ class Proposal(models.Model):
     # RESTRICTIONS #
 	@api.constrains('name', 'proposal_professor', 'type', 'format', 'language', 'additional_email', 'additional_phone', 'telegram', 'description', 'results', 'additional_files')
 	def _check_initiator_identity(self):
-		if self.env.uid != self.proponent_account.id:
+		if (self.env.uid != self.proponent_account.id and
+				not (self.env.user.has_group('student.group_administrator') or
+					 self.env.user.has_group('student.group_supervisor'))):
 			raise ValidationError("Only the creator of the proposal can modify details.")
 		
 	def unlink(self):
