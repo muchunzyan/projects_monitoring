@@ -32,8 +32,8 @@ class Project(models.Model):
                                           ('dropped', 'Dropped')],           
                                           group_expand='_expand_publication_groups', default='ineligible', string='Publication State', readonly=True, tracking=True)
 
-    name = fields.Char('Project Name (English)', required=True, translate=True)
-    name_ru = fields.Char('Project Name (Russian)', required=True, translate=True)
+    name = fields.Char('Project Name (English)', required=True)
+    name_ru = fields.Char('Project Name (Russian)', required=True)
 
     name_readonly = fields.Boolean("Name Readonly", compute="_compute_name_readonly", store=False)
     commission_head = fields.Many2one('student.professor', string='Head of the Commission')
@@ -62,9 +62,9 @@ class Project(models.Model):
         for record in self:
             record.write_date_date = record.write_date.date()
 
-    description = fields.Text('Detailed Description', required=True, translate=True)
-    requirements = fields.Text('Application Requirements', required=True, translate=True)
-    results = fields.Text('Expected Results', required=True, translate=True)
+    description = fields.Text('Detailed Description', required=True)
+    requirements = fields.Text('Application Requirements', required=True)
+    results = fields.Text('Expected Results', required=True)
 
     # ♥ You can merge these functions.
     # Assigns the professor's faculty

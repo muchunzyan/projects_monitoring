@@ -77,9 +77,9 @@ class Proposal(models.Model):
 	format = fields.Selection([('research', 'Research'), ('project', 'Project'), ('startup', 'Start-up')], string="Format", required=True)
 	language = fields.Selection([('en', 'English'), ('ru', 'Russian')], default="en", string="Language", required=True)
 
-	description = fields.Text('Detailed Description', required=True, translate=True)
-	results = fields.Text('Expected Results', translate=True)
-	feedback = fields.Text('Professor Feedback', translate=True)
+	description = fields.Text('Detailed Description', required=True)
+	results = fields.Text('Expected Results')
+	feedback = fields.Text('Professor Feedback')
 
 	additional_files = fields.Many2many(comodel_name="ir.attachment", string="Additional Files") 
 
