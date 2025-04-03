@@ -86,6 +86,7 @@
                                 <group string="Workflow" colspan="2">
                                     <field name="state_evaluation"/>
                                     <field name="state_publication" invisible="state_publication == 'ineligible'"/>
+                                    <field name="project_state"/>
                                 </group>
 
                                 <group string="Assignment" colspan="2">
@@ -284,6 +285,7 @@
             <field name="arch" type="xml">
                 <graph string="Project Evaluation" type="pie">
                     <field name="state_evaluation"/>
+                    <field name="project_state"/>
                 </graph>
             </field>
         </record>
@@ -301,17 +303,17 @@
             </field>
         </record>
 
-        <record id="student_project_kanban_view_evaluation" model="ir.ui.view">
+        <record id="student_project_kanban_view_state" model="ir.ui.view">
             <field name="name">Projects - Kanban View for Professors</field>
             <field name="model">student.project</field>
             <field name="arch" type="xml">
-                <kanban quick_create="false" 
-                        records_draggable="false" 
-                        default_group_by="state_evaluation" 
+                <kanban quick_create="false"
+                        records_draggable="false"
+                        default_group_by="project_state"
                         class="o_res_partner_kanban o_kanban_large_column" 
                         name="student_project_kanban"
                         default_order="write_date desc">
-                    <field name="state_evaluation"/>
+                    <field name="project_state"/>
                     <field name="name"/>
                     <field name="professor_id"/>
                     <field name="applications"/>
@@ -330,7 +332,7 @@
                                         <field name="program_ids_count" invisible="1"/>
                                         <field name="pending_program_ids_count" invisible="1"/>
                                         <field name="approved_program_ids_count" invisible="1"/>
-                                        <div style="color:gray" t-if="record.state_evaluation.value == 'Progress'">
+                                        <div style="color:gray" t-if="record.project_state.value == 'pending'">
                                             (Reacted: <t t-esc="record.program_ids_count.value - record.pending_program_ids_count.value"/>/<t t-esc="record.program_ids_count.value"/> • Approved: <t t-esc="record.approved_program_ids_count.value"/>)
                                         </div>
                                         Project Name:
@@ -355,11 +357,11 @@
         </record>
 
         <!-- student_menus.xml refers to this in the menu (for professors) -->
-        <record id="student_project_kanban_professor_evaluation" model="ir.actions.act_window">
-            <field name="name">Project Evaluation Board</field>
+        <record id="student_project_kanban_professor_state" model="ir.actions.act_window">
+            <field name="name">Project Dashboard</field>
             <field name="res_model">student.project</field>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="view_id" ref="student_project_kanban_view_evaluation"/>
+            <field name="view_id" ref="student_project_kanban_view_state"/>
             <field name="context">{'view_type': 'project_board'}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">

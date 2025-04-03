@@ -18,11 +18,11 @@ class Project(models.Model):
         
     proposal_id = fields.Many2one('student.proposal', string="Proposal", readonly=True)
 
-    state_evaluation = fields.Selection([('draft', 'Draft'),       
+    state_evaluation = fields.Selection([('draft', 'Draft'),
                                          ('progress', 'In Progress'),
                                          ('approved', 'Approved'),
                                          ('mixed', 'Mixed Evaluation'),
-                                         ('rejected', 'Rejected')],           
+                                         ('rejected', 'Rejected')],
                                          group_expand='_expand_evaluation_groups', default='draft', string='Evaluation State', readonly=True, tracking=True)
     state_publication = fields.Selection([('ineligible', 'Ineligible'),
                                           ('published', 'Published'),       
@@ -31,6 +31,17 @@ class Project(models.Model):
                                           ('completed', 'Completed'),
                                           ('dropped', 'Dropped')],           
                                           group_expand='_expand_publication_groups', default='ineligible', string='Publication State', readonly=True, tracking=True)
+
+    project_state = fields.Selection([('draft', 'Draft'),
+                                      ('pending', 'Pending Supervisor Review'),
+                                      ('mixed', 'Mixed Evaluation'),
+                                      ('rejected', 'Rejected'),
+                                      ('published', 'Published'),
+                                      ('applied', 'Application Received'),
+                                      ('assigned', 'Assigned'),
+                                      ('completed', 'Completed'),
+                                      ('graded', 'Graded')],
+                                     group_expand='_expand_state_groups', default='draft', string='Project State', readonly=True, tracking=True)
 
     name = fields.Char('Project Name (English)', required=True)
     name_ru = fields.Char('Project Name (Russian)', required=True)
@@ -357,6 +368,10 @@ class Project(models.Model):
     def _expand_publication_groups(self, states, domain, order):
         return ['published', 'applied', 'assigned', 'completed', 'dropped'] # 'ineligible' is hidden
 
+    @api.model
+    def _expand_state_groups(self, states, domain, order):
+        return ['draft', 'pending', 'mixed', 'rejected', 'published', 'applied', 'assigned', 'completed', 'graded']
+
     # UTILITY #
     # Prevents the creation of the default log message
     @api.model
@@ -387,6 +402,7 @@ class Project(models.Model):
             raise AccessError("You need to choose programs to submit first!")
         elif self.state_evaluation == 'draft':
             self.write({'state_evaluation': 'progress'})
+            self.write({'project_state': 'pending'})
             self._update_additional_ownership()
 
             # Assign availability record programs to the project
@@ -433,6 +449,7 @@ class Project(models.Model):
                     raise UserError("It is not possible cancel processed projects! Contact system administrator for changes.")
                 else:
                     self.write({'state_evaluation': 'draft'})
+                    self.write({'project_state': 'draft'})
 
                     availabilities_to_mark = self.env['student.availability'].search([('project_id', '=', self.id)])
                     for availability in availabilities_to_mark:
@@ -449,6 +466,7 @@ class Project(models.Model):
                 raise ValidationError("Not all supervisors returned the project. Automatic cancellation is invalid, please contact the system administrator.")
             else:
                 self.write({'state_evaluation': 'draft'})
+                self.write({'project_state': 'draft'})
 
                 availabilities_to_mark = self.env['student.availability'].search([('project_id', '=', self.id)])
                 for availability in availabilities_to_mark:
@@ -489,7 +507,11 @@ class Project(models.Model):
                 self.approved_program_ids = [(4, approved_program_id)]
                 self.pending_program_ids = [(3, approved_program_id)]
 
-                self.write({'state_evaluation': self._check_decisions(), 'state_publication': 'published'})
+                self.write({
+                    'state_evaluation': self._check_decisions(),
+                    'state_publication': 'published',
+                    'project_state': 'published'
+                })
 
             self.env['student.program'].sudo().browse(approved_program_id).project_ids = [(4, self.id)]
 
@@ -559,6 +581,11 @@ class Project(models.Model):
             self.pending_program_ids = [(3, rejected_availability_id.program_id.id)]
             self.write({'state_evaluation': self._check_decisions()})
 
+            if self._check_decisions() == 'progress':
+                self.write({'project_state': 'pending'})
+            else:
+                self.write({'project_state': self._check_decisions()})
+
             # Log the action --------------------
             subtype_id = self.env.ref('student.student_message_subtype_professor_supervisor')
             body = _('The project is rejected by ' + self.env.user.name + '.<br><b>Rejection reason: </b>' + rejected_availability_id.reason)
@@ -617,6 +644,7 @@ class Project(models.Model):
     # The reset button functionality for development purposes
     def action_view_project_reset(self):
         self.state_evaluation = "draft"
+        self.project_state = "draft"
         self.state_publication = "ineligible"
 
         self.student_elected = None

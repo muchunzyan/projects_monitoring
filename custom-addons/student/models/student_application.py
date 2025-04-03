@@ -139,11 +139,11 @@ class Application(models.Model):
 				('state', '=', "sent")
 			]):
 			raise UserError("You have already sent an application for a project. Please wait up to 3 days to receive a response or cancel the application.")
-		elif self.env['student.student'].search([
-				('student_account.id', '=', self.env.user.id),
-				('current_project', '!=', False)
-			]):
-			raise UserError("You are already assigned to a project, you cannot apply to other projects anymore.")
+		# elif self.env['student.student'].search([
+		# 		('student_account.id', '=', self.env.user.id),
+		# 		('current_project', '!=', False)
+		# 	]):
+		# 	raise UserError("You are already assigned to a project, you cannot apply to other projects anymore.")
 		else:
 			self.write({'state': 'sent'})
 			self.application_professor = self.project_id.professor_account
