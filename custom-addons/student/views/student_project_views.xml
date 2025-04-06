@@ -59,6 +59,13 @@
                                readonly="1"/>
                     </header>
                     <sheet>
+                        <div style="display: inline-block; width: auto;">
+                            <button name="action_view_project_events"
+                                    string="PROJECT MANAGEMENT DETAILS"
+                                    type="object"
+                                    class="oe_highlight"/>
+                        </div>
+
                         <group>
                             <field name="current_user_follower" invisible="1"/>
                             <field name="create_uid" invisible="1"/>
@@ -184,12 +191,6 @@
                                     </field>
                                 </page>
                                 <page string="Activities" invisible="state_publication not in ['assigned', 'completed', 'dropped'] or not current_user_follower">
-                                    <div class="text-center">
-                                        <button name="action_view_project_events" 
-                                                string="GO TO PROJECT TASKS ►"
-                                                type="object"
-                                                class="btn-secondary"/>  
-                                    </div>
                                     <field name="project_project_tasks" style="margin-top:10px"/>
                                 </page>
                                 <page string="Results" invisible="state_publication not in ['assigned', 'completed']">
