@@ -215,7 +215,11 @@ class Application(models.Model):
 			self.write({'state': 'accepted'})
 
 			# student.project operations
-			self.project_id.sudo().write({'state_publication': 'assigned', 'assigned': True, 'student_elected': [(4, self.applicant.id)]})
+			self.project_id.sudo().write({
+				'state_publication': 'assigned', 'assigned': True,
+				'project_state': 'assigned',
+				'student_elected': [(4, self.applicant.id)]
+			})
 			self.project_id.sudo().create_project_project()
 
 			# Assign the user to the special group for them to view "My Project" menu

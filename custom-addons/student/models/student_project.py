@@ -255,6 +255,7 @@ class Project(models.Model):
             project.applications = len(project.application_ids)
             if project.applications > 0 and project.state_publication == 'published':
                 project.state_publication = 'applied'
+                project.project_state = 'applied'
 
     # Show projects from the same faculty
     @api.model
@@ -387,6 +388,11 @@ class Project(models.Model):
 
         # ID/save check is used to unlock file addition and submission eligibility sections
         return project
+
+    def write(self, vals):
+        if 'grade' in vals:
+            vals['project_state'] = 'graded' if vals.get('grade') else 'completed'
+        return super(Project, self).write(vals)
 
     # BUTTON LOGIC #
     def _check_professor_identity(self):
@@ -638,6 +644,7 @@ class Project(models.Model):
     def action_view_project_complete(self):
         if self.project_report_file and self.plagiarism_check_file and self.professor_review_file:
             self.state_publication = 'completed'
+            self.project_state = 'completed'
         else:
             raise ValidationError("Project report, plagiarism check and professor's review file are required to complete the project.")
 
