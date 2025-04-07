@@ -143,7 +143,13 @@ class Project(models.Model):
             record.program_supervisors = [(6, 0, supervisor_ids)]
     
     assigned = fields.Boolean('Assigned to a student?', default=False, readonly=True)
-    student_elected = fields.One2many('student.student', 'current_project', string='Elected Student', readonly=True)
+    student_elected = fields.Many2many(
+        comodel_name='student.student',
+        relation='student_project_applied_project_rel',
+        column1='student_account',
+        column2='current_project',
+        string='Elected Student',
+        readonly=True)
     student_account = fields.Many2one('res.users', string="Student Account", compute='_compute_student_account', store=True)
 
     @api.depends('student_elected')

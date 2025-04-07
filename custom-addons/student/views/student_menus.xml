@@ -15,7 +15,7 @@
                 <menuitem id="personal_application_private" sequence="2" action="student_application_view_personal" groups="student.group_student"/>
             </menuitem>
 
-            <menuitem id="personal_project_student" sequence="3" action="student_project_view_personal" groups="student.group_elected_student"/>
+            <menuitem id="personal_projects_student" sequence="3" action="student_projects_view_personal" groups="student.group_elected_student"/>
                 
         </menuitem>
 
