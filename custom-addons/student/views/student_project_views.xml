@@ -59,7 +59,8 @@
                                readonly="1"/>
                     </header>
                     <sheet>
-                        <div style="display: inline-block; width: auto;">
+                        <div style="display: inline-block; width: auto;"
+                             invisible="not current_user_follower">
                             <button name="action_view_project_events"
                                     string="PROJECT MANAGEMENT DETAILS"
                                     type="object"
