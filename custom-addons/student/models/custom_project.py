@@ -12,6 +12,8 @@ class ProjectTask(models.Model):
     )
     file_count = fields.Integer('Number of attached files', compute='_compute_file_count', readonly=True)
 
+    date_deadline = fields.Datetime(string='Deadline', index=True, tracking=True, required=True)
+
     @api.depends('additional_files')
     def _compute_file_count(self):
         self.file_count = len(self.additional_files)

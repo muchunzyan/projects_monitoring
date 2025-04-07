@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Наследуем форму задачи и добавляем новое поле -->
         <record id="view_project_task_form_inherit_custom" model="ir.ui.view">
             <field name="name">project.task.form.inherit.custom</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
-                <!-- Добавляем новое поле attachments в нужное место -->
                 <xpath expr="//sheet/group[1]" position="inside">
-<!--                    <field name="attachments"/>-->
                     <group string="Files" colspan="2" col="3">
                         <p colspan="2" style="color:gray" invisible="id != False">
                             <i>Save the task to add additional files.</i>
@@ -21,6 +18,17 @@
                             <field name="file_count" invisible="id == False"/>
                         </group>
                     </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="quick_create_task_form_inherit_custom" model="ir.ui.view">
+            <field name="name">project.task.form.quick_create.inherit.custom</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.quick_create_task_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group[1]" position="inside">
+                    <field name="date_deadline" required="1"/>
                 </xpath>
             </field>
         </record>
