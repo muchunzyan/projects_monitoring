@@ -122,6 +122,10 @@
                                     <field name="format"/><br/>
                                     <strong>Language: </strong>
                                     <field name="language"/><br/>
+                                    <strong>Professor: </strong>
+                                    <field name="professor_id"/><br/>
+                                    <strong>Creation date: </strong>
+                                    <field name="create_date"/><br/>
                                 </div>
                                 <div style="margin-top: 10px">
                                     <field name="degree_ids"/>
