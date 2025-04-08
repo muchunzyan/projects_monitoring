@@ -334,6 +334,7 @@
                                         <field name="program_ids_count" invisible="1"/>
                                         <field name="pending_program_ids_count" invisible="1"/>
                                         <field name="approved_program_ids_count" invisible="1"/>
+                                        <field name="student_elected_name" invisible="1"/>
                                         <div style="color:gray" t-if="record.project_state.value == 'pending'">
                                             (Reacted: <t t-esc="record.program_ids_count.value - record.pending_program_ids_count.value"/>/<t t-esc="record.program_ids_count.value"/> • Approved: <t t-esc="record.approved_program_ids_count.value"/>)
                                         </div>
@@ -344,6 +345,9 @@
                                         <div t-if="record.professor_id.value">
                                             Professor:
                                             <t t-esc="record.professor_id.value"/>
+                                        </div>
+                                        <div t-if="record.student_elected_name &amp;&amp; record.student_elected_name.value">
+                                            Student: <t t-esc="record.student_elected_name.value"/>
                                         </div>
                                         <div t-if="record.applications.value &gt; 0">
                                             Applications:

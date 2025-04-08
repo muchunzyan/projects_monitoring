@@ -150,6 +150,7 @@ class Project(models.Model):
         column2='current_project',
         string='Elected Student',
         readonly=True)
+    student_elected_name = fields.Char(related='student_elected.name', string="Student Name", store=True)
     student_account = fields.Many2one('res.users', string="Student Account", compute='_compute_student_account', store=True)
 
     @api.depends('student_elected')
