@@ -104,9 +104,6 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page string="Tags">
-                                <field name="tag_ids"/>
-                            </page>
                         </notebook>
                     </group>
                 </sheet>

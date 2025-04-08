@@ -86,7 +86,6 @@ class Commission(models.Model):
     meeting_link = fields.Char('Link')
     meeting_date = fields.Datetime('Date & Time', required=True)
     meeting_other_details = fields.Text('Other Details')
-    tag_ids = fields.Many2many('student.tag', string='Tags')
 
     def unlink(self):
         for record in self:
