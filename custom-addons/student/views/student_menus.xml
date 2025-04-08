@@ -72,7 +72,7 @@
 
         </menuitem>
 
-        <menuitem sequence="5" id="util_first_level_menu" name="Utility" groups="student.group_administrator,student.group_manager">
+        <menuitem sequence="5" id="util_first_level_menu" name="Utility" groups="student.group_administrator,student.group_supervisor">
 
             <menuitem sequence="1" id="util_second_level_menu_a" name="Project Details" groups="student.group_administrator">
                 <menuitem id="degree_model_menu_action" action="student_degree_view_action"/>
@@ -84,9 +84,9 @@
                 <menuitem id="grade_model_menu_action" action="student_grade_view_action"/>
             </menuitem>
 
-            <menuitem sequence="3" id="util_second_level_menu_c" name="Miscellaneous" groups="student.group_administrator,student.group_manager">
+            <menuitem sequence="3" id="util_second_level_menu_c" name="Miscellaneous" groups="student.group_administrator,student.group_supervisor">
                 <menuitem id="campus_model_menu_action" action="student_campus_view_action" groups="student.group_administrator"/>
-                <menuitem id="tag_model_menu_action" action="student_tag_view_action" groups="student.group_administrator,student.group_manager"/>
+                <menuitem id="tag_model_menu_action" action="student_tag_view_action" groups="student.group_administrator,student.group_supervisor"/>
             </menuitem>
 
         </menuitem>
