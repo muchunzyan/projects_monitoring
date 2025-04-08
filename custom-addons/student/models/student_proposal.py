@@ -81,7 +81,9 @@ class Proposal(models.Model):
 	results = fields.Text('Expected Results')
 	feedback = fields.Text('Professor Feedback')
 
-	additional_files = fields.Many2many(comodel_name="ir.attachment", string="Additional Files") 
+	additional_files = fields.Many2many(comodel_name="ir.attachment", string="Additional Files")
+
+	tag_ids = fields.Many2many('student.tag', string='Tags')
 
 	state = fields.Selection([('draft', 'Draft'),('sent', 'Sent'),('accepted', 'Accepted'),('confirmed', 'Confirmed'),('rejected', 'Rejected')], default='draft', readonly=True, string='Proposal State', store=True)
 	sent_date = fields.Date(string='Sent Date')    

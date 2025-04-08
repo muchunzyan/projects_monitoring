@@ -89,6 +89,9 @@
                                     <field name="format" readonly="state_evaluation != 'draft'"/>
                                     <field name="language" readonly="state_evaluation != 'draft'"/>
                                 </group>
+                                <group colspan="2">
+                                    <field name="tag_ids" widget="many2many_tags" readonly="state_evaluation != 'draft'"/>
+                                </group>
                             </group>
                             <group>
                                 <group string="Workflow" colspan="2">
@@ -106,6 +109,7 @@
                                     <field name="student_elected" widget="many2many_tags" invisible="proposal_id != False or state_publication not in ['assigned', 'completed', 'dropped']"/>
                                 </group>
                             </group>
+
                             <notebook>
                                 <page string="Additional Details">
                                     <group>

@@ -107,6 +107,7 @@
                             <field name="type" readonly="state != 'draft'"/>
                             <field name="format" readonly="state != 'draft'"/>
                             <field name="language" readonly="state != 'draft'"/>
+                            <field name="tag_ids" widget="many2many_tags" readonly="state != 'draft'"/>
                         </group>
                         <group string="Contacts">
                             <field name="proponent" readonly="True"/>

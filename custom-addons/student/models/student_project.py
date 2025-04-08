@@ -168,6 +168,8 @@ class Project(models.Model):
     )
     file_count = fields.Integer('Number of attached files', compute='_compute_file_count', readonly=True)
 
+    tag_ids = fields.Many2many('student.tag', string='Tags')
+
     project_report_file = fields.Binary(string='Project Report')
     project_report_filename = fields.Char()
     project_preview_toggle = fields.Boolean('Show Preview', default=False)
@@ -560,7 +562,7 @@ class Project(models.Model):
             else:
                 raise ValidationError("There is no commission assigned for this project, please contact the program manager.")
             
-    @api.constrains("name", "format", "language", "description", "requirements", "results", "additional_files", "professor_review_file", "professor_feedback", "professor_grade")
+    @api.constrains("name", "format", "language", "description", "requirements", "results", "additional_files", "professor_review_file", "professor_feedback", "professor_grade", "tag_ids")
     def _check_modifier_professor(self):
         if (self.env.user.id != self.professor_account.id and
                 not (self.env.user.has_group('student.group_supervisor') or

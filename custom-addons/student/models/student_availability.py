@@ -36,6 +36,7 @@ class ProjectAvailability(models.Model):
             self.requirements = project_source.requirements
             self.results = project_source.results
             self.additional_files = project_source.additional_files
+            self.tag_ids = project_source.tag_ids
             self.professor_id = project_source.professor_id
         else:
             raise ValidationError("Error! Cannot find the source project.")
@@ -59,6 +60,8 @@ class ProjectAvailability(models.Model):
         string='Attachments',
         compute=_set_default_project_values, store=True
     )
+
+    tag_ids = fields.Many2many('student.tag', string='Tags', compute=_set_default_project_values, store=True)
 
     def _set_default_program_domain(self):
         if self._context.get('project_faculty_id', False):
