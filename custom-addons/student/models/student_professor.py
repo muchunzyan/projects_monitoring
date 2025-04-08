@@ -10,6 +10,8 @@ class Professor(models.Model):
     active = fields.Boolean(default=True)
     last_seen = fields.Datetime("Last Seen", default=lambda self: fields.Datetime.now())
     visiting_professor = fields.Boolean('Visiting professor?', default=False)
+    scientific_profile_ids = fields.Many2many('student.scientific_profile', string='Scientific profile')
+
     about = fields.Text("About the Professor")
 
     professor_account = fields.Many2one('res.users', string='User Account', default=lambda self: self.env.user, required=True)

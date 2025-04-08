@@ -106,6 +106,12 @@ class StudentTag(models.Model):
 
     name = fields.Char('Name', required=True)
 
+class StudentScientificProfile(models.Model):
+    _name = 'student.scientific_profile'
+    _description = 'PaLMS - Scientific Profiles'
+
+    name = fields.Char('Name', required=True)
+
 class StudentApproval(models.Model):
     _name = 'student.approval'
     _description = 'PaLMS - Approvals'

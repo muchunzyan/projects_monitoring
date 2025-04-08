@@ -19,6 +19,7 @@
                 <field name="name"/>
                 <field name="professor_faculty"/>
                 <field name="visiting_professor"/>
+                <field name="scientific_profile_ids" widget="many2many_tags"/>
                 <field name="offered_projects"/>
                 <field name="last_seen"/>
             </tree>
@@ -61,6 +62,7 @@
                             <field name="professor_account"/>
                             <field name="professor_faculty"/>
                             <field name="visiting_professor"/>
+                            <field name="scientific_profile_ids" widget="many2many_tags"/>
                         </group>
                         <group>
                             <field name="name"/>
