@@ -2,13 +2,13 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'PaLMS',
-    'version': '0.5.4',
+    'name': 'PaLMS 2',
+    'version': '2.0.0',
     'category': 'Academic',
     'sequence': 15,
     'summary': 'A prototype ERP solution for handling КР and ВКР submissions',
-    'author': 'Sefa Şenlik (CC BY-NC) 2024',
-    'website': 'https://github.com/sefasenlik/PaLMS',
+    'author': 'Uchunzhyan Mikhail (CC BY-NC) 2025',
+    'website': 'https://github.com/muchunzyan/projects_monitoring',
     'installable': True,
     'auto_install': True,
     'application': True,

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <menuitem id="student_menu_root" name="𝗣𝗮𝗟𝗠𝗦">
+    <menuitem id="student_menu_root" name="PaLMS 2">
         <menuitem sequence="1" id="personal_first_level_menu" name="Personal">
             <menuitem id="personal_tasks_private" sequence="1" action="student_menu_action_server_my_tasks"/>
 
