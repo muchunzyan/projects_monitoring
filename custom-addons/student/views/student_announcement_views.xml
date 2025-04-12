@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="student_announcement_view_action" model="ir.actions.act_window">
+        <field name="name">Announcements</field>
+        <field name="res_model">student.announcement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first announcement
+            </p>
+        </field>
+    </record>
+
+    <record id="student_announcement_view_tree" model="ir.ui.view">
+        <field name="name">student.announcement.tree</field>
+        <field name="model">student.announcement</field>
+        <field name="arch" type="xml">
+            <tree string="Announcements">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="publish_end_date"/>
+                <field name="is_published"/>
+                <field name="author_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_announcement_view_form" model="ir.ui.view">
+        <field name="name">student.announcement.form</field>
+        <field name="model">student.announcement</field>
+        <field name="arch" type="xml">
+            <form string="Announcement">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="content" widget="html"/>
+                        <field name="publish_end_date"/>
+                        <field name="is_published"
+                               groups="student.group_administrator,student.group_manager,student.group_supervisor"/>
+                    </group>
+                    <group string="Target Audience" col="2">
+                        <field name="target_group_ids" widget="many2many_tags"/>
+                        <field name="target_program_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Additional Info" col="2">
+                        <field name="author_id" readonly="1"/>
+                        <field name="create_date" readonly="1" invisible="create_date == False"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
