@@ -1,6 +1,0 @@
-<odoo>
-    <menuitem id="projects_monitoring_menu_root" name="Projects monitoring">
-        <menuitem id="projects_monitoring_work_menu" action="work_action"/>
-        <menuitem id="projects_monitoring_topic_menu" action="topic_action"/>
-    </menuitem>
-</odoo>
