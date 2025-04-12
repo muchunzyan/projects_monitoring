@@ -36,6 +36,7 @@ class Announcement(models.Model):
         column2='attachment_id',
         string='Attachments'
     )
+    channel_id = fields.Many2one('discuss.channel', string='Discuss Channel', readonly=True, copy=False)
 
     @api.constrains('publish_end_date')
     def _check_publish_end_date(self):
@@ -49,3 +50,65 @@ class Announcement(models.Model):
         for rec in self:
             if rec.publish_end_date and rec.publish_end_date < now:
                 rec.is_published = False
+
+    @api.model
+    def create(self, vals):
+        self = self.with_context(skip_notification=True)
+        record = super().create(vals)
+        record._notify_target_users(is_update=False)
+        return record
+
+    def write(self, vals):
+        res = super().write(vals)
+        # Исключаем уведомление, если запись только что создана
+        if self._origin.id and not self._context.get('skip_notification'):
+            self._notify_target_users(is_update=True)
+        return res
+
+    def _notify_target_users(self, is_update=False):
+        for announcement in self:
+            # Находим студентов нужных программ
+            students = self.env['student.student'].sudo().search([
+                ('student_program', 'in', announcement.target_program_ids.ids)
+            ])
+            # Получаем аккаунты пользователей этих студентов
+            program_user_ids = students.mapped('student_account.id')
+
+            # Находим пользователей нужных групп
+            group_user_ids = self.env['res.users'].sudo().search([
+                ('groups_id', 'in', announcement.target_group_ids.ids)
+            ]).ids
+
+            # На пересечении программ и групп
+            target_user_ids = list(set(program_user_ids) & set(group_user_ids))
+
+            users = self.env['res.users'].browse(target_user_ids)
+            if users:
+                message_text = (
+                    f'Объявление обновлено: {announcement.name}'
+                    if is_update else
+                    f'Новое объявление: {announcement.name}'
+                )
+
+                if is_update:
+                    channel = announcement.channel_id
+                else:
+                    announcement.env['student.utils'].send_message(
+                        'announcement',
+                        message_text,
+                        users,
+                        announcement.author_id,
+                        (str(announcement.id), str(announcement.name))
+                    )
+                    channel = announcement.env['discuss.channel'].sudo().search([
+                        ('name', '=', f"Announcement №{announcement.id} ({announcement.name})")
+                    ], limit=1)
+                    announcement.channel_id = channel
+
+                if is_update:
+                    channel.sudo().message_post(
+                        body=message_text,
+                        author_id=announcement.author_id.partner_id.id,
+                        message_type="comment",
+                        subtype_xmlid='mail.mt_comment'
+                    )
