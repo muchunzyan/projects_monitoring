@@ -30,6 +30,14 @@
         <field name="model">student.announcement</field>
         <field name="arch" type="xml">
             <form string="Announcement">
+                <header>
+                    <field name="can_reply" invisible="1"/>
+                    <button name="action_reply_to_announcement"
+                            string="Reply"
+                            type="object"
+                            class="btn-primary"
+                            invisible="can_reply == False"/>
+                </header>
                 <sheet>
                     <group>
                         <field name="name"/>

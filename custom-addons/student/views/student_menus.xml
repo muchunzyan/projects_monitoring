@@ -72,10 +72,13 @@
 
         </menuitem>
 
-        <menuitem sequence="5" id="announcement_first_level_menu" name="Announcement"
-                      groups="student.group_administrator,student.group_manager,student.group_supervisor">
+        <menuitem sequence="5" id="announcement_first_level_menu" name="Mission Control"
+                      groups="student.group_administrator,student.group_manager,student.group_supervisor,student.group_professor,student.group_student">
 
-            <menuitem id="announcement_announcement" action="student_announcement_view_action"/>
+            <menuitem id="announcement_first_announcement_menu" name="Announcements">
+                <menuitem id="announcement_announcement" action="student_announcement_view_action"/>
+                <menuitem id="announcement_announcement_reply" action="student_announcement_reply_view_action"/>
+            </menuitem>
 
         </menuitem>
 

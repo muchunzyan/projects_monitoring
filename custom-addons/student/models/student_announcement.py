@@ -1,6 +1,6 @@
 from odoo import fields, models, api
-
 from odoo.exceptions import ValidationError
+from odoo.osv import expression
 
 class Announcement(models.Model):
     _name = "student.announcement"
@@ -37,6 +37,8 @@ class Announcement(models.Model):
         string='Attachments'
     )
     channel_id = fields.Many2one('discuss.channel', string='Discuss Channel', readonly=True, copy=False)
+    reply_ids = fields.One2many('student.announcement.reply', 'announcement_id', string='Replies')
+    can_reply = fields.Boolean(string="Can Reply", compute='_compute_can_reply')
 
     @api.constrains('publish_end_date')
     def _check_publish_end_date(self):
@@ -50,6 +52,15 @@ class Announcement(models.Model):
         for rec in self:
             if rec.publish_end_date and rec.publish_end_date < now:
                 rec.is_published = False
+
+    @api.depends('target_group_ids', 'target_program_ids')
+    def _compute_can_reply(self):
+        current_user = self.env.user
+        for rec in self:
+            in_group = bool(set(current_user.groups_id.ids) & set(rec.target_group_ids.ids))
+            student = self.env['student.student'].sudo().search([('student_account', '=', current_user.id)], limit=1)
+            in_program = student and student.student_program.id in rec.target_program_ids.ids
+            rec.can_reply = in_group and in_program
 
     @api.model
     def create(self, vals):
@@ -112,3 +123,40 @@ class Announcement(models.Model):
                         message_type="comment",
                         subtype_xmlid='mail.mt_comment'
                     )
+
+    def action_reply_to_announcement(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Reply to Announcement',
+            'res_model': 'student.announcement.reply',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_announcement_id': self.id,
+            }
+        }
+
+    def _search(self, domain, offset=0, limit=None, order=None):
+        user = self.sudo().env.user
+        if not (
+                user.has_group('student.group_manager') or
+                user.has_group('student.group_supervisor') or
+                user.has_group('student.group_administrator') or
+                user.has_group('base.group_system')
+        ):
+            student = self.env['student.student'].sudo().search([('student_account', '=', user.id)], limit=1)
+            group_ids = user.groups_id.ids
+
+            if student:
+                domain = expression.AND([
+                    domain,
+                    [('target_program_ids', 'in', [student.student_program.id])],
+                    [('target_group_ids', 'in', group_ids)],
+                ])
+            else:
+                domain = expression.AND([
+                    domain,
+                    [('id', '=', -1)]
+                ])
+        return super()._search(domain, offset=offset, limit=limit, order=order)

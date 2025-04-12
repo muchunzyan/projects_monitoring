@@ -1,0 +1,45 @@
+<odoo>
+    <record id="student_announcement_reply_view_action" model="ir.actions.act_window">
+        <field name="name">Announcement Replies</field>
+        <field name="res_model">student.announcement.reply</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No replies yet. Announcements expecting documents will appear here once users respond.
+            </p>
+        </field>
+    </record>
+
+    <record id="student_announcement_reply_view_tree" model="ir.ui.view">
+        <field name="name">student.announcement.reply.tree</field>
+        <field name="model">student.announcement.reply</field>
+        <field name="arch" type="xml">
+            <tree string="Announcement Replies">
+                <field name="announcement_id"/>
+                <field name="user_id"/>
+                <field name="comment"/>
+                <field name="attachment_ids"/>
+                <field name="submit_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_announcement_reply_view_form" model="ir.ui.view">
+        <field name="name">student.announcement.reply.form</field>
+        <field name="model">student.announcement.reply</field>
+        <field name="arch" type="xml">
+            <form string="Replies to Announcements">
+                <sheet>
+                    <group>
+                        <field name="announcement_id"/>
+                        <field name="user_id" readonly="1"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                        <field name="comment"/>
+                        <field name="submit_date" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
