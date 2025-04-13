@@ -15,6 +15,12 @@ class ProjectTask(models.Model):
 
     date_deadline = fields.Datetime(string='Deadline', index=True, tracking=True, required=True)
 
+    @api.onchange("additional_files")
+    def _update_additional_ownership(self):
+        # Makes the files public, may implement user-specific ownership in the future
+        for attachment in self.additional_files:
+            attachment.write({'public': True})
+
     @api.depends('additional_files')
     def _compute_file_count(self):
         self.file_count = len(self.additional_files)

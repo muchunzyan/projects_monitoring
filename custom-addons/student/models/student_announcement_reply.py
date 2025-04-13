@@ -24,6 +24,8 @@ class AnnouncementReply(models.Model):
 
     @api.model
     def create(self, vals):
+        self._make_attachments_public()
+
         announcement_id = vals.get('announcement_id') or self.env.context.get('default_announcement_id')
         if isinstance(announcement_id, (list, tuple)):
             announcement_id = announcement_id[0] if announcement_id else False
@@ -31,16 +33,16 @@ class AnnouncementReply(models.Model):
             raise ValidationError("Announcement ID is missing.")
         announcement = self.env['student.announcement'].browse(announcement_id)
 
-        user = self.env.user
-
-        student = self.env['student.student'].sudo().search([('student_account', '=', user.id)], limit=1)
-        in_program = student and student.student_program.id in announcement.target_program_ids.ids
-
-        if not in_program:
-            raise ValidationError(
-                "You cannot send a reply to this announcement because you are not in the target group.")
-
         return super().create(vals)
+
+    def write(self, vals):
+        self._make_attachments_public()
+        return super().write(vals)
+
+    def _make_attachments_public(self):
+        for announcement in self:
+            for attachment in announcement.attachment_ids:
+                attachment.write({'public': True})
 
     def _search(self, domain, offset=0, limit=None, order=None):
         user = self.sudo().env.user

@@ -1,6 +1,9 @@
+from email.policy import default
+
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 from odoo.osv import expression
+from markupsafe import Markup
 
 class Announcement(models.Model):
     _name = "student.announcement"
@@ -10,8 +13,9 @@ class Announcement(models.Model):
     name = fields.Char(string='Title', required=True, translate=True)
     content = fields.Html(string='Content', translate=True)
     create_date = fields.Datetime(string='Created On', readonly=True)
-    publish_end_date = fields.Datetime(string='Publish Until', required=True)
-    is_published = fields.Boolean(string='Published', default=True, required=True)
+    deadline_date = fields.Datetime(string='Deadline', required=True,
+                                    help='At this time, the announcement will be taken off the publication')
+    is_published = fields.Boolean(string='Published', default=True, reqired=True, store=True, readonly=True)
     author_id = fields.Many2one(
         comodel_name='res.users',
         string='Author',
@@ -31,110 +35,150 @@ class Announcement(models.Model):
     )
     attachment_ids = fields.Many2many(
         comodel_name='ir.attachment',
-        relation='announcement_attachment_rel',
+        relation='student_announcement_attachment_rel',
         column1='announcement_id',
         column2='attachment_id',
         string='Attachments'
     )
     channel_id = fields.Many2one('discuss.channel', string='Discuss Channel', readonly=True, copy=False)
     reply_ids = fields.One2many('student.announcement.reply', 'announcement_id', string='Replies')
-    can_reply = fields.Boolean(string="Can Reply", compute='_compute_can_reply')
 
-    @api.constrains('publish_end_date')
-    def _check_publish_end_date(self):
+    @api.constrains('deadline_date')
+    def _check_deadline_date(self):
         for record in self:
-            if record.publish_end_date and record.publish_end_date < fields.Datetime.now():
-                raise ValidationError("Publish end date must be in the future.")
-
-    @api.depends('publish_end_date')
-    def _compute_is_published(self):
-        now = fields.Datetime.now()
-        for rec in self:
-            if rec.publish_end_date and rec.publish_end_date < now:
-                rec.is_published = False
-
-    @api.depends('target_group_ids', 'target_program_ids')
-    def _compute_can_reply(self):
-        current_user = self.env.user
-        for rec in self:
-            in_group = bool(set(current_user.groups_id.ids) & set(rec.target_group_ids.ids))
-            student = self.env['student.student'].sudo().search([('student_account', '=', current_user.id)], limit=1)
-            in_program = student and student.student_program.id in rec.target_program_ids.ids
-            rec.can_reply = in_group and in_program
+            if record.deadline_date and record.deadline_date < fields.Datetime.now():
+                raise ValidationError("Deadline date must be in the future.")
 
     @api.model
     def create(self, vals):
         self = self.with_context(skip_notification=True)
         record = super().create(vals)
+        record._make_attachments_public()
         record._notify_target_users(is_update=False)
         return record
 
     def write(self, vals):
         res = super().write(vals)
-        # Исключаем уведомление, если запись только что создана
+        self._make_attachments_public()
         if self._origin.id and not self._context.get('skip_notification'):
             self._notify_target_users(is_update=True)
         return res
 
+    def _make_attachments_public(self):
+        for announcement in self:
+            for attachment in announcement.attachment_ids:
+                attachment.write({'public': True})
+
     def _notify_target_users(self, is_update=False):
         for announcement in self:
-            # Находим студентов нужных программ
-            students = self.env['student.student'].sudo().search([
-                ('student_program', 'in', announcement.target_program_ids.ids)
-            ])
-            # Получаем аккаунты пользователей этих студентов
-            program_user_ids = students.mapped('student_account.id')
+            if announcement.is_published:
+                students = self.env['student.student'].sudo().search(
+                    [('student_program', 'in', announcement.target_program_ids.ids)])
+                program_students_user_ids = students.mapped('student_account.id')
 
-            # Находим пользователей нужных групп
-            group_user_ids = self.env['res.users'].sudo().search([
-                ('groups_id', 'in', announcement.target_group_ids.ids)
-            ]).ids
+                managers = self.env['student.manager'].sudo().search(
+                    [('program_ids', 'in', announcement.target_program_ids.ids)])
+                program_managers_user_ids = managers.mapped('manager_account.id')
 
-            # На пересечении программ и групп
-            target_user_ids = list(set(program_user_ids) & set(group_user_ids))
+                supervisors = self.env['student.supervisor'].sudo().search(
+                    [('program_ids', 'in', announcement.target_program_ids.ids)])
+                program_supervisors_user_ids = supervisors.mapped('supervisor_account.id')
 
-            users = self.env['res.users'].browse(target_user_ids)
-            if users:
-                message_text = (
-                    f'Объявление обновлено: {announcement.name}'
-                    if is_update else
-                    f'Новое объявление: {announcement.name}'
-                )
+                faculties = self.env['student.faculty'].sudo().search(
+                        [('program_ids', 'in', announcement.target_program_ids.ids)])
+                professors = self.env['student.professor'].sudo().search(
+                    [('professor_faculty', 'in', faculties.ids)])
+                faculty_professors_user_ids = professors.mapped('professor_account.id')
 
-                if is_update:
-                    channel = announcement.channel_id
-                else:
-                    announcement.env['student.utils'].send_message(
-                        'announcement',
-                        message_text,
-                        users,
-                        announcement.author_id,
-                        (str(announcement.id), str(announcement.name))
+                group_user_ids = self.env['res.users'].sudo().search([
+                    ('groups_id', 'in', announcement.target_group_ids.ids)
+                ]).ids
+
+                program_and_faculty_users = (
+                        set(program_students_user_ids) |
+                        set(program_managers_user_ids) |
+                        set(program_supervisors_user_ids) |
+                        set(faculty_professors_user_ids))
+                target_user_ids = list(program_and_faculty_users & set(group_user_ids))
+
+                users = self.env['res.users'].browse(target_user_ids)
+                if users:
+                    base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+                    announcement_url = f'{base_url}/web#id={announcement.id}&model=student.announcement&view_type=form'
+
+                    message_text = Markup(
+                        f'Объявление обновлено: <a href="{announcement_url}">{announcement.name}</a>'
+                        if is_update else
+                        f'Новое объявление: <a href="{announcement_url}">{announcement.name}</a>'
                     )
-                    channel = announcement.env['discuss.channel'].sudo().search([
-                        ('name', '=', f"Announcement №{announcement.id} ({announcement.name})")
-                    ], limit=1)
-                    announcement.channel_id = channel
 
-                if is_update:
-                    channel.sudo().message_post(
-                        body=message_text,
-                        author_id=announcement.author_id.partner_id.id,
-                        message_type="comment",
-                        subtype_xmlid='mail.mt_comment'
-                    )
+                    if is_update:
+                        channel = announcement.channel_id
+                    else:
+                        announcement.env['student.utils'].send_message(
+                            'announcement',
+                            message_text,
+                            users,
+                            announcement.author_id,
+                            (str(announcement.id), str(announcement.name))
+                        )
+                        channel = announcement.env['discuss.channel'].sudo().search([
+                            ('name', '=', f"Announcement №{announcement.id} ({announcement.name})")
+                        ], limit=1)
+                        announcement.channel_id = channel
+
+                    if is_update:
+                        channel.sudo().message_post(
+                            body=message_text,
+                            author_id=announcement.author_id.partner_id.id,
+                            message_type="comment",
+                            subtype_xmlid='mail.mt_comment'
+                        )
 
     def action_reply_to_announcement(self):
         self.ensure_one()
+        if not self.is_published:
+            raise ValidationError("You can't send a reply to an irrelevant announcement.")
+
+        user = self.env.user
+        existing_reply = self.env['student.announcement.reply'].search([
+            ('announcement_id', '=', self.id),
+            ('user_id', '=', user.id)
+        ], limit=1)
+
+        if existing_reply:
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Your Reply',
+                'res_model': 'student.announcement.reply',
+                'res_id': existing_reply.id,
+                'view_mode': 'form',
+                'target': 'current',
+            }
+        else:
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Reply to Announcement',
+                'res_model': 'student.announcement.reply',
+                'view_mode': 'form',
+                'target': 'new',
+                'context': {
+                    'default_announcement_id': self.id,
+                }
+            }
+
+    def action_view_announcement_replies(self):
+        self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Reply to Announcement',
+            'name': 'Replies',
             'res_model': 'student.announcement.reply',
-            'view_mode': 'form',
-            'target': 'new',
+            'view_mode': 'tree,form',
+            'domain': [('announcement_id', '=', self.id)],
             'context': {
                 'default_announcement_id': self.id,
-            }
+            },
+            'target': 'current',
         }
 
     def _search(self, domain, offset=0, limit=None, order=None):
@@ -145,18 +189,46 @@ class Announcement(models.Model):
                 user.has_group('student.group_administrator') or
                 user.has_group('base.group_system')
         ):
-            student = self.env['student.student'].sudo().search([('student_account', '=', user.id)], limit=1)
             group_ids = user.groups_id.ids
+            domain = expression.AND([
+                domain,
+                [('target_group_ids', 'in', group_ids)],
+                [('is_published', '=', True)]
+            ])
 
-            if student:
-                domain = expression.AND([
-                    domain,
-                    [('target_program_ids', 'in', [student.student_program.id])],
-                    [('target_group_ids', 'in', group_ids)],
-                ])
-            else:
-                domain = expression.AND([
-                    domain,
-                    [('id', '=', -1)]
-                ])
+            if user.has_group('student.group_student'):
+                student = self.env['student.student'].sudo().search([('student_account', '=', user.id)], limit=1)
+                if student:
+                    domain = expression.AND([
+                        domain,
+                        [('target_program_ids', 'in', [student.student_program.id])]
+                    ])
+                else:
+                    domain = expression.AND([
+                        domain,
+                        [('id', '=', -1)]
+                    ])
+            elif user.has_group('student.group_professor'):
+                professor = self.env['student.professor'].sudo().search([('professor_account', '=', user.id)], limit=1)
+                faculty_programs = self.env['student.program'].sudo().search([('program_faculty_id', '=', professor.professor_faculty.id)])
+
+                if professor and faculty_programs:
+                    domain = expression.AND([
+                        domain,
+                        [('target_program_ids', 'in', faculty_programs.ids)]
+                    ])
+                else:
+                    domain = expression.AND([
+                        domain,
+                        [('id', '=', -1)]
+                    ])
         return super()._search(domain, offset=offset, limit=limit, order=order)
+
+    @api.model
+    def _cron_unpublish_expired_announcements(self):
+        now = fields.Datetime.now()
+        expired_announcements = self.search([
+            ('is_published', '=', True),
+            ('deadline_date', '<=', now)
+        ])
+        expired_announcements.write({'is_published': False})

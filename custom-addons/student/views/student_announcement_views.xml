@@ -18,7 +18,7 @@
             <tree string="Announcements">
                 <field name="name"/>
                 <field name="create_date"/>
-                <field name="publish_end_date"/>
+                <field name="deadline_date"/>
                 <field name="is_published"/>
                 <field name="author_id"/>
             </tree>
@@ -31,18 +31,21 @@
         <field name="arch" type="xml">
             <form string="Announcement">
                 <header>
-                    <field name="can_reply" invisible="1"/>
                     <button name="action_reply_to_announcement"
                             string="Reply"
                             type="object"
-                            class="btn-primary"
-                            invisible="can_reply == False"/>
+                            class="btn-primary"/>
+                    <button name="action_view_announcement_replies"
+                            string="View Replies"
+                            type="object"
+                            class="btn-secondary"
+                            groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
                 </header>
                 <sheet>
                     <group>
                         <field name="name"/>
                         <field name="content" widget="html"/>
-                        <field name="publish_end_date"/>
+                        <field name="deadline_date"/>
                         <field name="is_published"
                                groups="student.group_administrator,student.group_manager,student.group_supervisor"/>
                     </group>
@@ -58,5 +61,16 @@
                 </sheet>
             </form>
         </field>
+    </record>
+
+    <record id="ir_cron_unpublish_expired_announcements" model="ir.cron">
+        <field name="name">Unpublish Expired Announcements</field>
+        <field name="model_id" ref="model_student_announcement"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_unpublish_expired_announcements()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
     </record>
 </odoo>
