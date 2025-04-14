@@ -43,6 +43,19 @@ class Commission(models.Model):
 
                         defense.member_grades = [(4, member_grade)]
 
+            # Create calendar event for the commission
+            self.env['student.calendar.event'].sudo().create({
+                'name': f'Комиссия: {self.name}',
+                'event_type': 'commission',
+                'start_datetime': self.meeting_date,
+                'end_datetime': self.meeting_date,
+                'commission_id': self.id,
+                'user_ids': [(6, 0, list(
+                    set(self.professor_ids.mapped('professor_account.id')) |
+                    set(self.defense_ids.mapped('project_student.student_account.id'))
+                ))]
+            })
+
             # Log the action --------------------
             body = _('The commission №' + str(self.commission_number) + ' is set. Commission members are free to grade projects after the defense presentations.')
             self.message_post(body=body)
@@ -58,6 +71,11 @@ class Commission(models.Model):
             self.lock = False
             for defense in self.defense_ids:
                 defense.project_id.commission_id = False
+
+            # Delete related calendar event
+            event = self.env['student.calendar.event'].sudo().search([('commission_id', '=', self.id)], limit=1)
+            if event:
+                event.unlink()
 
             # Log the action --------------------
             body = _('The commission №' + str(self.commission_number) + ' is unset.')
@@ -90,13 +108,13 @@ class Commission(models.Model):
     def unlink(self):
         for record in self:
             if not record.env.user.has_group('student.group_administrator'): 
-                for defense in self.defense_ids:
+                for defense in record.defense_ids:
                     for grade in defense.member_grades:
                         if grade.project_grade:
                             raise UserError(_('It is not possible to delete graded project defenses and their commissions!'))
 
             record.defense_ids.unlink()
-        
+
         return super(Commission, self).unlink()
 
     @api.onchange("commission_head")

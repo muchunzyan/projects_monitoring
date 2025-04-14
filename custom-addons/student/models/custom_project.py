@@ -25,6 +25,19 @@ class ProjectTask(models.Model):
     def _compute_file_count(self):
         self.file_count = len(self.additional_files)
 
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        for record in records:
+            record.env['student.calendar.event'].sudo().create({
+                'name': f'Задача: {record.name}',
+                'event_type': 'task',
+                'start_datetime': record.date_deadline,
+                'end_datetime': record.date_deadline,
+                'task_id': record.id,
+                'user_ids': [(6, 0, record.user_ids.ids)] if record.user_ids else []
+            })
+        return records
+
     def write(self, vals):
         # Проверяем, меняется ли поле stage_id
         if 'stage_id' in vals:

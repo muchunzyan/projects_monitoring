@@ -135,6 +135,16 @@ class Announcement(models.Model):
                             subtype_xmlid='mail.mt_comment'
                         )
 
+                    # Create calendar event
+                    self.env['student.calendar.event'].sudo().create({
+                        'name': f'Дедлайн объявления: {announcement.name}',
+                        'event_type': 'announcement_deadline',
+                        'start_datetime': announcement.deadline_date,
+                        'end_datetime': announcement.deadline_date,
+                        'announcement_id': announcement.id,
+                        'user_ids': [(6, 0, users.ids)]
+                    })
+
     def action_reply_to_announcement(self):
         self.ensure_one()
         if not self.is_published:

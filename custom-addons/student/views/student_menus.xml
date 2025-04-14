@@ -3,6 +3,7 @@
     <menuitem id="student_menu_root" name="PaLMS 2">
         <menuitem sequence="1" id="personal_first_level_menu" name="Personal">
             <menuitem id="personal_tasks_private" sequence="1" action="student_menu_action_server_my_tasks"/>
+            <menuitem id="personal_calendar_event" sequence="2" action="student_calendar_event_view_action"/>
 
             <menuitem id="personal_first_professor_student_menu" sequence="2" name="From Students">
                 <menuitem id="personal_proposal_professor" sequence="1" action="student_proposal_view_professor" groups="student.group_professor"/>
