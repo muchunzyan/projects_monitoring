@@ -9,15 +9,17 @@ class StudentUtils(models.AbstractModel):
     @api.model
     def send_message(context, source, message_text, recipients, author, data_tuple = -1):
         tuple_id, tuple_name = data_tuple
-        
+
         if source == 'project':
             channel_name = "Project №" + tuple_id + " (" + tuple_name + ")"
         elif source == 'application':
             channel_name = "Applicaton №" + tuple_id + " for " + tuple_name
         elif source == 'proposal':
             channel_name = "Project Proposal №" + tuple_id + " (" + tuple_name + ")"
-        elif source == 'announcement':
-            channel_name = "Announcement №" + tuple_id + " (" + tuple_name + ")"
+        elif source == 'task':
+            channel_name = "Task №" + tuple_id + " (" + tuple_name + ")"
+        else:
+            raise ValueError(f"Unknown source type: {source}")
 
         # Search the channel to avoid duplicates
         channel = context.env['discuss.channel'].sudo().search([('name', '=', channel_name)],limit=1,)

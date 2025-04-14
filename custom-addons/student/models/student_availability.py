@@ -26,23 +26,28 @@ class ProjectAvailability(models.Model):
     # ♥ Might be better to implement a view-based approach (e.g. iframes, <form>, etc.) to not duplicate the values below.
     @api.depends('project_id')
     def _set_default_project_values(self):
-        project_source = self.env['student.project'].sudo().search([('id', '=', self._context.get('project_id', False))], limit=1) if self._context.get('project_id', False) else self.project_id
-        
-        if project_source:
-            self.name = project_source.name
-            self.format = project_source.format
-            self.language = project_source.language
-            self.description = project_source.description
-            self.requirements = project_source.requirements
-            self.results = project_source.results
-            self.additional_files = project_source.additional_files
-            self.tag_ids = project_source.tag_ids
-            self.professor_id = project_source.professor_id
-        else:
-            raise ValidationError("Error! Cannot find the source project.")
+        for record in self:
+            project_source = record.env['student.project'].sudo().search([('id', '=', record._context.get('project_id', False))], limit=1) if record._context.get('project_id', False) else record.project_id
 
-    name = fields.Char('Project Name', compute=_set_default_project_values, store=True, translate=True)
+            if project_source:
+                record.name = project_source.name
+                record.name_ru = project_source.name_ru
+                record.format = project_source.format
+                record.is_group_project = project_source.is_group_project
+                record.language = project_source.language
+                record.description = project_source.description
+                record.requirements = project_source.requirements
+                record.results = project_source.results
+                record.additional_files = project_source.additional_files
+                record.tag_ids = project_source.tag_ids
+                record.professor_id = project_source.professor_id
+            else:
+                raise ValidationError("Error! Cannot find the source project.")
+
+    name = fields.Char('Project Name (English)', compute=_set_default_project_values, store=True)
+    name_ru = fields.Char('Project Name (Russian)', compute=_set_default_project_values, store=True)
     format = fields.Selection([('research', 'Research'), ('project', 'Project'), ('startup', 'Start-up')], string="Format", compute=_set_default_project_values, store=True)
+    is_group_project = fields.Boolean(string='Is Group Project?', compute=_set_default_project_values, store=True)
     language = fields.Selection([('en', 'English'), ('ru', 'Russian')], string="Language", compute=_set_default_project_values, store=True)
     professor_id = fields.Many2one('student.professor', string='Professor', compute=_set_default_project_values, store=True)
 

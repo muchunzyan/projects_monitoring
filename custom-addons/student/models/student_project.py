@@ -143,6 +143,7 @@ class Project(models.Model):
             record.program_supervisors = [(6, 0, supervisor_ids)]
     
     assigned = fields.Boolean('Assigned to a student?', default=False, readonly=True)
+    is_group_project = fields.Boolean(string='Is Group Project?', default=False)
     student_elected = fields.Many2many(
         comodel_name='student.student',
         relation='student_project_applied_project_rel',

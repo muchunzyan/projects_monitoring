@@ -75,6 +75,7 @@ class Proposal(models.Model):
     
 	type = fields.Selection([('cw', 'Course Work (Курсовая работа)'), ('fqw', 'Final Qualifying Work (ВКР)')], string="Proposal Project Type", required=True)
 	format = fields.Selection([('research', 'Research'), ('project', 'Project'), ('startup', 'Start-up')], string="Format", required=True)
+	is_group_project = fields.Boolean(string='Is Group Project?', default=False)
 	language = fields.Selection([('en', 'English'), ('ru', 'Russian')], default="en", string="Language", required=True)
 
 	description = fields.Text('Detailed Description', required=True)
@@ -163,6 +164,7 @@ class Proposal(models.Model):
 				'faculty_id': self.proponent.student_faculty,
 				'program_ids': self.proponent.student_program,
 				'format': self.format,
+				'is_group_project': self.is_group_project,
 				'language': self.language,
 				'proposal_id': self.id,
 				'professor_id': self.proposal_professor.id,

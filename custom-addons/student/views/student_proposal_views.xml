@@ -106,6 +106,7 @@
                         <group string="Details">
                             <field name="type" readonly="state != 'draft'"/>
                             <field name="format" readonly="state != 'draft'"/>
+                            <field name="is_group_project" readonly="state != 'draft'"/>
                             <field name="language" readonly="state != 'draft'"/>
                             <field name="tag_ids" widget="many2many_tags" readonly="state != 'draft'"/>
                         </group>

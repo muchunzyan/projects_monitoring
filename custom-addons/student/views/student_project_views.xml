@@ -87,6 +87,7 @@
                                 </group>
                                 <group>
                                     <field name="format" readonly="state_evaluation != 'draft'"/>
+                                    <field name="is_group_project" readonly="state_evaluation != 'draft'"/>
                                     <field name="language" readonly="state_evaluation != 'draft'"/>
                                 </group>
                                 <group colspan="2">

@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import AccessError
+from markupsafe import Markup
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
@@ -39,13 +40,38 @@ class ProjectTask(models.Model):
         return records
 
     def write(self, vals):
-        # Проверяем, меняется ли поле stage_id
         if 'stage_id' in vals:
             stage_id = vals.get('stage_id')
             if stage_id:
                 stage_name = self.env['project.task.type'].browse(stage_id).name
-                print("Stage name:", stage_name)
-                if stage_name == 'Approved':
+                if stage_name == 'Complete':
+                    project = self.project_id
+                    student_project = self.env['student.project'].search([('project_project_id', '=', project.id)], limit=1)
+                    professor = student_project.professor_id if student_project else None
+                    if professor and professor.professor_account:
+                        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+                        task_url = f'{base_url}/web#id={self.id}&model=project.task&view_type=form'
+
+                        message_text = Markup(
+                            f"The task has been marked as completed: <a href=\"{task_url}\">{self.name}</a>. Please review and approve it.")
+
+                        self.env['mail.message'].create({
+                            'model': 'project.task',
+                            'res_id': self.id,
+                            'message_type': 'notification',
+                            'subtype_id': self.env.ref('mail.mt_note').id,
+                            'body': message_text,
+                            'author_id': self.env.user.partner_id.id,
+                            'partner_ids': [(6, 0, [professor.professor_account.partner_id.id])],
+                        })
+                        self.env['student.utils'].send_message(
+                            source='task',
+                            message_text=message_text,
+                            recipients=[professor.professor_account],
+                            author=self.env.user,
+                            data_tuple=(str(self.id), self.name)
+                        )
+                elif stage_name == 'Approved':
                     if not self.env.user.has_group('student.group_professor'):
                         raise AccessError("Only a professor can change the task status to Approved.")
         return super(ProjectTask, self).write(vals)

@@ -72,9 +72,11 @@
                     <group string="Project Details" invisible="access_from_project">
                         <group>
                             <field name="name"/>
+                            <field name="name_ru"/>
                         </group>
                         <group>
                             <field name="format"/>
+                            <field name="is_group_project"/>
                             <field name="language"/>
                             <field name="tag_ids" widget="many2many_tags"/>
                         </group>
@@ -113,8 +115,10 @@
                                 <div class="oe_kanban_title">
                                     <strong>State: </strong>
                                     <field name="state"/><br/>
-                                    <strong>Project Name: </strong>
-                                    <field name="name"/>
+                                    <strong>Project Name (English): </strong>
+                                    <field name="name"/><br/>
+                                    <strong>Project Name (Russian): </strong>
+                                    <field name="name_ru"/>
                                 </div>
                                 <div class="oe_kanban_subtitle" style="color:gray; margin-top: 5px;font-style: italic">
                                     <strong>Type: </strong>
