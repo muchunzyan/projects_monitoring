@@ -15,6 +15,13 @@ class ProjectTask(models.Model):
     file_count = fields.Integer('Number of attached files', compute='_compute_file_count', readonly=True)
 
     date_deadline = fields.Datetime(string='Deadline', index=True, tracking=True, required=True)
+    student_milestone_id = fields.Many2one(
+        'student.milestone',
+        string='Milestone',
+        ondelete='cascade',
+        tracking=True,
+        readonly=True
+    )
 
     @api.onchange("additional_files")
     def _update_additional_ownership(self):
@@ -29,14 +36,15 @@ class ProjectTask(models.Model):
     def create(self, vals_list):
         records = super().create(vals_list)
         for record in records:
-            record.env['student.calendar.event'].sudo().create({
-                'name': f'Задача: {record.name}',
-                'event_type': 'task',
-                'start_datetime': record.date_deadline,
-                'end_datetime': record.date_deadline,
-                'task_id': record.id,
-                'user_ids': [(6, 0, record.user_ids.ids)] if record.user_ids else []
-            })
+            if not record.student_milestone_id:
+                record.env['student.calendar.event'].sudo().create({
+                    'name': f'Task: {record.name}',
+                    'event_type': 'task',
+                    'start_datetime': record.date_deadline,
+                    'end_datetime': record.date_deadline,
+                    'task_id': record.id,
+                    'user_ids': [(6, 0, record.user_ids.ids)] if record.user_ids else []
+                })
         return records
 
     def write(self, vals):

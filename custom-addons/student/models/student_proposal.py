@@ -4,7 +4,7 @@ from odoo.exceptions import UserError, ValidationError, AccessError
 
 class Proposal(models.Model):
 	_name = 'student.proposal'
-	_description = 'PaLMS - Project Proposal'
+	_description = 'PaLMS - Project Proposals'
 	_inherit = ['mail.thread', 'student.utils']
 
 

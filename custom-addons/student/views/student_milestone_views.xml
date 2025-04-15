@@ -1,0 +1,56 @@
+<odoo>
+    <record id="student_milestone_view_action" model="ir.actions.act_window">
+        <field name="name">Milestones</field>
+        <field name="res_model">student.milestone</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create and manage milestones to track project progress.
+            </p>
+        </field>
+    </record>
+
+    <record id="student_milestone_view_tree" model="ir.ui.view">
+        <field name="name">student.milestone.tree</field>
+        <field name="model">student.milestone</field>
+        <field name="arch" type="xml">
+            <tree string="Milestones">
+                <field name="name"/>
+                <field name="deadline_date"/>
+                <field name="program_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_milestone_view_form" model="ir.ui.view">
+        <field name="name">student.milestone.form</field>
+        <field name="model">student.milestone</field>
+        <field name="arch" type="xml">
+            <form string="Milestone">
+                <header>
+                    <button name="action_upload_result"
+                            type="object"
+                            string="Upload Result"
+                            class="btn-primary"
+                            groups="student.group_student,student.group_professor"
+                            invisible="id==False"/>
+                    <button name="action_view_milestone_results"
+                            type="object"
+                            string="View Results"
+                            class="btn-secondary"
+                            groups="student.group_manager,student.group_supervisor"
+                            invisible="id==False"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="deadline_date"/>
+                        <field name="program_ids" widget="many2many_tags"/>
+                        <field name="attachment_ids" widget="many2many_binary" invisible="attachment_ids==False"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

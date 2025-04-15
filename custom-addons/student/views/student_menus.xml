@@ -5,7 +5,7 @@
             <menuitem id="personal_tasks_private" sequence="1" action="student_menu_action_server_my_tasks"/>
             <menuitem id="personal_calendar_event" sequence="2" action="student_calendar_event_view_action"/>
 
-            <menuitem id="personal_first_professor_student_menu" sequence="2" name="From Students">
+            <menuitem id="personal_first_professor_student_menu" sequence="3" name="From Students">
                 <menuitem id="personal_proposal_professor" sequence="1" action="student_proposal_view_professor" groups="student.group_professor"/>
                 <menuitem id="personal_application_professor" sequence="2" action="student_application_view_professor" groups="student.group_professor"/>
             </menuitem>
@@ -46,19 +46,23 @@
         </menuitem>
 
         <menuitem sequence="3" id="project_first_level_menu" name="Project">
-
-            <menuitem id="project_first_project_menu" name="Projects">
-                <menuitem id="project_project_kanban_state" action="student_project_kanban_professor_state" groups="student.group_manager,student.group_professor,student.group_supervisor"/>
-                <menuitem id="availability_kanban_supervision" action="student_availability_kanban_supervision" groups="student.group_supervisor"/>
-                <menuitem id="project_project_list" action="student_project_view_action_list" groups="student.group_student"/>
-                
-                <menuitem id="project_second_project_menu" name="Reports">
-                    <menuitem id="project_graph_manager" action="student_project_view_action_graph" groups="student.group_manager"/>
-                    <menuitem id="program_graph_manager" action="student_program_view_action_graph" groups="student.group_manager"/>
-                </menuitem>
+            <menuitem id="project_first_milestones_menu" name="Milestones" sequence="1">
+                <menuitem id="project_milestones" sequence="1" action="student_milestone_view_action" groups="student.group_manager,student.group_supervisor"/>
+                <menuitem id="project_milestone_results" sequence="2" action="student_milestone_result_view_action" groups="student.group_manager,student.group_supervisor"/>
             </menuitem>
 
-            <menuitem id="project_first_application_menu" name="Applications">
+            <menuitem id="project_first_project_menu" name="Projects" sequence="2">
+                <menuitem id="project_project_kanban_state" sequence="1" action="student_project_kanban_professor_state" groups="student.group_manager,student.group_professor,student.group_supervisor"/>
+                <menuitem id="availability_kanban_supervision" sequence="2" action="student_availability_kanban_supervision" groups="student.group_supervisor"/>
+                <menuitem id="project_project_list" sequence="3" action="student_project_view_action_list" groups="student.group_student"/>
+            </menuitem>
+
+            <menuitem id="project_first_report_menu" name="Reports" sequence="3">
+                <menuitem id="project_graph_manager" action="student_project_view_action_graph" groups="student.group_manager"/>
+                <menuitem id="program_graph_manager" action="student_program_view_action_graph" groups="student.group_manager"/>
+            </menuitem>
+
+            <menuitem id="project_first_application_menu" name="Applications" sequence="2">
                 <menuitem id="project_application_public" action="student_application_view_public" groups="student.group_supervisor,student.group_professor"/>
             </menuitem>
 

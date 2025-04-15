@@ -35,6 +35,8 @@
         'views/student_announcement_views.xml',
         'views/student_announcement_reply_views.xml',
         'views/student_calendar_event_views.xml',
+        'views/student_milestone_views.xml',
+        'views/student_milestone_result_views.xml',
         'views/student_menus.xml',
         'views/custom_project_views.xml',
         'data/import/student_degree.xml'

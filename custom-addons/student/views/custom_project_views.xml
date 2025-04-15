@@ -7,6 +7,9 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <xpath expr="//sheet/group[1]" position="inside">
+                    <group>
+                        <field name="student_milestone_id" readonly="1"/>
+                    </group>
                     <group string="Files" colspan="2" col="3">
                         <p colspan="2" style="color:gray" invisible="id != False">
                             <i>Save the task to add additional files.</i>

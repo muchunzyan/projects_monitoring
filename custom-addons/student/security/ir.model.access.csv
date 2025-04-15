@@ -138,6 +138,18 @@ student_calendar_event_supervisor,Calendar Event for Supervisor,model_student_ca
 student_calendar_event_professor,Calendar Event for Professor,model_student_calendar_event,student.group_professor,1,1,1,1
 student_calendar_event_student,Calendar Event for Student,model_student_calendar_event,student.group_student,1,1,1,1
 
+student_milestone_admin,Milestone for Administrator,model_student_milestone,student.group_administrator,1,1,1,1
+student_milestone_manager,Milestone for Manager,model_student_milestone,student.group_manager,1,1,1,1
+student_milestone_supervisor,Milestone for Supervisor,model_student_milestone,student.group_supervisor,1,1,1,1
+student_milestone_professor,Milestone for Professor,model_student_milestone,student.group_professor,1,0,0,0
+student_milestone_student,Milestone for Student,model_student_milestone,student.group_student,1,0,0,0
+
+student_milestone_result_admin,Milestone Result for Administrator,model_student_milestone_result,student.group_administrator,1,1,1,1
+student_milestone_result_manager,Milestone Result for Manager,model_student_milestone_result,student.group_manager,1,1,1,1
+student_milestone_result_supervisor,Milestone Result for Supervisor,model_student_milestone_result,student.group_supervisor,1,1,1,1
+student_milestone_result_professor,Milestone Result for Professor,model_student_milestone_result,student.group_professor,1,1,1,1
+student_milestone_result_student,Milestone Result for Student,model_student_milestone_result,student.group_student,1,1,1,1
+
 
 
 student_project_project_admin,Odoo Project for Administrator,project.model_project_project,student.group_administrator,1,1,1,1

@@ -4,7 +4,7 @@ from odoo.osv import expression
 
 class AnnouncementReply(models.Model):
     _name = 'student.announcement.reply'
-    _description = 'Reply to Announcement'
+    _description = 'PaLMS - Replies to Announcements'
 
     announcement_id = fields.Many2one('student.announcement', string='Announcement', required=True, ondelete='cascade')
     user_id = fields.Many2one('res.users', string='Submitted By', required=True, default=lambda self: self.env.user)
@@ -31,7 +31,6 @@ class AnnouncementReply(models.Model):
             announcement_id = announcement_id[0] if announcement_id else False
         if not announcement_id:
             raise ValidationError("Announcement ID is missing.")
-        announcement = self.env['student.announcement'].browse(announcement_id)
 
         return super().create(vals)
 

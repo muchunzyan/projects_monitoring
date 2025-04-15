@@ -3,7 +3,7 @@ from odoo.exceptions import UserError, ValidationError, AccessError
 
 class ProjectAvailability(models.Model):
     _name = 'student.availability'
-    _description = 'PaLMS - Project Availability'
+    _description = 'PaLMS - Projects Availability'
 
     state = fields.Selection([('waiting', 'Waiting for submission'),
                               ('pending', 'Pending'), 

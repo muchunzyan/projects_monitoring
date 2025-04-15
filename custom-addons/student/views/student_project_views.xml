@@ -148,7 +148,7 @@
                                             </group>
                                         </group>
                                         <group colspan="2">
-                                            <field name="availability_ids" context="{'project_id': active_id, 'project_faculty_id': faculty_id}" readonly="state_evaluation != 'draft' or assigned"
+                                            <field name="availability_ids" context="{'project_id': active_id, 'project_faculty_id': faculty_id}" readonly="state_evaluation != 'draft' or 'assigned'"
                                                    help="Professors can define the application criteria for each academic program. Once a program supervisor approves the project, it becomes available for applications of students from this particular program. Students of other programs can view the project, but cannot apply.">
                                                 <tree>
                                                     <field name="state" string="Submission State"/>
@@ -200,6 +200,9 @@
                                     <field name="project_project_tasks" style="margin-top:10px"/>
                                 </page>
                                 <page string="Results" invisible="state_publication not in ['assigned', 'completed']">
+                                    <group string="Milestone results">
+                                        <field name="milestone_result_ids"/>
+                                    </group>
                                     <group string="Student">
                                         <field name="student_account" invisible="1"/>
 

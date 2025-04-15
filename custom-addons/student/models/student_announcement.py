@@ -107,9 +107,9 @@ class Announcement(models.Model):
                     announcement_url = f'{base_url}/web#id={announcement.id}&model=student.announcement&view_type=form'
 
                     message_text = Markup(
-                        f'Объявление обновлено: <a href="{announcement_url}">{announcement.name}</a>'
+                        f'Announcement updated: <a href="{announcement_url}">{announcement.name}</a>'
                         if is_update else
-                        f'Новое объявление: <a href="{announcement_url}">{announcement.name}</a>'
+                        f'New announcement: <a href="{announcement_url}">{announcement.name}</a>'
                     )
 
                     if is_update:
@@ -137,7 +137,7 @@ class Announcement(models.Model):
 
                     # Create calendar event
                     self.env['student.calendar.event'].sudo().create({
-                        'name': f'Дедлайн объявления: {announcement.name}',
+                        'name': f'Announcement deadline: {announcement.name}',
                         'event_type': 'announcement_deadline',
                         'start_datetime': announcement.deadline_date,
                         'end_datetime': announcement.deadline_date,

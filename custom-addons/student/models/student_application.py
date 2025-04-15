@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 class Application(models.Model):
 	_name = 'student.application'
-	_description = 'PaLMS - Application for Project'
+	_description = 'PaLMS - Applications for Projects'
 	_rec_name = 'applicant'
 	_inherit = ['mail.thread', 'student.utils']
 		

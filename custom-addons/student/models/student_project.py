@@ -208,6 +208,12 @@ class Project(models.Model):
         string='Add Files'
     )
 
+    milestone_result_ids = fields.One2many(
+        'student.milestone.result',
+        'student_project_id',
+        string='Milestone Results'
+    )
+
     additional_resources = fields.Text(string='Additional Resources')  
     student_feedback = fields.Text(string='Student Feedback')   
     professor_grade = fields.Selection([('1', '1'),       

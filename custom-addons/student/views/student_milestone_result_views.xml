@@ -1,0 +1,40 @@
+<odoo>
+    <record id="student_milestone_result_view_action" model="ir.actions.act_window">
+        <field name="name">Milestone Results</field>
+        <field name="res_model">student.milestone.result</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="student_milestone_result_view_tree" model="ir.ui.view">
+        <field name="name">student.milestone.result.tree</field>
+        <field name="model">student.milestone.result</field>
+        <field name="arch" type="xml">
+            <tree string="Milestone Results">
+                <field name="milestone_id"/>
+                <field name="user_id"/>
+                <field name="student_project_id"/>
+                <field name="submit_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_milestone_result_view_form" model="ir.ui.view">
+        <field name="name">student.milestone.result.form</field>
+        <field name="model">student.milestone.result</field>
+        <field name="arch" type="xml">
+            <form string="Milestone Result">
+                <sheet>
+                    <group>
+                        <field name="base_fields_readonly" invisible="1"/>
+                        <field name="milestone_id" readonly="base_fields_readonly"/>
+                        <field name="user_id" readonly="base_fields_readonly"/>
+                        <field name="student_project_id"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                        <field name="comment"/>
+                        <field name="submit_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

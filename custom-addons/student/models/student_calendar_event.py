@@ -3,7 +3,7 @@ from odoo.exceptions import AccessError
 
 class StudentCalendarEvent(models.Model):
     _name = 'student.calendar.event'
-    _description = 'Student Calendar Event'
+    _description = 'PaLMS - Calendar Events'
     _order = 'start_datetime'
 
     name = fields.Char(string="Title", required=True)
@@ -11,6 +11,7 @@ class StudentCalendarEvent(models.Model):
         ('task', 'Task'),
         ('commission', 'Commission'),
         ('announcement_deadline', 'Announcement Deadline'),
+        ('milestone_deadline', 'Milestone Deadline'),
         ('custom', 'Other'),
     ], required=True, string="Event Type")
     description = fields.Text(string="Description")
@@ -30,6 +31,11 @@ class StudentCalendarEvent(models.Model):
     task_id = fields.Many2one(
         'project.task',
         string='Related Task',
+        ondelete='cascade'
+    )
+    milestone_id = fields.Many2one(
+        'student.milestone',
+        string='Related Milestone',
         ondelete='cascade'
     )
 

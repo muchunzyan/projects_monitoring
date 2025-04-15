@@ -39,6 +39,7 @@
                         <field name="task_id" readonly="can_edit==False" invisible="task_id==False"/>
                         <field name="announcement_id" readonly="can_edit==False" invisible="announcement_id==False"/>
                         <field name="commission_id" readonly="can_edit==False" invisible="commission_id==False"/>
+                        <field name="milestone_id" readonly="can_edit==False" invisible="milestone_id==False"/>
                     </group>
                 </sheet>
             </form>
