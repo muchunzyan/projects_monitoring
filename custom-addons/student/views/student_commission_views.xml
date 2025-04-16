@@ -142,7 +142,7 @@
                             <field name="defense_time" widget="float_time" readonly="id and create_uid != uid"/>
                         </group>
                         <group>
-                            <field name="project_id" domain="[('state_publication', '=', 'completed')]" readonly="id and create_uid != uid"/>
+                            <field name="project_id" readonly="id and create_uid != uid"/>
                             <field name="project_student"/>
                         </group>
                         <group string="Grading Details" colspan="2" invisible="not show_grades">
