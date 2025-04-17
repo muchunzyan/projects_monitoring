@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="poll_poll_view_action" model="ir.actions.act_window">
+        <field name="name">Polls</field>
+        <field name="res_model">poll.poll</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|', ('user_ids', 'in', [uid]), ('created_by', '=', uid)]</field>
+        <field name="help" type="html">
+            <p>Create and manage polls</p>
+        </field>
+    </record>
+
+    <record id="poll_poll_view_tree" model="ir.ui.view">
+        <field name="name">poll.poll.tree</field>
+        <field name="model">poll.poll</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="created_by"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="poll_poll_view_form" model="ir.ui.view">
+        <field name="name">poll.poll.form</field>
+        <field name="model">poll.poll</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="not created_by==uid"/>
+                        <field name="description" readonly="not created_by==uid"/>
+                        <field name="created_by" readonly="1"/>
+
+                        <label for="user_ids" class="oe_inline" invisible="id"/>
+                        <p colspan="2" style="color:gray" invisible="id">
+                            <i>Save the commission to choose users.</i>
+                        </p>
+                        <field name="user_ids" invisible="not id" widget="many2many_tags" readonly="not created_by==uid"/>
+
+                        <label for="option_ids" class="oe_inline" invisible="id"/>
+                        <p colspan="2" style="color:gray" invisible="id">
+                            <i>Save the commission to create options.</i>
+                        </p>
+                        <field name="option_ids" invisible="not id" readonly="not created_by==uid">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+
+                        <label for="vote_ids" class="oe_inline" invisible="id"/>
+                        <p colspan="2" style="color:gray" invisible="option_ids and user_ids">
+                            <i>Add options and users to vote.</i>
+                        </p>
+                        <field name="vote_ids"
+                               context="{'default_poll_id': active_id}"
+                               domain="['|', ('poll_id.created_by', '=', uid), ('user_id', '=', uid)]"
+                               invisible="not (option_ids and user_ids)">
+                            <tree editable="bottom" create="false">
+                                <field name="option_id" domain="[('id', 'in', parent.option_ids)]"/>
+                                <field name="user_id" domain="[('id', 'in', parent.user_ids)]"/>
+                                <field name="vote"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

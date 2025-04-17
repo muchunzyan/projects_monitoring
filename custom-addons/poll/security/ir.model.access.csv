@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+poll_poll_user,Poll for User,model_poll_poll,base.group_user,1,1,1,1
+poll_option_user,Option for User,model_poll_option,base.group_user,1,1,1,1
+poll_vote_user,Vote for User,model_poll_vote,base.group_user,1,1,1,1

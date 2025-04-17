@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="poll_menu_root" name="Decidely">
+        <menuitem id="poll_poll_menu" sequence="1" action="poll_poll_view_action"/>
+    </menuitem>
+</odoo>

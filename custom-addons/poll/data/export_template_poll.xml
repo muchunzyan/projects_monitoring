@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="poll_export_template" model="ir.exports">
+        <field name="name">Poll Export Template</field>
+        <field name="resource">poll.poll</field>
+    </record>
+
+    <record id="poll_export_template_line_1" model="ir.exports.line">
+        <field name="export_id" ref="poll_export_template"/>
+        <field name="name">name</field>
+    </record>
+
+    <record id="poll_export_template_line_2" model="ir.exports.line">
+        <field name="export_id" ref="poll_export_template"/>
+        <field name="name">created_by</field>
+    </record>
+
+    <record id="poll_export_template_line_3" model="ir.exports.line">
+        <field name="export_id" ref="poll_export_template"/>
+        <field name="name">user_ids</field>
+    </record>
+
+    <record id="poll_export_template_line_4" model="ir.exports.line">
+        <field name="export_id" ref="poll_export_template"/>
+        <field name="name">vote_ids/option_id/name</field>
+    </record>
+
+    <record id="poll_export_template_line_5" model="ir.exports.line">
+        <field name="export_id" ref="poll_export_template"/>
+        <field name="name">vote_ids/user_id</field>
+    </record>
+
+    <record id="poll_export_template_line_6" model="ir.exports.line">
+        <field name="export_id" ref="poll_export_template"/>
+        <field name="name">vote_ids/vote</field>
+    </record>
+</odoo>
