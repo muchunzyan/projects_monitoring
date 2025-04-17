@@ -47,7 +47,8 @@
                         string="Create Poll"
                         type="object"
                         class="btn-secondary"
-                        invisible="id==False"/>
+                        invisible="id==False"
+                            groups="student.group_manager"/>
                 </header>
                 <sheet>
                     <group>
