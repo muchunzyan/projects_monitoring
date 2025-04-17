@@ -33,21 +33,21 @@
             <form>
                 <header>
                     <button name="action_view_commission_lock"
-                        string="SET COMMISSION"
-                        type="object"
-                        confirm="Commission will be locked and members will be notified. Do you confirm?"
-                        class="oe_highlight"
-                        invisible= "lock or create_uid != uid"/>
+                            string="SET COMMISSION"
+                            type="object"
+                            confirm="Commission will be locked and members will be notified. Do you confirm?"
+                            class="oe_highlight"
+                            invisible= "lock or create_uid != uid"/>
                     <button name="action_view_commission_lock"
-                        string="RELEASE COMMISSION"
-                        type="object"
-                        class="oe_highlight"
-                        invisible= "not lock or create_uid != uid"/>
+                            string="RELEASE COMMISSION"
+                            type="object"
+                            class="oe_highlight"
+                            invisible= "not lock or create_uid != uid"/>
                     <button name="action_create_poll"
-                        string="Create Poll"
-                        type="object"
-                        class="btn-secondary"
-                        invisible="id==False"
+                            string="Create Poll"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="id==False"
                             groups="student.group_manager"/>
                 </header>
                 <sheet>
