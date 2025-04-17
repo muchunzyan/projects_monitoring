@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_poll_poll_form_inherit_custom" model="ir.ui.view">
+            <field name="name">poll.poll.form.inherit.custom</field>
+            <field name="model">poll.poll</field>
+            <field name="inherit_id" ref="poll.poll_poll_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]/field[5]/tree" position="inside">
+                    <field name="commission_id" widget="many2one"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

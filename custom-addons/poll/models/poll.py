@@ -30,6 +30,7 @@ class Poll(models.Model):
                 message_text = Markup(f"A new poll <a href=\"/web#id={self.id}&model=poll.poll&view_type=form\">{self.name}</a> has been created for you. Please vote!")
             else:
                 message_text = Markup(f"The poll <a href=\"/web#id={self.id}&model=poll.poll&view_type=form\">{self.name}</a> has been updated. Please vote!")
+
             self.env['poll.utils'].send_message(
                 message_text,
                 self.user_ids,

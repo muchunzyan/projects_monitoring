@@ -123,6 +123,15 @@ class Commission(models.Model):
             defense.project_id.commission_head = self.commission_head
             defense.project_id.proposal_id.commission_head = self.commission_head
 
+    def action_create_poll(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Create Poll - Select Options'),
+            'res_model': 'poll.poll',
+            'view_mode': 'form',
+            'target': '_self',
+        }
+
 class CommissionDefense(models.Model):
     _name = "student.defense"
     _description = "PaLMS - Commission Defenses"

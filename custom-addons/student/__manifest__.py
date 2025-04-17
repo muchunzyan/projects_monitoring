@@ -12,7 +12,7 @@
     'installable': True,
     'auto_install': True,
     'application': True,
-    'depends' : ['mail','project'],
+    'depends' : ['mail','project', 'poll'],
     'data': [
         'data/student_groups.xml',
         'data/student_email_templates.xml',
@@ -39,6 +39,7 @@
         'views/student_milestone_result_views.xml',
         'views/student_menus.xml',
         'views/custom_project_views.xml',
+        'views/custom_poll_views.xml',
         'data/import/student_degree.xml'
     ],
     'license': 'LGPL-3'

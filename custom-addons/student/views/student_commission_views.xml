@@ -43,6 +43,11 @@
                         type="object"
                         class="oe_highlight"
                         invisible= "not lock or create_uid != uid"/>
+                    <button name="action_create_poll"
+                        string="Create Poll"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="id==False"/>
                 </header>
                 <sheet>
                     <group>
