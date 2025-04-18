@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="student_projects_group_view_action" model="ir.actions.act_window">
+        <field name="name">Projects Groups</field>
+        <field name="res_model">student.projects.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first projects group
+            </p>
+        </field>
+    </record>
+
+    <record id="student_projects_group_view_tree" model="ir.ui.view">
+        <field name="name">student.projects.group.tree</field>
+        <field name="model">student.projects.group</field>
+        <field name="arch" type="xml">
+            <tree string="Projects Groups">
+                <field name="name"/>
+                <field name="project_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_projects_group_view_form" model="ir.ui.view">
+        <field name="name">student.projects.group.form</field>
+        <field name="model">student.projects.group</field>
+        <field name="arch" type="xml">
+            <form string="Projects Group">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

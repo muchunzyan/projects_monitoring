@@ -144,6 +144,8 @@ class Project(models.Model):
     
     assigned = fields.Boolean('Assigned to a student?', default=False, readonly=True)
     is_group_project = fields.Boolean(string='Is Group Project?', default=False)
+    projects_group_id = fields.Many2one('student.projects.group', string='Projects Group')
+
     student_elected = fields.Many2many(
         comodel_name='student.student',
         relation='student_project_applied_project_rel',

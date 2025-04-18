@@ -87,11 +87,15 @@
                                 </group>
                                 <group>
                                     <field name="format" readonly="state_evaluation != 'draft'"/>
-                                    <field name="is_group_project" readonly="state_evaluation != 'draft'"/>
                                     <field name="language" readonly="state_evaluation != 'draft'"/>
                                 </group>
                                 <group colspan="2">
                                     <field name="tag_ids" widget="many2many_tags" readonly="state_evaluation != 'draft'"/>
+                                </group>
+                                <group colspan="2">
+                                    <field name="is_group_project" readonly="state_evaluation != 'draft'"/>
+                                    <field name="projects_group_id" invisible="not is_group_project"
+                                           required="is_group_project" readonly="state_evaluation != 'draft'"/>
                                 </group>
                             </group>
                             <group>
@@ -148,7 +152,7 @@
                                             </group>
                                         </group>
                                         <group colspan="2">
-                                            <field name="availability_ids" context="{'project_id': active_id, 'project_faculty_id': faculty_id}" readonly="state_evaluation != 'draft' or 'assigned'"
+                                            <field name="availability_ids" context="{'project_id': active_id, 'project_faculty_id': faculty_id}" readonly="state_evaluation != 'draft'"
                                                    help="Professors can define the application criteria for each academic program. Once a program supervisor approves the project, it becomes available for applications of students from this particular program. Students of other programs can view the project, but cannot apply.">
                                                 <tree>
                                                     <field name="state" string="Submission State"/>

@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <odoo>
     <record id="student_announcement_reply_view_action" model="ir.actions.act_window">
         <field name="name">Announcement Replies</field>

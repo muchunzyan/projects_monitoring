@@ -150,6 +150,12 @@ student_milestone_result_supervisor,Milestone Result for Supervisor,model_studen
 student_milestone_result_professor,Milestone Result for Professor,model_student_milestone_result,student.group_professor,1,1,1,1
 student_milestone_result_student,Milestone Result for Student,model_student_milestone_result,student.group_student,1,1,1,1
 
+student_projects_group_admin,Projects Group for Administrator,model_student_projects_group,student.group_administrator,1,1,1,1
+student_projects_group_manager,Projects Group for Manager,model_student_projects_group,student.group_manager,1,1,1,1
+student_projects_group_supervisor,Projects Group for Supervisor,model_student_projects_group,student.group_supervisor,1,1,1,1
+student_projects_group_professor,Projects Group for Professor,model_student_projects_group,student.group_professor,1,1,1,1
+student_projects_group_student,Projects Group for Student,model_student_projects_group,student.group_student,1,1,1,1
+
 
 
 student_project_project_admin,Odoo Project for Administrator,project.model_project_project,student.group_administrator,1,1,1,1

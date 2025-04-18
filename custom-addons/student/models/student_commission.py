@@ -132,6 +132,26 @@ class Commission(models.Model):
             'target': '_self',
         }
 
+    @api.onchange('defense_ids')
+    def _onchange_defense_ids_create_group_defenses(self):
+        for commission in self:
+            defenses_to_add = []
+            for defense in commission.defense_ids:
+                if defense.project_id.is_group_project:
+                    group_projects = self.env['student.project'].search([
+                        ('projects_group_id', '=', defense.project_id.projects_group_id.id),
+                        ('id', '!=', defense.project_id.id)
+                    ])
+                    for project in group_projects:
+                        if not commission.defense_ids.filtered(lambda d: d.project_id.id == project.id):
+                            defenses_to_add.append((0, 0, {
+                                'commission_id': commission.id,
+                                'project_id': project.id,
+                                'defense_time': defense.defense_time,
+                            }))
+            if defenses_to_add:
+                commission.update({'defense_ids': commission.defense_ids.ids + defenses_to_add})
+
 class CommissionDefense(models.Model):
     _name = "student.defense"
     _description = "PaLMS - Commission Defenses"

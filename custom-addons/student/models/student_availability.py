@@ -34,6 +34,7 @@ class ProjectAvailability(models.Model):
                 record.name_ru = project_source.name_ru
                 record.format = project_source.format
                 record.is_group_project = project_source.is_group_project
+                record.projects_group_id = project_source.projects_group_id
                 record.language = project_source.language
                 record.description = project_source.description
                 record.requirements = project_source.requirements
@@ -48,6 +49,7 @@ class ProjectAvailability(models.Model):
     name_ru = fields.Char('Project Name (Russian)', compute=_set_default_project_values, store=True)
     format = fields.Selection([('research', 'Research'), ('project', 'Project'), ('startup', 'Start-up')], string="Format", compute=_set_default_project_values, store=True)
     is_group_project = fields.Boolean(string='Is Group Project?', compute=_set_default_project_values, store=True)
+    projects_group_id = fields.Many2one('student.projects.group', string='Projects Group', compute=_set_default_project_values, store=True)
     language = fields.Selection([('en', 'English'), ('ru', 'Russian')], string="Language", compute=_set_default_project_values, store=True)
     professor_id = fields.Many2one('student.professor', string='Professor', compute=_set_default_project_values, store=True)
 
