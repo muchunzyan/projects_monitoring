@@ -22,6 +22,8 @@ class StudentUtils(models.AbstractModel):
             channel_name = "Milestone №" + tuple_id + " (" + tuple_name + ")"
         elif source == 'poll':
             channel_name = "Poll №" + tuple_id + " (" + tuple_name + ")"
+        elif source == 'review_table':
+            channel_name = "Review Table №" + tuple_id + " (" + tuple_name + ")"
         else:
             raise ValueError(f"Unknown source type: {source}")
 

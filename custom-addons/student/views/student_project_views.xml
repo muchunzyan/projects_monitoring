@@ -318,7 +318,7 @@
         </record>
 
         <record id="student_project_kanban_view_state" model="ir.ui.view">
-            <field name="name">Projects - Kanban View for Professors</field>
+            <field name="name">Projects - Kanban View</field>
             <field name="model">student.project</field>
             <field name="arch" type="xml">
                 <kanban quick_create="false"
@@ -376,7 +376,7 @@
 
         <!-- student_menus.xml refers to this in the menu (for professors) -->
         <record id="student_project_kanban_professor_state" model="ir.actions.act_window">
-            <field name="name">Project Dashboard</field>
+            <field name="name">Projects Progress</field>
             <field name="res_model">student.project</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="view_id" ref="student_project_kanban_view_state"/>
@@ -387,6 +387,19 @@
                 </p>
             </field>
             <field name="domain">[('professor_account', '=', uid)]</field>
+        </record>
+
+        <!-- student_menus.xml refers to this in the menu (for managers) -->
+        <record id="student_project_kanban_manager" model="ir.actions.act_window">
+            <field name="name">Projects Progress</field>
+            <field name="res_model">student.project</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="student_project_kanban_view_state"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    There are no projects yet. You can create the first one. Yay!
+                </p>
+            </field>
         </record>
 
         <!-- The view for students that student_menus.xml refers to -->

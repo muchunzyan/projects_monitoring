@@ -132,29 +132,41 @@ student_announcement_reply_supervisor,Announcements Replies for Supervisor,model
 student_announcement_reply_professor,Announcements Replies for Professor,model_student_announcement_reply,student.group_professor,1,1,1,1
 student_announcement_reply_student,Announcements Replies for Student,model_student_announcement_reply,student.group_student,1,1,1,1
 
-student_calendar_event_admin,Calendar Event for Administrator,model_student_calendar_event,student.group_administrator,1,1,1,1
-student_calendar_event_manager,Calendar Event for Manager,model_student_calendar_event,student.group_manager,1,1,1,1
-student_calendar_event_supervisor,Calendar Event for Supervisor,model_student_calendar_event,student.group_supervisor,1,1,1,1
-student_calendar_event_professor,Calendar Event for Professor,model_student_calendar_event,student.group_professor,1,1,1,1
-student_calendar_event_student,Calendar Event for Student,model_student_calendar_event,student.group_student,1,1,1,1
+student_calendar_event_admin,Calendar Events for Administrator,model_student_calendar_event,student.group_administrator,1,1,1,1
+student_calendar_event_manager,Calendar Events for Manager,model_student_calendar_event,student.group_manager,1,1,1,1
+student_calendar_event_supervisor,Calendar Events for Supervisor,model_student_calendar_event,student.group_supervisor,1,1,1,1
+student_calendar_event_professor,Calendar Events for Professor,model_student_calendar_event,student.group_professor,1,1,1,1
+student_calendar_event_student,Calendar Events for Student,model_student_calendar_event,student.group_student,1,1,1,1
 
-student_milestone_admin,Milestone for Administrator,model_student_milestone,student.group_administrator,1,1,1,1
-student_milestone_manager,Milestone for Manager,model_student_milestone,student.group_manager,1,1,1,1
-student_milestone_supervisor,Milestone for Supervisor,model_student_milestone,student.group_supervisor,1,1,1,1
-student_milestone_professor,Milestone for Professor,model_student_milestone,student.group_professor,1,0,0,0
-student_milestone_student,Milestone for Student,model_student_milestone,student.group_student,1,0,0,0
+student_milestone_admin,Milestones for Administrator,model_student_milestone,student.group_administrator,1,1,1,1
+student_milestone_manager,Milestones for Manager,model_student_milestone,student.group_manager,1,1,1,1
+student_milestone_supervisor,Milestones for Supervisor,model_student_milestone,student.group_supervisor,1,1,1,1
+student_milestone_professor,Milestones for Professor,model_student_milestone,student.group_professor,1,0,0,0
+student_milestone_student,Milestones for Student,model_student_milestone,student.group_student,1,0,0,0
 
-student_milestone_result_admin,Milestone Result for Administrator,model_student_milestone_result,student.group_administrator,1,1,1,1
-student_milestone_result_manager,Milestone Result for Manager,model_student_milestone_result,student.group_manager,1,1,1,1
-student_milestone_result_supervisor,Milestone Result for Supervisor,model_student_milestone_result,student.group_supervisor,1,1,1,1
-student_milestone_result_professor,Milestone Result for Professor,model_student_milestone_result,student.group_professor,1,1,1,1
-student_milestone_result_student,Milestone Result for Student,model_student_milestone_result,student.group_student,1,1,1,1
+student_milestone_result_admin,Milestone Results for Administrator,model_student_milestone_result,student.group_administrator,1,1,1,1
+student_milestone_result_manager,Milestone Results for Manager,model_student_milestone_result,student.group_manager,1,1,1,1
+student_milestone_result_supervisor,Milestone Results for Supervisor,model_student_milestone_result,student.group_supervisor,1,1,1,1
+student_milestone_result_professor,Milestone Results for Professor,model_student_milestone_result,student.group_professor,1,1,1,1
+student_milestone_result_student,Milestone Results for Student,model_student_milestone_result,student.group_student,1,1,1,1
 
-student_projects_group_admin,Projects Group for Administrator,model_student_projects_group,student.group_administrator,1,1,1,1
-student_projects_group_manager,Projects Group for Manager,model_student_projects_group,student.group_manager,1,1,1,1
-student_projects_group_supervisor,Projects Group for Supervisor,model_student_projects_group,student.group_supervisor,1,1,1,1
-student_projects_group_professor,Projects Group for Professor,model_student_projects_group,student.group_professor,1,1,1,1
-student_projects_group_student,Projects Group for Student,model_student_projects_group,student.group_student,1,1,1,1
+student_projects_group_admin,Projects Groups for Administrator,model_student_projects_group,student.group_administrator,1,1,1,1
+student_projects_group_manager,Projects Groups for Manager,model_student_projects_group,student.group_manager,1,1,1,1
+student_projects_group_supervisor,Projects Groups for Supervisor,model_student_projects_group,student.group_supervisor,1,1,1,1
+student_projects_group_professor,Projects Groups for Professor,model_student_projects_group,student.group_professor,1,1,1,1
+student_projects_group_student,Projects Groups for Student,model_student_projects_group,student.group_student,1,1,1,1
+
+student_review_table_admin,Review Tables for Administrator,model_student_review_table,student.group_administrator,1,1,1,1
+student_review_table_manager,Review Tables for Manager,model_student_review_table,student.group_manager,1,1,1,1
+student_review_table_supervisor,Review Tables for Supervisor,model_student_review_table,student.group_supervisor,1,0,0,0
+student_review_table_professor,Review Tables for Professor,model_student_review_table,student.group_professor,1,1,0,0
+student_review_table_student,Review Tables for Student,model_student_review_table,student.group_student,0,0,0,0
+
+student_review_line_admin,Review Lines for Administrator,model_student_review_line,student.group_administrator,1,1,1,1
+student_review_line_manager,Review Lines for Manager,model_student_review_line,student.group_manager,1,1,1,1
+student_review_line_supervisor,Review Lines for Supervisor,model_student_review_line,student.group_supervisor,1,0,0,0
+student_review_line_professor,Review Lines for Professor,model_student_review_line,student.group_professor,1,1,0,0
+student_review_line_student,Review Lines for Student,model_student_review_line,student.group_student,0,0,0,0
 
 
 
