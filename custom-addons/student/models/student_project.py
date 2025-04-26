@@ -1,7 +1,6 @@
 from markupsafe import Markup
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError, AccessError, ValidationError
-import copy, ast
 
 class Project(models.Model):
     _name = "student.project"

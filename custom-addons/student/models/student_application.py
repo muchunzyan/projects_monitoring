@@ -28,7 +28,7 @@ class Application(models.Model):
 			raise ValidationError("Student account could not be found. Please contact the supervisor.")
 	
 	applicant = fields.Many2one('student.student', string='Applicant', default=_default_applicant, readonly=True, required=True)
-	applicant_account= fields.Many2one('res.users', string="Applicant Account", compute='_compute_applicant_account', store=True)
+	applicant_account = fields.Many2one('res.users', string="Applicant Account", compute='_compute_applicant_account', store=True)
 
 	email = fields.Char('Email', compute="_compute_student_details", store=True, readonly=True)
 	additional_email = fields.Char('Additional Email', required=False)
