@@ -36,7 +36,6 @@ class Poll(models.Model):
 class PollOption(models.Model):
     _inherit = 'poll.option'
 
-    name = fields.Char(required=True, translate=True)
     commission_id = fields.Many2one('student.commission', string='Commission', required=True, ondelete='cascade')
 
     @api.onchange('commission_id')

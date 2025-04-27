@@ -13,8 +13,8 @@ class ReviewTable(models.Model):
         ('draft', 'Draft'),
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
-    ], string='State', default='draft', tracking=True, compute='_compute_state', store=True, readonly=True)
-    creator_id = fields.Many2one('res.users', string='Created By', default=lambda self: self.env.user, readonly=True)
+    ], string='State', default='draft', tracking=True, compute='_compute_state', store=True, readonly=True, required=True)
+    creator_id = fields.Many2one('res.users', string='Created By', default=lambda self: self.env.user, readonly=True, required=True)
     line_ids = fields.One2many('student.review.line', 'table_id', string='Review Lines')
     professor_ids = fields.Many2many('res.users', string='Professors', readonly=True)
 

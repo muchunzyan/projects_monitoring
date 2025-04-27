@@ -17,7 +17,7 @@ class MilestoneResult(models.Model):
         string='Attachments'
     )
     comment = fields.Text(string='Comment')
-    submit_date = fields.Datetime(string='Submitted On', default=fields.Datetime.now, readonly=True)
+    submit_date = fields.Datetime(string='Submitted On', default=fields.Datetime.now, readonly=True, required=True)
     base_fields_readonly = fields.Boolean(
         string='Base fields readonly',
         # compute='_compute_can_edit_base_fields',

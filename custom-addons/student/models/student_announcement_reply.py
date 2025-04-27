@@ -16,7 +16,7 @@ class AnnouncementReply(models.Model):
         string='Attachments'
     )
     comment = fields.Text(string='Comment')
-    submit_date = fields.Datetime(string='Submitted On', default=fields.Datetime.now, readonly=True)
+    submit_date = fields.Datetime(string='Submitted On', default=fields.Datetime.now, readonly=True, required=True)
 
     _sql_constraints = [
         ('unique_reply_per_user', 'unique(announcement_id, user_id)', 'You can only submit one reply per announcement.')

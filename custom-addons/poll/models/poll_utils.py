@@ -2,7 +2,7 @@ from markupsafe import Markup
 from odoo import api, fields, models
 
 
-class StudentUtils(models.AbstractModel):
+class PollUtils(models.AbstractModel):
     _name = 'poll.utils'
     _description = 'Decidely - Utility Methods'
 

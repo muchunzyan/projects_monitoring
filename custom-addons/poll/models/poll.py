@@ -7,11 +7,11 @@ class Poll(models.Model):
 
     name = fields.Char(required=True, translate=True)
     description = fields.Text(translate=True)
-    created_by = fields.Many2one('res.users', default=lambda self: self.env.user)
+    created_by = fields.Many2one('res.users', default=lambda self: self.env.user, required=True)
     option_ids = fields.One2many('poll.option', 'poll_id', string='Options', required=True)
     user_ids = fields.Many2many('res.users', string='Interviewed users', required=True)
     vote_ids = fields.One2many('poll.vote', 'poll_id', string='Votes')
-    create_notification_sent = fields.Boolean(default=False)
+    create_notification_sent = fields.Boolean(default=False, required=True)
 
     def _check_poll_votes_complete(self):
         for poll in self:
