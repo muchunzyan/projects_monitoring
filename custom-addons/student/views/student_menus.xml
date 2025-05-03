@@ -4,6 +4,7 @@
         <menuitem sequence="1" id="personal_first_level_menu" name="Personal">
             <menuitem id="personal_tasks_private" sequence="1" action="student_menu_action_server_my_tasks"/>
             <menuitem id="personal_calendar_event" sequence="2" action="student_calendar_event_view_action"/>
+            <menuitem id="personal_dashboard_parameters" sequence="3" action="student_dashboard_view_action" groups="student.group_manager,student.group_supervisor,student.group_professor"/>
 
             <menuitem id="personal_first_professor_student_menu" sequence="3" name="From Students">
                 <menuitem id="personal_proposal_professor" sequence="1" action="student_proposal_view_professor" groups="student.group_professor"/>
@@ -61,12 +62,6 @@
 
             <menuitem id="project_first_review_menu" name="Reviews" sequence="3">
                 <menuitem id="review_review_tables_list" sequence="1" action="student_review_table_view_action" groups="student.group_manager,student.group_professor,student.group_supervisor"/>
-            </menuitem>
-
-
-            <menuitem id="project_first_report_menu" name="Reports" sequence="4">
-                <menuitem id="project_graph_manager" action="student_project_view_action_graph" groups="student.group_manager"/>
-                <menuitem id="program_graph_manager" action="student_program_view_action_graph" groups="student.group_manager"/>
             </menuitem>
 
             <menuitem id="project_first_application_menu" name="Applications" sequence="5">

@@ -168,6 +168,11 @@ student_review_line_supervisor,Review Lines for Supervisor,model_student_review_
 student_review_line_professor,Review Lines for Professor,model_student_review_line,student.group_professor,1,1,0,0
 student_review_line_student,Review Lines for Student,model_student_review_line,student.group_student,0,0,0,0
 
+student_dashboard_admin,Dashboards for Administrator,model_student_dashboard,student.group_administrator,1,1,1,1
+student_dashboard_manager,Dashboards for Manager,model_student_dashboard,student.group_manager,1,1,1,1
+student_dashboard_supervisor,Dashboards for Supervisor,model_student_dashboard,student.group_supervisor,1,1,1,1
+student_dashboard_professor,Dashboards for Professor,model_student_dashboard,student.group_professor,1,1,1,1
+student_dashboard_student,Dashboards for Student,model_student_dashboard,student.group_student,0,0,0,0
 
 
 student_project_project_admin,Odoo Project for Administrator,project.model_project_project,student.group_administrator,1,1,1,1
@@ -193,3 +198,15 @@ student_mail_followers_manager,Followers for Manager,mail.model_mail_followers,s
 student_mail_followers_supervisor,Followers for Supervisor,mail.model_mail_followers,student.group_supervisor,1,1,1,1
 student_mail_followers_professor,Followers for Professor,mail.model_mail_followers,student.group_professor,1,1,1,0
 student_mail_followers_student,Followers for Student,mail.model_mail_followers,student.group_student,1,0,0,0
+
+student_ir_model_admin,Ir Model for Administrator,base.model_ir_model,student.group_administrator,1,1,1,1
+student_ir_model_manager,Ir Model for Manager,base.model_ir_model,student.group_manager,1,1,1,1
+student_ir_model_supervisor,Ir Model for Supervisor,base.model_ir_model,student.group_supervisor,1,1,1,1
+student_ir_model_professor,Ir Model for Professor,base.model_ir_model,student.group_professor,1,1,1,1
+student_ir_model_student,Ir Model for Student,base.model_ir_model,student.group_student,0,0,0,0
+
+student_ir_model_fields_admin,Ir Model Fields for Administrator,base.model_ir_model_fields,student.group_administrator,1,1,1,1
+student_ir_model_fields_manager,Ir Model Fields for Manager,base.model_ir_model_fields,student.group_manager,1,1,1,1
+student_ir_model_fields_supervisor,Ir Model Fields for Supervisor,base.model_ir_model_fields,student.group_supervisor,1,1,1,1
+student_ir_model_fields_professor,Ir Model Fields for Professor,base.model_ir_model_fields,student.group_professor,1,1,1,1
+student_ir_model_fields_student,Ir Model Fields for Student,base.model_ir_model_fields,student.group_student,0,0,0,0

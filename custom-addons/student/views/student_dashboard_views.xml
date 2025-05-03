@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="student_dashboard_view_action" model="ir.actions.act_window">
+        <field name="name">Dashboards</field>
+        <field name="res_model">student.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="student_dashboard_view_form" model="ir.ui.view">
+        <field name="name">student.dashboard.form</field>
+        <field name="model">student.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard parameters">
+                <group>
+                    <field name="model_name"/>
+                    <field name="metric_id"/>
+                    <field name="group_by_field_id"/>
+                </group>
+                <footer>
+                    <button name="action_open_graph" type="object" class="btn-primary" string="Show Graph"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

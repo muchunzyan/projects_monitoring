@@ -39,6 +39,7 @@
         'views/student_milestone_result_views.xml',
         'views/student_projects_group_views.xml',
         'views/student_review_views.xml',
+        'views/student_dashboard_views.xml',
         'views/student_menus.xml',
         'views/custom_project_views.xml',
         'views/custom_poll_views.xml',

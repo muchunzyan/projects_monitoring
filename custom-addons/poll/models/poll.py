@@ -73,7 +73,7 @@ class Poll(models.Model):
 
 class PollOption(models.Model):
     _name = 'poll.option'
-    _description = 'Decidely - Poll Optios'
+    _description = 'Decidely - Poll Options'
 
     name = fields.Char(required=True, translate=True)
     poll_id = fields.Many2one('poll.poll', required=True, ondelete='cascade')
