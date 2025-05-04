@@ -3,7 +3,7 @@
         <field name="name">Calendar</field>
         <field name="res_model">student.calendar.event</field>
         <field name="view_mode">calendar,tree,form</field>
-        <field name="domain">[('user_ids', 'in', [uid])]</field>
+        <field name="domain">['|', ('user_ids', 'in', [uid]), ('creator_id', 'in', [uid])]</field>
     </record>
 
     <record id="student_calendar_event_view_calendar" model="ir.ui.view">
@@ -30,12 +30,14 @@
                 <sheet>
                     <group>
                         <field name="can_edit" invisible="1"/>
+                        <field name="creator_id" invisible="1"/>
+
                         <field name="name" readonly="can_edit==False"/>
                         <field name="event_type" readonly="can_edit==False"/>
                         <field name="start_datetime" readonly="can_edit==False"/>
                         <field name="end_datetime" readonly="can_edit==False"/>
                         <field name="user_ids" widget="many2many_tags" readonly="can_edit==False"/>
-                        <field name="description" readonly="can_edit==False" invisible="description==False"/>
+                        <field name="description" readonly="can_edit==False"/>
                         <field name="task_id" readonly="can_edit==False" invisible="task_id==False"/>
                         <field name="announcement_id" readonly="can_edit==False" invisible="announcement_id==False"/>
                         <field name="commission_id" readonly="can_edit==False" invisible="commission_id==False"/>

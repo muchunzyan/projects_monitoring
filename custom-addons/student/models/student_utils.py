@@ -26,6 +26,8 @@ class StudentUtils(models.AbstractModel):
             channel_name = "Poll №" + tuple_id + " (" + tuple_name + ")"
         elif source == 'review_table':
             channel_name = "Review Table №" + tuple_id + " (" + tuple_name + ")"
+        elif source == 'calendar_event':
+            channel_name = "Calendar Event №" + tuple_id + " (" + tuple_name + ")"
         else:
             raise ValueError(f"Unknown source type: {source}")
 
@@ -40,7 +42,7 @@ class StudentUtils(models.AbstractModel):
                 'name': channel_name,
                 'display_name': channel_name
             })
-            
+
             channel.write({
                 'channel_partner_ids': [(4, recipient.partner_id.id) for recipient in recipients]
             })

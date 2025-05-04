@@ -1,5 +1,3 @@
-from email.policy import default
-
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 from odoo.osv import expression
@@ -43,6 +41,8 @@ class Announcement(models.Model):
     channel_id = fields.Many2one('discuss.channel', string='Discuss Channel', readonly=True, copy=False)
     reply_ids = fields.One2many('student.announcement.reply', 'announcement_id', string='Replies')
 
+    creation_notification_sent = fields.Boolean(string='Creation Notification Sent', readonly=True, default=False)
+
     @api.constrains('deadline_date')
     def _check_deadline_date(self):
         for record in self:
@@ -51,7 +51,6 @@ class Announcement(models.Model):
 
     @api.model
     def create(self, vals):
-        self = self.with_context(skip_notification=True)
         record = super().create(vals)
         record._make_attachments_public()
         record._notify_target_users(is_update=False)
@@ -60,8 +59,11 @@ class Announcement(models.Model):
     def write(self, vals):
         res = super().write(vals)
         self._make_attachments_public()
-        if self._origin.id and not self._context.get('skip_notification'):
-            self._notify_target_users(is_update=True)
+
+        for rec in self:
+            if rec.creation_notification_sent:
+                self._notify_target_users(is_update=True)
+
         return res
 
     def _make_attachments_public(self):
@@ -127,6 +129,8 @@ class Announcement(models.Model):
                         ], limit=1)
                         announcement.channel_id = channel
 
+                        announcement.creation_notification_sent = True
+
                     if is_update:
                         channel.sudo().message_post(
                             body=message_text,
@@ -134,16 +138,17 @@ class Announcement(models.Model):
                             message_type="comment",
                             subtype_xmlid='mail.mt_comment'
                         )
-
-                    # Create calendar event
-                    self.env['student.calendar.event'].sudo().create({
-                        'name': f'Announcement deadline: {announcement.name}',
-                        'event_type': 'announcement_deadline',
-                        'start_datetime': announcement.deadline_date,
-                        'end_datetime': announcement.deadline_date,
-                        'announcement_id': announcement.id,
-                        'user_ids': [(6, 0, users.ids)]
-                    })
+                    else:
+                        # Create calendar event
+                        self.env['student.calendar.event'].sudo().create({
+                            'name': f'Announcement deadline: {announcement.name}',
+                            'event_type': 'announcement_deadline',
+                            'start_datetime': announcement.deadline_date,
+                            'end_datetime': announcement.deadline_date,
+                            'announcement_id': announcement.id,
+                            'user_ids': [(6, 0, users.ids)],
+                            'creator_id': self.env.user.id
+                        })
 
     def action_reply_to_announcement(self):
         self.ensure_one()
