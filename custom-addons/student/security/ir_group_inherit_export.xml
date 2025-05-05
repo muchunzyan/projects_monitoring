@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Allow export for managers -->
+    <record id="student.group_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('base.group_allow_export'))]"/>
+    </record>
+
+    <!-- Allow export for supervisors -->
+    <record id="student.group_supervisor" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('base.group_allow_export'))]"/>
+    </record>
+
+    <!-- Allow export for professors -->
+    <record id="student.group_professor" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('base.group_allow_export'))]"/>
+    </record>
+
+    <!-- Allow export for students -->
+    <record id="student.group_student" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('base.group_allow_export'))]"/>
+    </record>
+</odoo>

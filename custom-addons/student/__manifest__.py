@@ -20,6 +20,7 @@
         'data/languages.xml',
         'data/company_details.xml',
         'security/ir.model.access.csv',
+        'security/ir_group_inherit_export.xml',
         'views/student_application_views.xml',
         'views/student_availability_views.xml',
         'views/student_faculty_views.xml',
