@@ -457,6 +457,7 @@
                     <filter string="Professor" name="professor" context="{'group_by':'professor_id'}"/>
                     <filter string="Project Format" name="project_format" context="{'group_by':'format'}"/>
                     <filter string="Faculty" name="faculty" context="{'group_by':'faculty_id'}"/>
+                    <filter string="Tag" name="tag" context="{'group_by':'tag_ids'}"/>
                     <filter string="Target Program" name="program" context="{'group_by':'program_ids'}" groups="student.group_administrator, student.group_supervisor, student.group_professor"/>
                     <filter string="Applicable Program" name="program" context="{'group_by':'approved_program_ids'}" groups="student.group_student"/>
                 </group>
