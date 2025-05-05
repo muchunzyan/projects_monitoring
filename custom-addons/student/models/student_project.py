@@ -32,7 +32,7 @@ class Project(models.Model):
                                           group_expand='_expand_publication_groups', default='ineligible', string='Publication State', readonly=True, tracking=True)
 
     project_state = fields.Selection([('draft', 'Draft'),
-                                      ('pending', 'Pending Supervisor Review'),
+                                      ('pending', 'Pending Academic Supervisor Review'),
                                       ('mixed', 'Mixed Evaluation'),
                                       ('rejected', 'Rejected'),
                                       ('published', 'Published'),
