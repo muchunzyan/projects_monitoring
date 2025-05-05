@@ -26,6 +26,7 @@ class StudentMilestone(models.Model):
     )
 
     channel_id = fields.Many2one('discuss.channel', string='Discuss Channel', readonly=True, copy=False)
+    creation_notification_sent = fields.Boolean(string='Creation Notification Sent', readonly=True, default=False)
 
     @api.model
     def create(self, vals):
@@ -45,6 +46,9 @@ class StudentMilestone(models.Model):
         student_project = self.env['student.project']
         for milestone in self:
             projects = student_project.search([('program_ids', 'in', milestone.program_ids.ids)])
+
+            milestone_professors = []
+
             for project in projects:
                 task.sudo().create({
                     'name': milestone.name,
@@ -59,17 +63,20 @@ class StudentMilestone(models.Model):
                         project.professor_account.id
                     ])))]
                 })
+                milestone_professors.append(project.professor_account.id)
 
             # Find managers and supervisors
-            student_managers = self.env['student.manager'].search([
+            milestone_managers = self.env['student.manager'].search([
                 ('program_ids', 'in', milestone.program_ids.ids)
             ])
-            student_supervisors = self.env['student.supervisor'].search([
+            milestone_supervisors = self.env['student.supervisor'].search([
                 ('program_ids', 'in', milestone.program_ids.ids)
             ])
-            managers_and_supervisors_ids = list(filter(
-                None, student_managers.mapped('manager_account.id') +
-                      student_supervisors.mapped('supervisor_account.id')))
+            administrative_stuff_ids = list(filter(
+                None, milestone_managers.mapped('manager_account.id') +
+                      milestone_supervisors.mapped('supervisor_account.id') +
+                      milestone_professors
+            ))
 
             # Create calendar event
             self.env['student.calendar.event'].sudo().create({
@@ -80,29 +87,31 @@ class StudentMilestone(models.Model):
                 'milestone_id': milestone.id,
                 'user_ids': [(6, 0, list(set(
                     projects.mapped('student_account.id')
-                    + managers_and_supervisors_ids
-                )))]
+                    + administrative_stuff_ids
+                )))],
+                'creator_id': self.env.user.id
             })
 
     def write(self, vals):
         res = super().write(vals)
         for milestone in self:
-            tasks = self.env['project.task'].search([('student_milestone_id', '=', milestone.id)])
-            tasks.write({
-                'name': milestone.name,
-                'description': milestone.description,
-                'date_deadline': milestone.deadline_date,
-                'additional_files': [(6, 0, milestone.attachment_ids.ids)]
-            })
+            if (milestone.creation_notification_sent and
+                    any(field in vals for field in ['name', 'description', 'deadline_date', 'attachment_ids'])):
+                tasks = self.env['project.task'].search([('student_milestone_id', '=', milestone.id)])
+                tasks.write({
+                    'name': milestone.name,
+                    'description': milestone.description,
+                    'date_deadline': milestone.deadline_date,
+                    'additional_files': [(6, 0, milestone.attachment_ids.ids)]
+                })
 
-            calendar_events = self.env['student.calendar.event'].search([('milestone_id', '=', milestone.id)])
-            calendar_events.write({
-                'name': f'Milestone deadline: {milestone.name}',
-                'start_datetime': milestone.deadline_date,
-                'end_datetime': milestone.deadline_date,
-            })
+                calendar_events = self.env['student.calendar.event'].search([('milestone_id', '=', milestone.id)])
+                calendar_events.write({
+                    'name': f'Milestone deadline: {milestone.name}',
+                    'start_datetime': milestone.deadline_date,
+                    'end_datetime': milestone.deadline_date,
+                })
 
-            if any(field in vals for field in ['name', 'description', 'deadline_date', 'attachment_ids']):
                 self._send_milestone_notification(is_update=True)
         return res
 
@@ -146,6 +155,8 @@ class StudentMilestone(models.Model):
                     ('name', '=', f"Milestone №{milestone.id} ({milestone.name})")
                 ], limit=1)
                 milestone.channel_id = channel
+
+                milestone.creation_notification_sent = True
 
             if is_update:
                 channel.sudo().message_post(

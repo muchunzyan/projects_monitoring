@@ -45,7 +45,7 @@ class Commission(models.Model):
 
             # Create calendar event for the commission
             self.env['student.calendar.event'].sudo().create({
-                'name': f'Комиссия: {self.name}',
+                'name': f'Commission: {self.name}',
                 'event_type': 'commission',
                 'start_datetime': self.meeting_date,
                 'end_datetime': self.meeting_date,
@@ -53,7 +53,8 @@ class Commission(models.Model):
                 'user_ids': [(6, 0, list(
                     set(self.professor_ids.mapped('professor_account.id')) |
                     set(self.defense_ids.mapped('project_student.student_account.id'))
-                ))]
+                ))],
+                'creator_id': self.env.user.id
             })
 
             # Log the action --------------------
