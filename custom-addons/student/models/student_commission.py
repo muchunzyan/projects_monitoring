@@ -43,6 +43,16 @@ class Commission(models.Model):
 
                         defense.member_grades = [(4, member_grade)]
 
+            poll_option_model = self.env['poll.option'].sudo()
+            poll_model = self.env['poll.poll'].sudo()
+
+            poll_options = poll_option_model.search([('commission_id', '=', self.id)])
+            poll_ids_to_delete = poll_options.mapped('poll_id').ids
+
+            if poll_ids_to_delete:
+                polls_to_delete = poll_model.browse(poll_ids_to_delete)
+                polls_to_delete.unlink()
+
             # Create calendar event for the commission
             self.env['student.calendar.event'].sudo().create({
                 'name': f'Commission: {self.name}',
@@ -110,8 +120,6 @@ class Commission(models.Model):
     def create(self, vals):
         record = super().create(vals)
         record._make_attachments_public()
-        record.create_tasks_and_calendar_events_for_projects()
-        record._send_milestone_notification(is_update=False)
         return record
 
     def _make_attachments_public(self):

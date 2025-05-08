@@ -93,8 +93,6 @@ class Proposal(models.Model):
 	def create(self, vals):
 		record = super().create(vals)
 		record._make_attachments_public()
-		record.create_tasks_and_calendar_events_for_projects()
-		record._send_milestone_notification(is_update=False)
 		return record
 
 	def _make_attachments_public(self):

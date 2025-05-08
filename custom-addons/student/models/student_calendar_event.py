@@ -1,3 +1,5 @@
+from email.policy import default
+
 from markupsafe import Markup
 from odoo import models, fields, api
 from odoo.exceptions import AccessError
@@ -24,11 +26,6 @@ class StudentCalendarEvent(models.Model):
         string='Related Announcement',
         ondelete='cascade'
     )
-    commission_id = fields.Many2one(
-        'student.commission',
-        string='Related Commission',
-        ondelete='cascade'
-    )
     task_id = fields.Many2one(
         'project.task',
         string='Related Task',
@@ -39,6 +36,16 @@ class StudentCalendarEvent(models.Model):
         string='Related Milestone',
         ondelete='cascade'
     )
+    commission_id = fields.Many2one(
+        'student.commission',
+        string='Related Commission',
+        ondelete='cascade'
+    )
+    poll_id = fields.Many2one(
+        'poll.poll',
+        string='Related Poll',
+        ondelete='cascade'
+    )
 
     user_ids = fields.Many2many(
         comodel_name='res.users',
@@ -47,6 +54,8 @@ class StudentCalendarEvent(models.Model):
         column2='user_id',
         string='Participants'
     )
+
+    color = fields.Integer(string="Color Index", default=4)
 
     creator_id = fields.Many2one('res.users', string='Creator', default=lambda self: self.env.user, readonly=True)
     can_edit = fields.Boolean(string="Can Edit", compute="_compute_can_edit", store=False, depends=['creator_id'])

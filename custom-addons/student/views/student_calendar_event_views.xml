@@ -13,7 +13,7 @@
             <calendar string="Calendar"
                       date_start="start_datetime"
                       date_stop="end_datetime"
-                      color="event_type">
+                      color="color">
                 <field name="name"/>
                 <field name="event_type"/>
                 <field name="user_ids"/>

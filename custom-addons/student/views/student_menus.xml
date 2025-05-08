@@ -40,8 +40,9 @@
                           groups="student.group_administrator,student.group_manager,student.group_supervisor"/>
             </menuitem>
             
-            <menuitem id="faculty_first_group_menu" name="Groups">
-                <menuitem id="commission_model_menu_action" action="student_commission_view_action"/>
+            <menuitem id="faculty_first_commission_menu" name="Commission &amp; Polls">
+                <menuitem id="commission_model_menu_action" sequence="1" action="student_commission_view_action"/>
+                <menuitem id="commission_poll_menu_action" sequence="2" action="poll.poll_poll_view_action"/>
             </menuitem>
 
         </menuitem>

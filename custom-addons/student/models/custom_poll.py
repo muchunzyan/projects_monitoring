@@ -1,3 +1,4 @@
+from odoo import api
 from markupsafe import Markup
 from odoo import models, fields, api
 
@@ -51,3 +52,32 @@ class PollOption(models.Model):
     def _onchange_commission_id(self):
         if self.commission_id:
             self.name = f'{self.commission_id.name} ({self.commission_id.meeting_date})'
+
+class PollVote(models.Model):
+    _inherit = 'poll.vote'
+
+    calendar_event_id = fields.Many2one('student.calendar.event', string='Calendar Event', ondelete='set null')
+
+    def write(self, vals):
+        result = super().write(vals)
+        for vote in self:
+            if vote.poll_id:
+                if vals.get('vote') in ['yes', 'maybe']:
+                    event = self.env['student.calendar.event'].sudo().create({
+                        'name': f'Possible Commission: {vote.option_id.commission_id.name}',
+                        'event_type': 'commission',
+                        'poll_id': self.poll_id.id,
+                        'start_datetime': vote.option_id.commission_id.meeting_date,
+                        'end_datetime': vote.option_id.commission_id.meeting_date,
+                        'commission_id': vote.option_id.commission_id.id,
+                        'user_ids': [(6, 0, [vote.user_id.id])],
+                        'creator_id': self.env.user.id,
+                        'color': 0
+                    })
+                    vote.calendar_event_id = event.id
+                elif vals.get('vote') in ['no', False]:
+                    if vote.calendar_event_id:
+                        vote.calendar_event_id.unlink()
+                        vote.calendar_event_id = False
+        print(vals)
+        return result
