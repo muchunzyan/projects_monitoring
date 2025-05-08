@@ -14,7 +14,6 @@
             <form string="Dashboard parameters">
                 <group>
                     <field name="model_name"/>
-                    <field name="metric_id"/>
                     <field name="group_by_field_id"/>
                 </group>
                 <footer>

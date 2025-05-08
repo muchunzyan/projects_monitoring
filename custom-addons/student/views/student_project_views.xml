@@ -291,14 +291,13 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="student_project_graph_view" model="ir.ui.view">
             <field name="name">Projects - Graph View</field>
             <field name="model">student.project</field>
             <field name="type">graph</field>
             <field name="arch" type="xml">
-                <graph string="Project Evaluation" type="pie">
-                    <field name="state_evaluation"/>
+                <graph string="Project Evaluation">
                     <field name="project_state"/>
                 </graph>
             </field>

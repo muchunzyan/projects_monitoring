@@ -1,5 +1,4 @@
 from odoo import api, fields, models
-from datetime import datetime, timedelta
 
 
 class Professor(models.Model):
@@ -17,6 +16,16 @@ class Professor(models.Model):
     professor_account = fields.Many2one('res.users', string='User Account', default=lambda self: self.env.user, required=True)
     professor_faculty = fields.Many2one('student.faculty', string='Faculty', required=True)
     project_ids = fields.One2many('student.project', 'professor_id', string='Projects', domain=[('state_publication','!=','ineligible')])
+
+    number_of_commissions = fields.Integer("Number of Commissions", compute='_compute_number_of_commissions', store=True, readonly=True)
+
+    def compute_number_of_commissions(self):
+        for professor in self:
+            count = self.env['student.commission'].search_count([
+                ('professor_ids', 'in', professor.id)
+            ])
+            professor.number_of_commissions = count
+
 
     @api.depends("professor_account")
     def _compute_name(self):

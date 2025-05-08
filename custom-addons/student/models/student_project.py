@@ -98,21 +98,21 @@ class Project(models.Model):
                                    string='Target Programs',
                                    store=True,
                                    readonly=False)
-    program_ids_count = fields.Integer('Number of Total Submissions', compute="_compute_program_counts", store=True, readonly=True)
+    program_ids_count = fields.Integer('Number of Total Submissions', compute="_compute_program_counts", store=False, readonly=True)
     pending_program_ids = fields.Many2many(comodel_name='student.program',
                                            relation='student_project_pending_program_rel',
                                            column1='project_id',
                                            column2='program_id',
                                            string='Pending Programs (TECHNICAL)',
                                            readonly=True)
-    pending_program_ids_count = fields.Integer('Number of Pending Submissions', compute="_compute_program_counts", store=True, readonly=True)
+    pending_program_ids_count = fields.Integer('Number of Pending Submissions', compute="_compute_program_counts", store=False, readonly=True)
     returned_program_ids = fields.Many2many(comodel_name='student.program',
                                            relation='student_project_returned_program_rel',
                                            column1='project_id',
                                            column2='program_id',
                                            string='Returned Programs (TECHNICAL)',
                                            readonly=True)
-    returned_program_ids_count = fields.Integer('Number of Returned Programs', compute="_compute_program_counts", store=True, readonly=True)
+    returned_program_ids_count = fields.Integer('Number of Returned Programs', compute="_compute_program_counts", store=False, readonly=True)
     approval_ids = fields.Many2many('student.approval', string='Approved for', readonly=False)
     approved_program_ids = fields.Many2many(comodel_name='student.program',
                                             relation='student_project_approved_program_rel',
@@ -120,7 +120,7 @@ class Project(models.Model):
                                             column2='program_id',
                                             string='Applicable Programs',
                                             readonly=True)
-    approved_program_ids_count = fields.Integer('Number of Approved Submissions', compute="_compute_program_counts", store=True, readonly=True)
+    approved_program_ids_count = fields.Integer('Number of Approved Submissions', compute="_compute_program_counts", store=False, readonly=True)
 
     @api.depends('program_ids','pending_program_ids','approved_program_ids')
     def _compute_program_counts(self):
@@ -337,8 +337,8 @@ class Project(models.Model):
 
     # COLORING #        
     # Handle the coloring of the project
-    color_evaluation = fields.Integer(string="Evaluation Card Color", default=4, compute='_compute_evaluation_color_value', store=True)
-    color_publication = fields.Integer(string="Publication Card Color", compute='_compute_publication_color_value', store=True)
+    color_evaluation = fields.Integer(string="Evaluation Card Color", default=4, compute='_compute_evaluation_color_value', store=False)
+    color_publication = fields.Integer(string="Publication Card Color", compute='_compute_publication_color_value', store=False)
 
     # Updates color based on the state
     # 1 - Red | 2 - Orange | 3 - Yellow | 4 - Cyan | 5 - Purple | 6 - Almond | 7 - Teal | 8 - Blue | 9 - Raspberry | 10 - Green | 11 - Violet

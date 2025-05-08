@@ -28,6 +28,9 @@ class Commission(models.Model):
         if not self.lock:
             self.lock = True
 
+            for professor in self.professor_ids:
+                professor.compute_number_of_commissions()
+
             for defense in self.defense_ids:
                 # Set defense project commissions
                 defense.project_id.commission_id = self.id

@@ -40,11 +40,6 @@ class Dashboard(models.TransientModel):
         ('poll.vote', 'Poll Votes'),
     ], string='Model', required=True)
 
-    metric_id = fields.Many2one(
-        'ir.model.fields',
-        string='Metric',
-        domain="[('model', '=', model_name), ('ttype', 'in', ('float', 'integer', 'monetary')), ('store', '=', True), ('name', '!=', 'id')]"
-    )
     group_by_field_id = fields.Many2one(
         'ir.model.fields',
         string='Group By',
@@ -53,8 +48,6 @@ class Dashboard(models.TransientModel):
 
     def action_open_graph(self):
         context = {}
-        if self.metric_id:
-            context['graph_measures'] = [self.metric_id.name]
         if self.group_by_field_id:
             context['graph_groupbys'] = [self.group_by_field_id.name]
         return {
@@ -68,7 +61,6 @@ class Dashboard(models.TransientModel):
 
     @api.onchange('model_name')
     def _onchange_model_name(self):
-        self.metric_id = False
         self.group_by_field_id = False
         return {
             'domain': {
