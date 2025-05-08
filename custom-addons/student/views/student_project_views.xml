@@ -376,7 +376,7 @@
 
         <!-- student_menus.xml refers to this in the menu (for professors) -->
         <record id="student_project_kanban_professor_state" model="ir.actions.act_window">
-            <field name="name">Projects Progress</field>
+            <field name="name">My Projects Progress</field>
             <field name="res_model">student.project</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="view_id" ref="student_project_kanban_view_state"/>
@@ -391,7 +391,7 @@
 
         <!-- student_menus.xml refers to this in the menu (for managers) -->
         <record id="student_project_kanban_manager" model="ir.actions.act_window">
-            <field name="name">Projects Progress</field>
+            <field name="name">All Projects Progress</field>
             <field name="res_model">student.project</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="view_id" ref="student_project_kanban_view_state"/>

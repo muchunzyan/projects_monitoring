@@ -54,7 +54,7 @@
 
             <menuitem id="project_first_project_menu" name="Projects" sequence="2">
                 <menuitem id="project_project_kanban_professor_state" sequence="1" action="student_project_kanban_professor_state" groups="student.group_professor"/>
-                <menuitem id="project_project_kanban_manager" sequence="2" action="student_project_kanban_manager" groups="student.group_manager"/>
+                <menuitem id="project_project_kanban_manager" sequence="2" action="student_project_kanban_manager" groups="student.group_manager,student.group_supervisor"/>
                 <menuitem id="availability_kanban_supervision" sequence="3" action="student_availability_kanban_supervision" groups="student.group_supervisor"/>
                 <menuitem id="project_project_list" sequence="4" action="student_project_view_action_list" groups="student.group_student"/>
                 <menuitem id="project_projects_groups" sequence="5" action="student_projects_group_view_action" groups="student.group_professor,student.group_manager,student.group_supervisor"/>
