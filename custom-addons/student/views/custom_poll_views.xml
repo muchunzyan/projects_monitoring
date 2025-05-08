@@ -9,11 +9,6 @@
                 <xpath expr="//sheet/group[1]/field[@name='option_ids']/tree" position="inside">
                     <field name="commission_id" widget="many2one"/>
                 </xpath>
-
-<!--                <xpath expr="//sheet/group[1]/field[@name='user_ids']" position="attributes">-->
-<!--                    <attribute name="invisible">1</attribute>-->
-<!--                </xpath>-->
-
                 <xpath expr="//sheet/group[1]/field[@name='user_ids']" position="before">
                     <field name="faculty_ids" widget="many2many_tags" readonly="not created_by==uid"/>
                 </xpath>

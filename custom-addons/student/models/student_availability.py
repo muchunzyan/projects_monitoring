@@ -108,7 +108,18 @@ class ProjectAvailability(models.Model):
                     self.color_supervision = 1
                 case _:
                     ValidationError("This project has an invalid supervision state. Please contact the system administrator.")
-   
+
+    @api.model
+    def create(self, vals):
+        record = super().create(vals)
+        record._make_attachments_public()
+        return record
+
+    def _make_attachments_public(self):
+        for availability in self:
+            for attachment in availability.additional_files:
+                attachment.write({'public': True})
+
     @api.model
     def _expand_state_groups(self, states, domain, order):
         return ['pending', 'approved', 'rejected', 'returned'] # 'waiting' is hidden

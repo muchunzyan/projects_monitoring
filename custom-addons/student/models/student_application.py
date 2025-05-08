@@ -114,11 +114,18 @@ class Application(models.Model):
 	def create(self, vals):
 		application = super(Application, self.with_context(tracking_disable=True)).create(vals)
 
+		application._make_attachments_public()
+
 		# Customize the creation log message
 		message = _("A new application has been created by %s.") % (self.env.user.name)
 		application.message_post(body=message)
 
 		return application
+
+	def _make_attachments_public(self):
+		for application in self:
+			for attachment in application.additional_files:
+				attachment.write({'public': True})
 	    
 	@api.onchange('email', 'message', 'project_id', 'additional_email', 'additional_phone', 'telegram')
 	def _check_user_identity(self):

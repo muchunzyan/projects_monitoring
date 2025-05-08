@@ -87,7 +87,20 @@ class Proposal(models.Model):
 	tag_ids = fields.Many2many('student.tag', string='Tags')
 
 	state = fields.Selection([('draft', 'Draft'),('sent', 'Sent'),('accepted', 'Accepted'),('confirmed', 'Confirmed'),('rejected', 'Rejected')], default='draft', readonly=True, string='Proposal State', store=True)
-	sent_date = fields.Date(string='Sent Date')    
+	sent_date = fields.Date(string='Sent Date')
+
+	@api.model
+	def create(self, vals):
+		record = super().create(vals)
+		record._make_attachments_public()
+		record.create_tasks_and_calendar_events_for_projects()
+		record._send_milestone_notification(is_update=False)
+		return record
+
+	def _make_attachments_public(self):
+		for proposal in self:
+			for attachment in proposal.additional_files:
+				attachment.write({'public': True})
 	
 	@api.constrains("feedback")
 	def _check_reason_modified(self):

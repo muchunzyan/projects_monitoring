@@ -106,6 +106,19 @@ class Commission(models.Model):
     meeting_date = fields.Datetime('Date & Time', required=True)
     meeting_other_details = fields.Text('Other Details')
 
+    @api.model
+    def create(self, vals):
+        record = super().create(vals)
+        record._make_attachments_public()
+        record.create_tasks_and_calendar_events_for_projects()
+        record._send_milestone_notification(is_update=False)
+        return record
+
+    def _make_attachments_public(self):
+        for commission in self:
+            for attachment in commission.additional_files:
+                attachment.write({'public': True})
+
     def unlink(self):
         for record in self:
             if not record.env.user.has_group('student.group_administrator'): 
