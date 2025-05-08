@@ -8,8 +8,8 @@ class StudentMilestone(models.Model):
 
     name = fields.Char(string="Name", required=True, translate=True, tracking=True)
     description = fields.Text(string="Description", translate=True)
-    deadline_date = fields.Datetime(string="Deadline", tracking=True)
-    program_ids = fields.Many2many('student.program', string="Target Programs")
+    deadline_date = fields.Datetime(string="Deadline", tracking=True, required=True)
+    program_ids = fields.Many2many('student.program', string="Target Programs", required=True)
     author_id = fields.Many2one(
         comodel_name='res.users',
         string='Author',
@@ -144,6 +144,15 @@ class StudentMilestone(models.Model):
             if is_update:
                 channel = milestone.channel_id
             else:
+                # Send the email --------------------
+                subtype_id = self.env.ref('student.student_message_subtype_email')
+                template = self.env.ref('student.email_template_milestone_created')
+                template.send_mail(self.id,
+                                   email_values={'email_to': ','.join(users.mapped('email')),
+                                                 'subtype_id': subtype_id.id},
+                                   force_send=True)
+                # -----------------------------------
+
                 milestone.env['student.utils'].send_message(
                     'milestone',
                     message_text,

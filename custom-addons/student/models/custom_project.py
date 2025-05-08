@@ -57,6 +57,15 @@ class ProjectTask(models.Model):
                     student_project = self.env['student.project'].search([('project_project_id', '=', project.id)], limit=1)
                     professor = student_project.professor_id if student_project else None
                     if professor and professor.professor_account:
+                        # Send the email --------------------
+                        subtype_id = self.env.ref('student.student_message_subtype_email')
+                        template = self.env.ref('student.email_template_task_completed')
+                        template.send_mail(self.id,
+                                           email_values={'email_to': self.env['res.users'].search([('id', '=', professor.professor_account.id)]).email,
+                                                         'subtype_id': subtype_id.id},
+                                           force_send=True)
+                        # -----------------------------------
+
                         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
                         task_url = f'{base_url}/web#id={self.id}&model=project.task&view_type=form'
 

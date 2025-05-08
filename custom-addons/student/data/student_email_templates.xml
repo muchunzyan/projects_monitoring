@@ -84,7 +84,7 @@
             <field name="auto_delete" eval="False"/>
             <field name="email_from">{{user.email}}</field>
             <field name="email_to">{{object.application_professor.email}}</field>
-            <field name="subject">{{object.applicant_account.name}} sent a an application for «{{object.project_id.name}}»</field>
+            <field name="subject">{{object.applicant_account.name}} sent an application for «{{object.project_id.name}}»</field>
             <field name="body_html">
                 &lt;h2&gt;Hello, &lt;t t-out="object.application_professor.name"/&gt;!&lt;/h2&gt;
                 &lt;p&gt;You have received an application for one of your projects. Please log in to your PaLMS account and review the application in 3 days.&lt;br&gt;
@@ -142,7 +142,7 @@
             <field name="auto_delete" eval="False"/>
             <field name="email_from">{{user.email}}</field>
             <field name="email_to">{{object.professor_account.email}}</field>
-            <field name="subject">{{object.proponent.name}} sent a a proposal</field>
+            <field name="subject">{{object.proponent.name}} sent a proposal</field>
             <field name="body_html">
                 &lt;h2&gt;Hello, &lt;t t-out="object.professor_account.name"/&gt;!&lt;/h2&gt;
                 &lt;p&gt;You have received a proposal from a student. Please log in to your PaLMS account to review it.&lt;br&gt;
@@ -202,9 +202,130 @@
             <field name="subject">Commission №«{{object.commission_number}}» is set.</field>
             <field name="body_html">
                 &lt;h2&gt;Hello, there!&lt;/h2&gt;
-                &lt;p&gt;You are assigned to to a commission to evaluate and grade academic projects. Please log in to PaLMS to check the commission dates and other details.&lt;br&gt;
+                &lt;p&gt;You are assigned to a commission to evaluate and grade academic projects. Please log in to PaLMS to check the commission dates and other details.&lt;br&gt;
                 &lt;br&gt;
                 Best wishes,&lt;br&gt;
+                PaLMS Notification Service
+                &lt;/p&gt;
+            </field>
+        </record>
+
+        <!-- POLL -->
+        <record id="email_template_poll_created" model="mail.template">
+            <field name="name">Poll Created Notification</field>
+            <field name="model_id" ref="poll.model_poll_poll"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_from">{{user.email}}</field>
+            <field name="subject">New Poll «{{object.name}}» Created</field>
+            <field name="body_html">
+                &lt;h2&gt;Hello!&lt;/h2&gt;
+                &lt;p&gt;A new poll titled &lt;b&gt;{{object.name}}&lt;/b&gt; has been created, and you are invited to participate.&lt;br&gt;
+                Please log in to PaLMS to cast your vote.&lt;/p&gt;
+                &lt;p&gt;
+                Best regards,&lt;br&gt;
+                PaLMS Notification Service
+                &lt;/p&gt;
+            </field>
+        </record>
+
+        <!-- TASK COMPLETED -->
+        <record id="email_template_task_completed" model="mail.template">
+            <field name="name">Task Completed Notification</field>
+            <field name="model_id" ref="project.model_project_task"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_from">{{user.email}}</field>
+            <field name="subject">Task «{{object.name}}» has been marked as Completed</field>
+            <field name="body_html">
+                &lt;h2&gt;Hello!&lt;/h2&gt;
+                &lt;p&gt;The following task has been marked as &lt;b&gt;Completed&lt;/b&gt;.&lt;br/&gt;
+                Please review the submitted results and, if everything is correct, change the task status to &lt;b&gt;Approved&lt;/b&gt;.&lt;/p&gt;
+                &lt;p&gt;
+                &lt;b&gt;Task name: &lt;/b&gt;&lt;t t-out="object.name"/&gt;&lt;br/&gt;
+                &lt;/p&gt;
+                &lt;p&gt;
+                Best regards,&lt;br/&gt;
+                PaLMS Notification Service
+                &lt;/p&gt;
+            </field>
+        </record>
+
+        <!-- ANNOUNCEMENT CREATED -->
+        <record id="email_template_announcement_created" model="mail.template">
+            <field name="name">Announcement Created Notification</field>
+            <field name="model_id" ref="student.model_student_announcement"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_from">{{user.email}}</field>
+            <field name="subject">New Announcement «{{object.name}}» Created</field>
+            <field name="body_html">
+                &lt;h2&gt;Hello!&lt;/h2&gt;
+                &lt;p&gt;A new announcement titled &lt;b&gt;{{object.name}}&lt;/b&gt; has been published.&lt;br/&gt;
+                Please log in to PaLMS to check the details.&lt;/p&gt;
+                &lt;p&gt;
+                &lt;b&gt;Deadline: &lt;/b&gt;&lt;t t-out="object.deadline_date"/&gt;&lt;br/&gt;
+                &lt;/p&gt;
+                &lt;p&gt;
+                Best regards,&lt;br/&gt;
+                PaLMS Notification Service
+                &lt;/p&gt;
+            </field>
+        </record>
+
+        <!-- CALENDAR EVENT CREATED -->
+        <record id="email_template_calendar_event_created" model="mail.template">
+            <field name="name">Calendar Event Created Notification</field>
+            <field name="model_id" ref="student.model_student_calendar_event"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_from">{{user.email}}</field>
+            <field name="subject">New Event «{{object.name}}» Scheduled</field>
+            <field name="body_html">
+                &lt;h2&gt;Hello!&lt;/h2&gt;
+                &lt;p&gt;You have been invited to a new event: &lt;b&gt;{{object.name}}&lt;/b&gt;.&lt;br/&gt;
+                Please log in to PaLMS to check the details and prepare if needed.&lt;/p&gt;
+                &lt;p&gt;
+                &lt;b&gt;Start: &lt;/b&gt;&lt;t t-out="object.start_datetime"/&gt;&lt;br/&gt;
+                &lt;b&gt;End: &lt;/b&gt;&lt;t t-out="object.end_datetime"/&gt;&lt;br/&gt;
+                &lt;/p&gt;
+                &lt;p&gt;
+                Best regards,&lt;br/&gt;
+                PaLMS Notification Service
+                &lt;/p&gt;
+            </field>
+        </record>
+
+        <!-- MILESTONE CREATED -->
+        <record id="email_template_milestone_created" model="mail.template">
+            <field name="name">Milestone Created Notification</field>
+            <field name="model_id" ref="student.model_student_milestone"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_from">{{user.email}}</field>
+            <field name="subject">New Milestone «{{object.name}}» Created</field>
+            <field name="body_html">
+                &lt;h2&gt;Hello!&lt;/h2&gt;
+                &lt;p&gt;A new milestone titled &lt;b&gt;{{object.name}}&lt;/b&gt; has been created and assigned to you or your program.&lt;br/&gt;
+                Please log in to PaLMS to check the details and deadlines.&lt;/p&gt;
+                &lt;p&gt;
+                &lt;b&gt;Deadline: &lt;/b&gt;&lt;t t-out="object.deadline_date"/&gt;&lt;br/&gt;
+                &lt;/p&gt;
+                &lt;p&gt;
+                Best regards,&lt;br/&gt;
+                PaLMS Notification Service
+                &lt;/p&gt;
+            </field>
+        </record>
+
+        <!-- REVIEW TABLE CREATED -->
+        <record id="email_template_review_table_created" model="mail.template">
+            <field name="name">Review Table Created Notification</field>
+            <field name="model_id" ref="student.model_student_review_table"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_from">{{user.email}}</field>
+            <field name="subject">New Review Table «{{object.name}}» Created</field>
+            <field name="body_html">
+                &lt;h2&gt;Hello!&lt;/h2&gt;
+                &lt;p&gt;A new review table titled &lt;b&gt;{{object.name}}&lt;/b&gt; has been created and assigned to you or your group.&lt;br/&gt;
+                Please log in to PaLMS to check the evaluation details and schedule.&lt;/p&gt;
+                &lt;p&gt;
+                Best regards,&lt;br/&gt;
                 PaLMS Notification Service
                 &lt;/p&gt;
             </field>

@@ -117,6 +117,15 @@ class Announcement(models.Model):
                     if is_update:
                         channel = announcement.channel_id
                     else:
+                        # Send the email --------------------
+                        subtype_id = self.env.ref('student.student_message_subtype_email')
+                        template = self.env.ref('student.email_template_announcement_created')
+                        template.send_mail(self.id,
+                                           email_values={'email_to': ','.join(users.mapped('email')),
+                                                         'subtype_id': subtype_id.id},
+                                           force_send=True)
+                        # -----------------------------------
+
                         announcement.env['student.utils'].send_message(
                             'announcement',
                             message_text,

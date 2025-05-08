@@ -52,11 +52,21 @@ class ReviewTable(models.Model):
             table.write({'line_ids': lines})
 
             if lines:
-                message_text = Markup(
-                    f"A new review table <a href=\"/web#id={table.id}&model=student.review.table&view_type=form\">{table.name}</a> has been created. Please select projects for review!")
                 professors = self.env['student.professor'].search([
                     ('professor_faculty.program_ids', 'in', table.program_ids.ids)
                 ]).mapped('professor_account')
+
+                # Send the email --------------------
+                subtype_id = self.env.ref('student.student_message_subtype_email')
+                template = self.env.ref('student.email_template_review_table_created')
+                template.send_mail(self.id,
+                                   email_values={'email_to': ','.join(professors.mapped('email')),
+                                                 'subtype_id': subtype_id.id},
+                                   force_send=True)
+                # -----------------------------------
+
+                message_text = Markup(
+                    f"A new review table <a href=\"/web#id={table.id}&model=student.review.table&view_type=form\">{table.name}</a> has been created. Please select projects for review!")
                 table.env['student.utils'].send_message(
                     'review_table',
                     message_text,

@@ -18,6 +18,15 @@ class Poll(models.Model):
     def _send_poll_notification(self, update=False):
         if self.user_ids:
             if not update:
+                # Send the email --------------------
+                subtype_id = self.env.ref('student.student_message_subtype_email')
+                template = self.env.ref('student.email_template_poll_created')
+                template.send_mail(self.id,
+                                   email_values={'email_to': ','.join(self.user_ids.mapped('email')),
+                                                 'subtype_id': subtype_id.id},
+                                   force_send=True)
+                # -----------------------------------
+
                 message_text = Markup(
                     f"A new poll <a href=\"/web#id={self.id}&model=poll.poll&view_type=form\">{self.name}</a> has been created for you. Please vote!")
             else:
