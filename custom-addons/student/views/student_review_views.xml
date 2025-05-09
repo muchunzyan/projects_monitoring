@@ -51,6 +51,7 @@
                                     <field name="project_id" readonly="parent.creator_id != uid"/>
                                     <field name="reviewer_id"/>
                                     <field name="sent_by"/>
+                                    <field name="sent"/>
                                 </tree>
                             </field>
                         </group>

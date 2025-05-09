@@ -1,3 +1,5 @@
+from email.policy import default
+
 from odoo import models, fields, api
 from markupsafe import Markup
 
@@ -27,7 +29,7 @@ class ReviewTable(models.Model):
         for record in self:
             if not record.line_ids:
                 record.state = 'draft'
-            elif all((line.reviewer_id and line.sent_by) for line in record.line_ids):
+            elif all((line.reviewer_id and line.sent_by and line.sent) for line in record.line_ids):
                 record.state = 'completed'
             else:
                 record.state = 'in_progress'
@@ -86,7 +88,7 @@ class ReviewTable(models.Model):
         for table in self:
             if table.state == 'completed':
                 message_text = Markup(
-                    f"All reviews have been selected for the table <a href=\"/web#id={table.id}&model=student.review.table&view_type=form\">{table.name}</a>.")
+                    f"All works have been sent to the reviewers for the table <a href=\"/web#id={table.id}&model=student.review.table&view_type=form\">{table.name}</a>.")
                 table.env['student.utils'].send_message(
                     'review_table',
                     message_text,
@@ -113,6 +115,7 @@ class ReviewLine(models.Model):
         ('student', 'Student'),
         ('professor', 'Professor')
     ], string='The work will be sent to the reviewer by')
+    sent = fields.Boolean(string='The paper has been sent to the reviewer', default=False)
 
     _sql_constraints = [
         ('unique_project_in_table', 'unique(project_id, table_id)', 'Each project can appear only once in the same review table.')
