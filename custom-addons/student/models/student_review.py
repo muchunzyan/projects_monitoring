@@ -1,5 +1,3 @@
-from email.policy import default
-
 from odoo import models, fields, api
 from markupsafe import Markup
 
@@ -33,6 +31,36 @@ class ReviewTable(models.Model):
                 record.state = 'completed'
             else:
                 record.state = 'in_progress'
+
+    def send_notifications_to_reviewers(self):
+        for table in self:
+            for line in table.line_ids:
+                if line.reviewer_id and line.sent_by:
+                    user = line.reviewer_id.professor_account
+                    if user:
+                        subtype_id = self.env.ref('student.student_message_subtype_email')
+                        template = self.env.ref('student.email_template_reviewer_assigned')
+                        template.send_mail(
+                            line.id,
+                            email_values={
+                                'email_to': user.email,
+                                'subtype_id': subtype_id.id
+                            },
+                            force_send=True
+                        )
+
+                        message_text = Markup(
+                            f"You have been assigned to review the project. See "
+                            f"<a href=\"/web#id={table.id}&model=student.review.table&view_type=form\">"
+                            f"{table.name}</a>."
+                        )
+                        self.env['student.utils'].send_message(
+                            'review_line',
+                            message_text,
+                            [user],
+                            self.env.user,
+                            (str(line.project_id), str(line.project_id.name))
+                        )
 
     @api.onchange('program_ids')
     def _onchange_program_ids(self):
@@ -100,6 +128,7 @@ class ReviewTable(models.Model):
     def write(self, vals):
         result = super().write(vals)
         for record in self:
+            record.send_notifications_to_reviewers()
             record.check_review_completion()
         return result
 

@@ -26,6 +26,8 @@ class StudentUtils(models.AbstractModel):
             channel_name = "Poll №" + tuple_id + " (" + tuple_name + ")"
         elif source == 'review_table':
             channel_name = "Review Table №" + tuple_id + " (" + tuple_name + ")"
+        elif source == 'review_line':
+            channel_name = "Project Review: " + tuple_name
         elif source == 'calendar_event':
             channel_name = "Calendar Event №" + tuple_id + " (" + tuple_name + ")"
         else:

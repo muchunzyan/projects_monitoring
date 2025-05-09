@@ -330,5 +330,23 @@
                 &lt;/p&gt;
             </field>
         </record>
+
+        <!-- REVIEWER ASSIGNED -->
+        <record id="email_template_reviewer_assigned" model="mail.template">
+            <field name="name">Reviewer Assigned Notification</field>
+            <field name="model_id" ref="student.model_student_review_line"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_from">{{user.email}}</field>
+            <field name="subject">You were assigned as a reviewer for project «{{object.project_id.name}}»</field>
+            <field name="body_html">
+                &lt;h2&gt;Hello!&lt;/h2&gt;
+                &lt;p&gt;You have been assigned as a reviewer for the project &lt;b&gt;{{object.project_id.name}}&lt;/b&gt;.&lt;br/&gt;
+                Please log in to PaLMS and check the review table for detailed information.&lt;/p&gt;
+                &lt;p&gt;
+                Best regards,&lt;br/&gt;
+                PaLMS Notification Service
+                &lt;/p&gt;
+            </field>
+        </record>
     </data>
 </odoo>
