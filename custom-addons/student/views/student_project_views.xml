@@ -87,6 +87,7 @@
                                 </group>
                                 <group>
                                     <field name="format" readonly="state_evaluation != 'draft'"/>
+                                    <field name="type" readonly="state_evaluation != 'draft'"/>
                                     <field name="language" readonly="state_evaluation != 'draft'"/>
                                 </group>
                                 <group colspan="2">
@@ -284,6 +285,7 @@
                     <field name="name"/>
                     <field name="professor_id"/>
                     <field name="format"/>
+                    <field name="type"/>
                     <field name="language"/>
                     <field name="program_ids" widget="many2many_tags"/>
                     <field name="approval_ids" widget="many2many_tags"/>

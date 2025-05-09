@@ -9,6 +9,10 @@ class ReviewTable(models.Model):
 
     name = fields.Char(string='Name', required=True, default=lambda self: 'New Review Table')
     program_ids = fields.Many2many('student.program', string='Programs', required=True)
+    type = fields.Selection([
+        ('cw', 'Course Work (Курсовая работа)'),
+        ('fqw', 'Final Qualifying Work (ВКР)')
+    ], string="Project Type (КР/ВКР)", required=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('in_progress', 'In Progress'),
@@ -41,6 +45,7 @@ class ReviewTable(models.Model):
                 ('plagiarism_check_file', '!=', False),
                 ('student_feedback', '!=', False),
                 ('program_ids', 'in', table.program_ids.ids),
+                ('type', '=', table.type)
             ])
 
             lines = []

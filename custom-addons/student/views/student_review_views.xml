@@ -18,6 +18,7 @@
                 <tree string="Review Tables">
                     <field name="name"/>
                     <field name="program_ids" widget="many2many_tags"/>
+                    <field name="type"/>
                     <field name="state"/>
                     <field name="creator_id"/>
                 </tree>
@@ -41,6 +42,7 @@
                         <group>
                             <field name="name" readonly="creator_id != uid"/>
                             <field name="program_ids" widget="many2many_tags" readonly="creator_id != uid"/>
+                            <field name="type" readonly="creator_id != uid"/>
                             <field name="creator_id" readonly="1"/>
                         </group>
                         <group>

@@ -175,6 +175,7 @@ class Proposal(models.Model):
 				'faculty_id': self.proponent.student_faculty,
 				'program_ids': self.proponent.student_program,
 				'format': self.format,
+				'type': self.type,
 				'is_group_project': self.is_group_project,
 				'language': self.language,
 				'proposal_id': self.id,

@@ -60,6 +60,7 @@ class Project(models.Model):
                      and user.id == self.commission_head.professor_account.id))
 
     format = fields.Selection([('research', 'Research'), ('project', 'Project'), ('startup', 'Start-up')], string="Format", default="research", required=True)
+    type = fields.Selection([('cw', 'Course Work (Курсовая работа)'), ('fqw', 'Final Qualifying Work (ВКР)')], string="Project Type", required=True)
     language = fields.Selection([('en', 'English'), ('ru', 'Russian')], default="en", string="Language", required=True)
 
     create_date = fields.Datetime("Created", readonly=True)
