@@ -22,12 +22,12 @@ class ReviewTable(models.Model):
     line_ids = fields.One2many('student.review.line', 'table_id', string='Review Lines')
     professor_ids = fields.Many2many('res.users', string='Professors', readonly=True)
 
-    @api.depends('line_ids.reviewer_id', 'line_ids')
+    @api.depends('line_ids.reviewer_id', 'line_ids.sent_by', 'line_ids')
     def _compute_state(self):
         for record in self:
             if not record.line_ids:
                 record.state = 'draft'
-            elif all(line.reviewer_id for line in record.line_ids):
+            elif all((line.reviewer_id and line.sent_by) for line in record.line_ids):
                 record.state = 'completed'
             else:
                 record.state = 'in_progress'
@@ -109,6 +109,10 @@ class ReviewLine(models.Model):
     table_id = fields.Many2one('student.review.table', string='Review Table', required=True, ondelete='cascade')
     project_id = fields.Many2one('student.project', string='Project', required=True)
     reviewer_id = fields.Many2one('student.professor', string='Reviewer')
+    sent_by = fields.Selection([
+        ('student', 'Student'),
+        ('professor', 'Professor')
+    ], string='The work will be sent to the reviewer by')
 
     _sql_constraints = [
         ('unique_project_in_table', 'unique(project_id, table_id)', 'Each project can appear only once in the same review table.')
