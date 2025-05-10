@@ -14,7 +14,7 @@ class Project(models.Model):
             self.current_user_follower = True if self.env['res.users'].browse(self.env.user.id).partner_id.id in partner_ids else False
         else:
             self.current_user_follower = False
-        
+
     proposal_id = fields.Many2one('student.proposal', string="Proposal", readonly=True)
 
     state_evaluation = fields.Selection([('draft', 'Draft'),
@@ -24,11 +24,11 @@ class Project(models.Model):
                                          ('rejected', 'Rejected')],
                                          group_expand='_expand_evaluation_groups', default='draft', string='Evaluation State', readonly=True, tracking=True)
     state_publication = fields.Selection([('ineligible', 'Ineligible'),
-                                          ('published', 'Published'),       
+                                          ('published', 'Published'),
                                           ('applied', 'Application Received'),
                                           ('assigned', 'Assigned'),
                                           ('completed', 'Completed'),
-                                          ('dropped', 'Dropped')],           
+                                          ('dropped', 'Dropped')],
                                           group_expand='_expand_publication_groups', default='ineligible', string='Publication State', readonly=True, tracking=True)
 
     project_state = fields.Selection([('draft', 'Draft'),
@@ -77,6 +77,16 @@ class Project(models.Model):
     requirements = fields.Text('Application Requirements', required=True)
     results = fields.Text('Expected Results', required=True)
 
+    reviewer_status = fields.Selection([
+        ('with', 'With Reviewer'),
+        ('without', 'Without Reviewer')
+    ], compute='_compute_reviewer_status', store=True)
+
+    def _compute_reviewer_status(self):
+        for record in self:
+            review_line = self.env['student.review.line'].search([('project_id', '=', record.id), ('reviewer_id', '!=', False)], limit=1)
+            record.reviewer_status = 'with' if review_line else 'without'
+
     # ♥ You can merge these functions.
     # Assigns the professor's faculty
     @api.model
@@ -90,8 +100,8 @@ class Project(models.Model):
     def _default_faculty(self):
         professor = self.env['student.professor'].sudo().search([('professor_account.id', '=', self.env.uid)], limit=1)
         return professor.professor_faculty if professor else False
-    faculty_id = fields.Many2many('student.faculty', string='Faculty', default=_default_faculty, required=True) 
-      
+    faculty_id = fields.Many2many('student.faculty', string='Faculty', default=_default_faculty, required=True)
+
     program_ids = fields.Many2many(comodel_name='student.program',
                                    relation='student_project_program_rel',
                                    column1='project_id',
@@ -129,7 +139,7 @@ class Project(models.Model):
         self.pending_program_ids_count = len(self.pending_program_ids)
         self.returned_program_ids_count = len(self.returned_program_ids)
         self.approved_program_ids_count = len(self.approved_program_ids)
-    
+
     availability_ids = fields.One2many('student.availability', 'project_id', string='Target Programs')
 
     reason = fields.Text(string='Return/Rejection Reason')
@@ -141,7 +151,7 @@ class Project(models.Model):
         for record in self:
             supervisor_ids = record.program_ids.mapped('supervisor.supervisor_account.id')
             record.program_supervisors = [(6, 0, supervisor_ids)]
-    
+
     assigned = fields.Boolean('Assigned to a student?', default=False, readonly=True)
     is_group_project = fields.Boolean(string='Is Group Project?', default=False)
     projects_group_id = fields.Many2one('student.projects.group', string='Projects Group')
@@ -201,7 +211,7 @@ class Project(models.Model):
     def _compute_file_count(self):
         self.file_count = len(self.additional_files)
 
-    result_text = fields.Text(string='Results')    
+    result_text = fields.Text(string='Results')
     result_files = fields.Many2many(
         comodel_name='ir.attachment',
         relation='student_project_result_files_rel',
@@ -216,29 +226,29 @@ class Project(models.Model):
         string='Milestone Results'
     )
 
-    additional_resources = fields.Text(string='Additional Resources')  
-    student_feedback = fields.Text(string='Student Feedback')   
-    professor_grade = fields.Selection([('1', '1'),       
+    additional_resources = fields.Text(string='Additional Resources')
+    student_feedback = fields.Text(string='Student Feedback')
+    professor_grade = fields.Selection([('1', '1'),
                                         ('2', '2'),
                                         ('3', '3'),
                                         ('4', '4'),
                                         ('5', '5'),
                                         ('6', '6'),
-                                        ('7', '7'),  
-                                        ('8', '8'),  
-                                        ('9', '9'),  
-                                        ('10', '10')], string='Professor Grade (1-10)')   
-    notes = fields.Text(string='Notes & Comments')        
-    grade = fields.Selection([('1', '1'),       
+                                        ('7', '7'),
+                                        ('8', '8'),
+                                        ('9', '9'),
+                                        ('10', '10')], string='Professor Grade (1-10)')
+    notes = fields.Text(string='Notes & Comments')
+    grade = fields.Selection([('1', '1'),
                               ('2', '2'),
                               ('3', '3'),
                               ('4', '4'),
                               ('5', '5'),
                               ('6', '6'),
-                              ('7', '7'),  
-                              ('8', '8'),  
-                              ('9', '9'),  
-                              ('10', '10')], string='Commission Grade (1-10)')  
+                              ('7', '7'),
+                              ('8', '8'),
+                              ('9', '9'),
+                              ('10', '10')], string='Commission Grade (1-10)')
     commission_id = fields.Many2one('student.commission', string='Defense Commission')
 
     @api.depends('student_elected')
@@ -251,7 +261,7 @@ class Project(models.Model):
     def _default_professor(self):
         professor = self.env['student.professor'].sudo().search([('professor_account.id', '=', self.env.uid)], limit=1)
         if professor:
-            return professor.id 
+            return professor.id
         else:
             raise ValidationError("The user is not registered as a professor. Contact the administrator for the fix.")
 
@@ -262,7 +272,7 @@ class Project(models.Model):
     def _compute_professor_account(self):
         for project in self:
             project.professor_account = project.professor_id.professor_account
-    
+
     applications = fields.Integer('Number of Applications', compute='_compute_application_count', readonly=True)
     application_ids = fields.One2many('student.application', 'project_id', string='Applications', domain=[('state','in',['sent','accepted','rejected'])])
 
@@ -309,14 +319,14 @@ class Project(models.Model):
                         args.append(('faculty_id', 'in', [user_faculty.id]))
                 else:
                     raise AccessError("The user is not correctly registered in any of the faculties. Contact the administrator for the fix.")
-        
+
         # AVAILABILITY FILTER for students in 'Available Projects'
         if active_view_type == 'available_projects':
             if self.env.user.has_group('student.group_student'):
                 student_program = self.env['student.student'].sudo().search([('student_account', '=', self.env.user.id)], limit=1).student_program
-    
+
             # Students can view projects only if they are applied for their programs
-            if not self.env.user.has_group('student.group_administrator'):  
+            if not self.env.user.has_group('student.group_administrator'):
                 if student_program:
                     args.append(('approved_program_ids', 'in', [student_program.id]))
                 else:
@@ -328,7 +338,7 @@ class Project(models.Model):
                 supervisor_program = self.env['student.supervisor'].sudo().search([('supervisor_account', '=', self.env.user.id)], limit=1).program_ids.ids
 
             # Supervisors view projects as pending only if they haven't processed them yet
-            if not self.env.user.has_group('student.group_administrator'): 
+            if not self.env.user.has_group('student.group_administrator'):
                 if supervisor_program:
                     args.append(('pending_program_ids', '=', supervisor_program[0]))
                 else:
@@ -336,7 +346,7 @@ class Project(models.Model):
 
         return super(Project, self).search(args, offset=offset, limit=limit, order=order)
 
-    # COLORING #        
+    # COLORING #
     # Handle the coloring of the project
     color_evaluation = fields.Integer(string="Evaluation Card Color", default=4, compute='_compute_evaluation_color_value', store=False)
     color_publication = fields.Integer(string="Publication Card Color", compute='_compute_publication_color_value', store=False)
@@ -348,7 +358,7 @@ class Project(models.Model):
         # ♥ Why does 'self' bring multiple projects?
         for project in self:
             match project.state_evaluation:
-                case 'draft': 
+                case 'draft':
                     self.color_evaluation = 4
                 case 'progress':
                     self.color_evaluation = 3
@@ -365,7 +375,7 @@ class Project(models.Model):
     def _compute_publication_color_value(self):
         for project in self:
             match project.state_publication:
-                case 'published': 
+                case 'published':
                     self.color_publication = 4
                 case 'applied':
                     self.color_publication = 5
@@ -382,7 +392,7 @@ class Project(models.Model):
     @api.model
     def _expand_evaluation_groups(self, states, domain, order):
         return ['draft', 'progress', 'approved', 'mixed', 'rejected']
-    
+
     @api.model
     def _expand_publication_groups(self, states, domain, order):
         return ['published', 'applied', 'assigned', 'completed', 'dropped'] # 'ineligible' is hidden
@@ -421,7 +431,7 @@ class Project(models.Model):
     # ♥ You may send different messages submission and re-submission.
     def action_view_project_submit(self):
         self._check_professor_identity()
-        
+
         if len(self.availability_ids) <= 0:
             raise AccessError("You need to choose programs to submit first!")
         elif self.state_evaluation == 'draft':
@@ -443,13 +453,13 @@ class Project(models.Model):
             supervisor_name_list = [supervisor.name for supervisor in self.program_supervisors]
             body = f"The project is submitted for the approval of supervisor(s). <br> <i><b>Supervisor(s):</b> {', '.join(supervisor_name_list)}</i>"
             self.message_post(body=Markup(body), subtype_id=subtype_id.id)
-            
+
             # Send the email --------------------
             subtype_id = self.env.ref('student.student_message_subtype_email')
             template = self.env.ref('student.email_template_project_submission')
-            template.send_mail(self.id, 
+            template.send_mail(self.id,
                                email_values={'email_to': ','.join([supervisor.email for supervisor in self.program_supervisors]),
-                                             'subtype_id': subtype_id.id}, 
+                                             'subtype_id': subtype_id.id},
                                force_send=True)
             # -----------------------------------
 
@@ -463,7 +473,7 @@ class Project(models.Model):
             # ♥ This strangely prevents the project status to be immediately updated in the UI.
         else:
             raise AccessError("Projects in this state cannot be submitted!")
-    
+
     def action_view_project_cancel(self, automatic=False):
         if not automatic:
             self._check_professor_identity()
@@ -503,8 +513,8 @@ class Project(models.Model):
 
                 return self.env['student.utils'].message_display('Automatic Cancellation', 'The project submission is automatically cancelled.', False)
 
-         
-    # Check if all supervisors have decided. If yes, mark the project accordingly.      
+
+    # Check if all supervisors have decided. If yes, mark the project accordingly.
     def _check_decisions(self):
         if len(self.pending_program_ids) == 0:
             if len(self.approved_program_ids) == len(self.program_ids):
@@ -520,14 +530,14 @@ class Project(models.Model):
 
     def action_view_project_approve(self, approved_program_id):
         if self.state_evaluation == "progress":
-            if self.proposal_id:              
+            if self.proposal_id:
                 self.write({'state_evaluation': 'approved', 'state_publication': 'assigned'})
                 self.sudo().create_project_project()
 
                 # Assign the user to the special group for them to view "My Project" menu
-                group_id = self.env.ref('student.group_elected_student') 
+                group_id = self.env.ref('student.group_elected_student')
                 group_id.users = [(4, self.student_elected.student_account.id)]
-            else:                
+            else:
                 self.approved_program_ids = [(4, approved_program_id)]
                 self.pending_program_ids = [(3, approved_program_id)]
 
@@ -559,49 +569,49 @@ class Project(models.Model):
             return self.env['student.utils'].message_display('Approval', 'The project is successfully approved.', False)
         else:
             raise UserError("You can only reject projects submissions in 'Pending' status.")
-	
-    # RESTRICTIONS #            
+
+    # RESTRICTIONS #
     @api.constrains("result_text", "notes")
     def _check_modifier_faculty_member(self):
         if self.state_publication == 'completed':
-            commission_head_account = self.commission_id.commission_head.professor_account   
+            commission_head_account = self.commission_id.commission_head.professor_account
             if commission_head_account:
                 if commission_head_account.id != self.env.user.id:
                     raise UserError("Only the commission head (" + commission_head_account.name + ") can modify these fields.")
             else:
                 raise ValidationError("There is no commission assigned for this project, please contact the program manager.")
-            
+
     @api.constrains("name", "format", "language", "description", "requirements", "results", "additional_files", "professor_review_file", "professor_feedback", "professor_grade", "tag_ids")
     def _check_modifier_professor(self):
         if (self.env.user.id != self.professor_account.id and
                 not (self.env.user.has_group('student.group_supervisor') or
                      self.env.user.has_group('student.group_administrator'))):
             raise UserError("You cannot modify projects of other professors.")
-        
+
     @api.constrains("project_report_file", "project_check_file", "student_feedback", "additional_resources")
     def _check_modifier_student(self):
         if self.state_publication == "assigned" and self.env.user.id != self.student_elected.student_account.id:
             raise UserError("These fields can be modified by the assigned student.")
-        
+
     def unlink(self):
         for record in self:
-            if not record.env.user.has_group('student.group_administrator'): 
+            if not record.env.user.has_group('student.group_administrator'):
                 if record.state_publication == "assigned":
                     raise UserError(_('Only administrators can delete assigned projects!'))
                 elif record.env.uid != record.professor_account.id or record.env.uid in record.program_supervisors.ids:
                     raise UserError(_('Only its professor or related supervisors can delete this project!'))
 
             # Remove the student from the group
-            group_id = record.env.ref('student.group_elected_student') 
+            group_id = record.env.ref('student.group_elected_student')
             group_id.users = [(3, record.student_elected.id)]
 
             record.availability_ids.unlink()
             record.approval_ids.unlink()
-        
+
         return super(Project, self).unlink()
-        
+
     def action_view_project_reject(self, rejected_availability_id):
-        if self.state_evaluation == "progress":            
+        if self.state_evaluation == "progress":
             self.pending_program_ids = [(3, rejected_availability_id.program_id.id)]
             self.write({'state_evaluation': self._check_decisions()})
 
@@ -630,9 +640,9 @@ class Project(models.Model):
             return self.env['student.utils'].message_display('Rejection', 'The project is rejected.', False)
         else:
             raise UserError("This project cannot be processed. Please contact the administrator.")
-    
+
     def action_view_project_return(self, returned_availability_id):
-        if self.state_evaluation == "progress":     
+        if self.state_evaluation == "progress":
             self.returned_program_ids = [(4, returned_availability_id.program_id.id)]
             self.pending_program_ids = [(3, returned_availability_id.program_id.id)]
             if self._check_decisions() == 'draft':
@@ -658,7 +668,7 @@ class Project(models.Model):
                 self.env['student.utils'].send_message('project', Markup(message_text), self.professor_account, self.env.user, (str(self.id),str(self.name)))
 
                 return self.env['student.utils'].message_display('Return', 'The project is returned.', False)
-            
+
     def action_view_project_complete(self):
         if self.project_report_file and self.plagiarism_check_file and self.professor_review_file:
             self.state_publication = 'completed'
@@ -695,10 +705,10 @@ class Project(models.Model):
             if student_record.student_program not in self.approved_program_ids:
                 raise UserError("This project is not applicable for your program, please use filters to find another one.")
             elif student_record.degree.id in self.env['student.availability'].search([('project_id','=',self.id),
-                                                                                   ('program_id','=',student_record.student_program.id), 
+                                                                                   ('program_id','=',student_record.student_program.id),
                                                                                    ('state','=','approved')]).degree_ids.ids:
                 self.ensure_one()
-                
+
                 return {
                     'type': 'ir.actions.act_window',
                     'name': 'Create Application',
@@ -711,7 +721,7 @@ class Project(models.Model):
                 }
             else:
                 raise UserError("This project is not applicable for your level of education, please use filters to find another one.")
-    
+
     # Navigates to events of this project
     def action_view_project_events(self):
         action = self.env.ref('student.action_open_project_tasks').read()[0]
