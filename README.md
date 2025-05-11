@@ -1,7 +1,7 @@
 # Projects monitoring Odoo module
 
 ## Description
-This module for Odoo 16 offers a solution to...
+This module for Odoo 18 offers a solution to...
 
 ## Installation
 To run the project:
