@@ -2,7 +2,7 @@
     <record id="student_calendar_event_view_action" model="ir.actions.act_window">
         <field name="name">Calendar</field>
         <field name="res_model">student.calendar.event</field>
-        <field name="view_mode">calendar,tree,form</field>
+        <field name="view_mode">calendar,list,form</field>
         <field name="domain">['|', ('user_ids', 'in', [uid]), ('creator_id', 'in', [uid])]</field>
     </record>
 

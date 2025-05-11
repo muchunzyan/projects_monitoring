@@ -7,10 +7,10 @@
                 <menuitem id="calendar_action" action="student_calendar_event_view_action" sequence="2"/>
             </menuitem>
             <menuitem id="submissions_and_participation_second_level_menu" name="Submissions &amp; Participation" sequence="2">
-                <menuitem id="proposals_for_student_action" action="student_proposal_view_personal" sequence="1" groups="student.group_student"/>
-                <menuitem id="applications_action" action="student_application_view_personal" sequence="2" groups="student.group_student"/>
-                <menuitem id="applications_professor_action" action="student_application_view_professor" sequence="3" groups="student.group_professor"/>
-                <menuitem id="my_projects_for_student_action" action="student_projects_view_personal" sequence="4" groups="student.group_elected_student"/>
+                <menuitem id="proposals_for_student_action" action="student_proposal_view_personal" sequence="1" groups="student.group_student,student.group_administrator"/>
+                <menuitem id="applications_action" action="student_application_view_personal" sequence="2" groups="student.group_student,student.group_administrator"/>
+                <menuitem id="applications_professor_action" action="student_application_view_professor" sequence="3" groups="student.group_professor,student.group_administrator"/>
+                <menuitem id="my_projects_for_student_action" action="student_projects_view_personal" sequence="4" groups="student.group_elected_student,student.group_administrator"/>
             </menuitem>
             <menuitem id="dashboards_second_level_menu" name="Dashboards" sequence="3">
                 <menuitem id="dashboards_action" action="student_dashboard_view_action" sequence="1" groups="student.group_manager,student.group_supervisor,student.group_professor"/>
@@ -19,24 +19,24 @@
 
         <menuitem id="projects_first_level_menu" name="Projects" sequence="2">
             <menuitem id="project_lifecycle_second_level_menu" name="Project Lifecycle" sequence="1">
-                <menuitem id="proposals_for_professor_action" action="student_proposal_view_professor" sequence="1" groups="student.group_professor"/>
+                <menuitem id="proposals_for_professor_action" action="student_proposal_view_professor" sequence="1" groups="student.group_professor,student.group_administrator"/>
                 <menuitem id="project_availability_action" action="student_availability_view_action" sequence="2" groups="student.group_administrator"/>
-                <menuitem id="available_projects_action" action="student_project_view_action_list" sequence="3" groups="student.group_student"/>
-                <menuitem id="application_list_for_professors_action" action="student_application_view_public" sequence="4" groups="student.group_supervisor,student.group_professor"/>
-                <menuitem id="all_proposals_action" action="student_proposal_view_public" sequence="5" groups="student.group_manager,student.group_supervisor"/>
+                <menuitem id="available_projects_action" action="student_project_view_action_list" sequence="3" groups="student.group_student,student.group_administrator"/>
+                <menuitem id="application_list_for_professors_action" action="student_application_view_public" sequence="4" groups="student.group_supervisor,student.group_professor,student.group_administrator"/>
+                <menuitem id="all_proposals_action" action="student_proposal_view_public" sequence="5" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
             </menuitem>
             <menuitem id="milestones_second_level_menu" name="Milestones" sequence="2">
-                <menuitem id="milestones_action" action="student_milestone_view_action" sequence="1" groups="student.group_manager,student.group_supervisor,student.group_professor,student.group_student"/>
-                <menuitem id="milestone_results_action" action="student_milestone_result_view_action" sequence="2" groups="student.group_manager,student.group_supervisor"/>
+                <menuitem id="milestones_action" action="student_milestone_view_action" sequence="1"/>
+                <menuitem id="milestone_results_action" action="student_milestone_result_view_action" sequence="2" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
             </menuitem>
             <menuitem id="progress_tracking_second_level_menu" name="Progress Tracking" sequence="3">
-                <menuitem id="my_projects_progress_for_professors_action" action="student_project_kanban_professor_state" sequence="1" groups="student.group_professor"/>
-                <menuitem id="all_projects_progress_stuff_action" action="student_project_kanban_manager" sequence="2" groups="student.group_manager,student.group_supervisor"/>
-                <menuitem id="projects_supervision_board_action" action="student_availability_kanban_supervision" sequence="3" groups="student.group_supervisor"/>
-                <menuitem id="projects_groups_action" action="student_projects_group_view_action" sequence="4" groups="student.group_professor,student.group_manager,student.group_supervisor"/>
+                <menuitem id="my_projects_progress_for_professors_action" action="student_project_kanban_professor_state" sequence="1" groups="student.group_professor,student.group_administrator"/>
+                <menuitem id="all_projects_progress_stuff_action" action="student_project_kanban_manager" sequence="2" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
+                <menuitem id="projects_supervision_board_action" action="student_availability_kanban_supervision" sequence="3" groups="student.group_supervisor,student.group_administrator"/>
+                <menuitem id="projects_groups_action" action="student_projects_group_view_action" sequence="4" groups="student.group_professor,student.group_manager,student.group_supervisor,student.group_administrator"/>
             </menuitem>
             <menuitem id="review_and_evaluation_second_level_menu" name="Review &amp; Evaluation" sequence="4">
-                <menuitem id="review_tables_action" action="student_review_table_view_action" sequence="1" groups="student.group_manager,student.group_professor,student.group_supervisor"/>
+                <menuitem id="review_tables_action" action="student_review_table_view_action" sequence="1" groups="student.group_manager,student.group_professor,student.group_supervisor,student.group_administrator"/>
                 <menuitem id="commission_members_grades_action" action="student_grade_view_action" sequence="2" groups="student.group_administrator"/>
             </menuitem>
             <menuitem id="tags_and_scientific_profiles_second_level_menu" name="Tags &amp; Scientific Profiles" sequence="5">
@@ -47,16 +47,16 @@
 
         <menuitem id="faculty_users_first_level_menu" name="Faculty &amp; Users" sequence="3">
             <menuitem id="academic_structure_second_level_menu" name="Academic Structure" sequence="1">
-                <menuitem id="faculties_action" action="student_faculty_view_action" sequence="1" groups="student.group_manager,student.group_supervisor"/>
-                <menuitem id="programs_action" action="student_program_view_action" sequence="2" groups="student.group_manager,student.group_supervisor"/>
+                <menuitem id="faculties_action" action="student_faculty_view_action" sequence="1" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
+                <menuitem id="programs_action" action="student_program_view_action" sequence="2" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
                 <menuitem id="degrees_of_education_action" action="student_degree_view_action" sequence="3" groups="student.group_administrator"/>
                 <menuitem id="university_campuses_action" action="student_campus_view_action" sequence="3" groups="student.group_administrator"/>
             </menuitem>
             <menuitem id="user_management_second_level_menu" name="User Management" sequence="2">
                 <menuitem id="faculty_manager_menu_action" action="student_manager_view_action" sequence="1" groups="student.group_administrator"/>
                 <menuitem id="faculty_supervisor_menu_action" action="student_supervisor_view_action" sequence="2" groups="student.group_administrator"/>
-                <menuitem id="faculty_professor_menu_action" action="student_professor_view_action" sequence="3" groups="student.group_manager,student.group_supervisor"/>
-                <menuitem id="faculty_student_menu_action" action="student_student_view_action" sequence="4" groups="student.group_manager,student.group_supervisor"/>
+                <menuitem id="faculty_professor_menu_action" action="student_professor_view_action" sequence="3" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
+                <menuitem id="faculty_student_menu_action" action="student_student_view_action" sequence="4" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
             </menuitem>
         </menuitem>
 
@@ -66,7 +66,7 @@
                 <menuitem id="student_project_defenses_action" action="student_defense_view_action" sequence="1" groups="student.group_administrator"/>
             </menuitem>
             <menuitem id="voting_participation_second_level_menu" name="Voting &amp; Participation" sequence="2">
-                <menuitem id="polls_action" action="poll.poll_poll_view_action" sequence="1" groups="student.group_manager,student.group_professor"/>
+                <menuitem id="polls_action" action="poll.poll_poll_view_action" sequence="1" groups="student.group_manager,student.group_professor,student.group_administrator"/>
             </menuitem>
         </menuitem>
 

@@ -3,7 +3,7 @@
     <record id="student_announcement_view_action" model="ir.actions.act_window">
         <field name="name">Announcements</field>
         <field name="res_model">student.announcement</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first announcement
@@ -15,13 +15,13 @@
         <field name="name">student.announcement.tree</field>
         <field name="model">student.announcement</field>
         <field name="arch" type="xml">
-            <tree string="Announcements">
+            <list string="Announcements">
                 <field name="name"/>
                 <field name="create_date"/>
                 <field name="deadline_date"/>
                 <field name="is_published"/>
                 <field name="author_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -70,7 +70,7 @@
         <field name="code">model._cron_unpublish_expired_announcements()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">minutes</field>
-        <field name="numbercall">-1</field>
+<!--        <field name="numbercall">-1</field>-->
         <field name="active">True</field>
     </record>
 </odoo>

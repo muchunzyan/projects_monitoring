@@ -153,9 +153,9 @@
                                             </group>
                                         </group>
                                         <group colspan="2">
-                                            <field name="availability_ids" context="{'project_id': active_id, 'project_faculty_id': faculty_id}" readonly="state_evaluation != 'draft'"
+                                            <field name="availability_ids" context="{'project_id': id, 'project_faculty_id': faculty_id}" readonly="state_evaluation != 'draft'"
                                                    help="Professors can define the application criteria for each academic program. Once a program supervisor approves the project, it becomes available for applications of students from this particular program. Students of other programs can view the project, but cannot apply.">
-                                                <tree>
+                                                <list>
                                                     <field name="state" string="Submission State"/>
                                                     <field name="program_id" string="Submitted to"/>
                                                     <field name="type" string="Type"/>
@@ -167,7 +167,7 @@
                                                         confirm="Are you sure you want to create a new branch for this project?"
                                                         invisible="state != 'returned'"
                                                         groups="student.group_professor"/>
-                                                </tree>
+                                                </list>
                                             </field>
                                         </group>
                                     </group>
@@ -178,7 +178,7 @@
                                         <field name="applications" style="margin-left:10px" class="oe_inline"/>
                                     </p>
                                     <field name="application_ids">
-                                        <tree>
+                                        <list>
                                             <field name="applicant"/>
                                             <field name="email"/>
                                             <field name="student_program"/>
@@ -198,7 +198,7 @@
                                                     groups="student.group_professor"
                                                     invisible="state != 'sent'"/>  
                                             <field name="state"/>
-                                        </tree>
+                                        </list>
                                     </field>
                                 </page>
                                 <page string="Activities" invisible="state_publication not in ['assigned', 'completed', 'dropped'] or not current_user_follower">
@@ -278,10 +278,10 @@
         </record>
 
         <record id="student_project_list_view" model="ir.ui.view">
-            <field name="name">Projects - Tree View</field>
+            <field name="name">Projects - List View</field>
             <field name="model">student.project</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name"/>
                     <field name="professor_id"/>
                     <field name="format"/>
@@ -290,7 +290,7 @@
                     <field name="program_ids" widget="many2many_tags"/>
                     <field name="approval_ids" widget="many2many_tags"/>
                     <field name="applications"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -379,7 +379,7 @@
         <record id="student_project_kanban_professor_state" model="ir.actions.act_window">
             <field name="name">My Projects Progress</field>
             <field name="res_model">student.project</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,list,form</field>
             <field name="view_id" ref="student_project_kanban_view_state"/>
             <field name="context">{'view_type': 'project_board'}</field>
             <field name="help" type="html">
@@ -394,7 +394,7 @@
         <record id="student_project_kanban_manager" model="ir.actions.act_window">
             <field name="name">All Projects Progress</field>
             <field name="res_model">student.project</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,list,form</field>
             <field name="view_id" ref="student_project_kanban_view_state"/>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -407,7 +407,7 @@
         <record id="student_project_view_action_list" model="ir.actions.act_window">
             <field name="name">Available Projects</field>
             <field name="res_model">student.project</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="view_id" ref="student_project_list_view"/>
             <field name="context">{'search_default_available': 1, 'view_type': 'available_projects'}</field>
             <field name="help" type="html">
@@ -418,12 +418,12 @@
             <field name="domain">[('state_publication', 'in', ['published', 'applied'])]</field>
         </record>
 
-        <!-- Define the action to open the tree view of projects from the professor form-->
+        <!-- Define the action to open the list view of projects from the professor form-->
         <record id="action_project" model="ir.actions.act_window">
             <field name="name">Projects</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">student.project</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="domain">[('professor_id', '=', active_id)]</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -435,7 +435,7 @@
         <record id="student_projects_view_personal" model="ir.actions.act_window">
             <field name="name">My Projects</field>
             <field name="res_model">student.project</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="domain">[('student_elected.student_account', '=', uid)]</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">

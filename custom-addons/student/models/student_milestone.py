@@ -204,7 +204,7 @@ class StudentMilestone(models.Model):
             'name': 'Milestone Results',
             'type': 'ir.actions.act_window',
             'res_model': 'student.milestone.result',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'target': 'current',
             'domain': [('milestone_id', '=', self.id)],
             'context': {'default_milestone_id': self.id}

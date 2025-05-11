@@ -197,7 +197,7 @@ class Announcement(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'Replies',
             'res_model': 'student.announcement.reply',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('announcement_id', '=', self.id)],
             'context': {
                 'default_announcement_id': self.id,
