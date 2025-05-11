@@ -3,7 +3,7 @@
     <record id="poll_poll_view_action" model="ir.actions.act_window">
         <field name="name">Polls</field>
         <field name="res_model">poll.poll</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">['|', ('user_ids', 'in', [uid]), ('created_by', '=', uid)]</field>
         <field name="help" type="html">
             <p>Create and manage polls</p>
@@ -14,10 +14,10 @@
         <field name="name">poll.poll.tree</field>
         <field name="model">poll.poll</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="created_by"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -43,9 +43,9 @@
                             <i>Save the commission to create options.</i>
                         </p>
                         <field name="option_ids" invisible="not id" readonly="not created_by==uid">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="name"/>
-                            </tree>
+                            </list>
                         </field>
 
                         <label for="vote_ids" class="oe_inline" invisible="id"/>
@@ -53,14 +53,14 @@
                             <i>Add options and users to vote.</i>
                         </p>
                         <field name="vote_ids"
-                               context="{'default_poll_id': active_id}"
+                               context="{'default_poll_id': id}"
                                domain="['|', ('poll_id.created_by', '=', uid), ('user_id', '=', uid)]"
                                invisible="not (option_ids and user_ids)">
-                            <tree editable="bottom" create="false">
+                            <list editable="bottom" create="false">
                                 <field name="option_id" domain="[('id', 'in', parent.option_ids)]"/>
                                 <field name="user_id" domain="[('id', 'in', parent.user_ids)]"/>
                                 <field name="vote"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </sheet>

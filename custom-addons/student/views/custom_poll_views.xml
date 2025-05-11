@@ -6,7 +6,7 @@
             <field name="model">poll.poll</field>
             <field name="inherit_id" ref="poll.poll_poll_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//sheet/group[1]/field[@name='option_ids']/tree" position="inside">
+                <xpath expr="//sheet/group[1]/field[@name='option_ids']/list" position="inside">
                     <field name="commission_id" widget="many2one"/>
                 </xpath>
                 <xpath expr="//sheet/group[1]/field[@name='user_ids']" position="before">
