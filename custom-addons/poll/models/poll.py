@@ -18,8 +18,9 @@ class Poll(models.Model):
             if poll.vote_ids and all(v.vote for v in poll.vote_ids):
                 message_text = Markup(f"All votes in poll <a href=\"/web#id={poll.id}&model=poll.poll&view_type=form\">{poll.name}</a> are completed.")
                 poll.env['poll.utils'].send_message(
+                    'poll',
                     message_text,
-                    poll.created_by,
+                    poll.user_ids,
                     poll.created_by,
                     (str(poll.id), str(poll.name))
                 )
@@ -32,6 +33,7 @@ class Poll(models.Model):
                 message_text = Markup(f"The poll <a href=\"/web#id={self.id}&model=poll.poll&view_type=form\">{self.name}</a> has been updated. Please vote!")
 
             self.env['poll.utils'].send_message(
+                'poll',
                 message_text,
                 self.user_ids,
                 self.created_by,
