@@ -1,18 +1,27 @@
 from markupsafe import Markup
 from odoo import models, fields, api
 
+# Main model representing a poll
 class Poll(models.Model):
     _name = 'poll.poll'
     _description = 'Decidely - Polls'
 
+    # Poll title (translatable)
     name = fields.Char(required=True, translate=True)
+    # Optional description of the poll (translatable)
     description = fields.Text(translate=True)
+    # User who created the poll (automatically set to current user)
     created_by = fields.Many2one('res.users', default=lambda self: self.env.user, required=True)
+    # List of options available in this poll
     option_ids = fields.One2many('poll.option', 'poll_id', string='Options', required=True)
+    # Users invited to vote
     user_ids = fields.Many2many('res.users', string='Interviewed users', required=True)
+    # List of submitted votes
     vote_ids = fields.One2many('poll.vote', 'poll_id', string='Votes')
+    # Flag to prevent duplicate notification after poll creation
     create_notification_sent = fields.Boolean(default=False, required=True)
 
+    # Check if all votes are submitted and notify the poll creator
     def _check_poll_votes_complete(self):
         for poll in self:
             if poll.vote_ids and all(v.vote for v in poll.vote_ids):
@@ -25,6 +34,7 @@ class Poll(models.Model):
                     (str(poll.id), str(poll.name))
                 )
 
+    # Send notification to users about poll creation or update
     def _send_poll_notification(self, update=False):
         if self.user_ids:
             if not update:
@@ -40,7 +50,9 @@ class Poll(models.Model):
                 (str(self.id), str(self.name))
             )
 
+    # Override write method to control permissions and regenerate votes
     def write(self, vals):
+        # Restrict updates to poll creator
         if self.env.user != self.created_by:
             restricted_fields = set(vals.keys()) - {'vote_ids', 'visible_vote_ids'}
             if restricted_fields:
@@ -48,6 +60,7 @@ class Poll(models.Model):
 
         result = super().write(vals)
 
+        # If users or options changed, regenerate vote entries
         if 'user_ids' in vals or 'option_ids' in vals:
             self.vote_ids.unlink()
             new_votes = []
@@ -59,6 +72,7 @@ class Poll(models.Model):
                     }))
             self.vote_ids = new_votes
 
+            # Send appropriate notification
             if not self.create_notification_sent:
                 self._send_poll_notification(update=False)
                 self.create_notification_sent = True
@@ -67,28 +81,38 @@ class Poll(models.Model):
 
         return result
 
+    # Restrict deletion to poll creator
     def unlink(self):
         for poll in self:
             if poll.created_by != self.env.user:
                 raise models.ValidationError("Only the creator can delete the poll.")
         return super().unlink()
 
+# Model representing an option in a poll
 class PollOption(models.Model):
     _name = 'poll.option'
     _description = 'Decidely - Poll Options'
 
+    # Option label (translatable)
     name = fields.Char(required=True, translate=True)
+    # Related poll
     poll_id = fields.Many2one('poll.poll', required=True, ondelete='cascade')
 
+# Model representing an individual vote
 class PollVote(models.Model):
     _name = 'poll.vote'
     _description = 'Decidely - Poll Votes'
 
+    # User who cast the vote
     user_id = fields.Many2one('res.users', required=True)
+    # Related poll
     poll_id = fields.Many2one('poll.poll', required=True, ondelete='cascade')
+    # Selected option
     option_id = fields.Many2one('poll.option', required=True, ondelete='cascade')
+    # Vote value
     vote = fields.Selection([('yes', 'Yes'), ('maybe', 'Maybe'), ('no', 'No')])
 
+    # Restrict vote creation to poll creator
     @api.model
     def create(self, vals):
         poll = self.env['poll.poll'].browse(vals.get('poll_id'))
@@ -99,6 +123,7 @@ class PollVote(models.Model):
             vote.poll_id._check_poll_votes_complete()
         return vote
 
+    # Restrict editing votes to vote owner or poll creator
     def write(self, vals):
         for vote in self:
             if vote.user_id != self.env.user and vote.poll_id.created_by != self.env.user:
@@ -109,6 +134,7 @@ class PollVote(models.Model):
                 vote.poll_id._check_poll_votes_complete()
         return result
 
+    # Restrict deletion to poll creator
     def unlink(self):
         for vote in self:
             if vote.poll_id.created_by != self.env.user:

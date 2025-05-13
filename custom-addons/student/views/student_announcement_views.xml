@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
+    <!--
+        This file defines the list and form views for student announcements in PaLMS.
+        It also registers a scheduled job to automatically unpublish expired announcements.
+    -->
+
+    <!-- Action: Open list and form views of Announcements -->
     <record id="student_announcement_view_action" model="ir.actions.act_window">
         <field name="name">Announcements</field>
         <field name="res_model">student.announcement</field>
@@ -11,6 +17,7 @@
         </field>
     </record>
 
+    <!-- List View: Show basic announcement info -->
     <record id="student_announcement_view_tree" model="ir.ui.view">
         <field name="name">student.announcement.tree</field>
         <field name="model">student.announcement</field>
@@ -25,16 +32,19 @@
         </field>
     </record>
 
+    <!-- Form View: Detailed view and edit of announcement -->
     <record id="student_announcement_view_form" model="ir.ui.view">
         <field name="name">student.announcement.form</field>
         <field name="model">student.announcement</field>
         <field name="arch" type="xml">
             <form string="Announcement">
                 <header>
+                    <!-- Button: Reply to the announcement -->
                     <button name="action_reply_to_announcement"
                             string="Reply"
                             type="object"
                             class="btn-primary"/>
+                    <!-- Button: View replies, only for staff -->
                     <button name="action_view_announcement_replies"
                             string="View Replies"
                             type="object"
@@ -46,6 +56,7 @@
                         <field name="name"/>
                         <field name="content" widget="html"/>
                         <field name="deadline_date"/>
+                        <!-- Only visible/editable by staff -->
                         <field name="is_published"
                                groups="student.group_administrator,student.group_manager,student.group_supervisor"/>
                     </group>
@@ -63,6 +74,7 @@
         </field>
     </record>
 
+    <!-- Cron Job: Unpublish announcements after deadline -->
     <record id="ir_cron_unpublish_expired_announcements" model="ir.cron">
         <field name="name">Unpublish Expired Announcements</field>
         <field name="model_id" ref="model_student_announcement"/>
@@ -70,7 +82,6 @@
         <field name="code">model._cron_unpublish_expired_announcements()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">minutes</field>
-<!--        <field name="numbercall">-1</field>-->
         <field name="active">True</field>
     </record>
 </odoo>

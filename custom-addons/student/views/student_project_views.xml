@@ -1,6 +1,17 @@
 <?xml version="1.0"?>
+<!--
+    student_project_views.xml
+
+    This file defines all Odoo views and actions for the `student.project` model in the PaLMS system.
+    It covers project creation, submission, evaluation, progress tracking, and result reporting
+    for students, professors, supervisors, and administrators.
+-->
 <odoo>
     <data>
+        <!--
+            Form View: Full project definition and lifecycle interaction.
+            Used by professors, students, and administrators for project management.
+        -->
         <record id="student_project_view_form" model="ir.ui.view">
             <field name="name">student.project.form</field>
             <field name="model">student.project</field>
@@ -52,10 +63,10 @@
                             confirm="Are you sure you want to complete this project?"
                             groups="student.group_professor,student.group_student"
                             invisible="state_publication != 'assigned'"/>
-                        <field name="state_publication" 
-                               widget="statusbar" 
+                        <field name="state_publication"
+                               widget="statusbar"
                                statusbar_visible="published,applied,assigned,completed"
-                               invisible="state_publication in ['ineligible','dropped']" 
+                               invisible="state_publication in ['ineligible','dropped']"
                                readonly="1"/>
                     </header>
                     <sheet>
@@ -70,8 +81,8 @@
                         <group>
                             <field name="current_user_follower" invisible="1"/>
                             <field name="create_uid" invisible="1"/>
-                            
-                            <group string="Basic Info" cols="2"> 
+
+                            <group string="Basic Info" cols="2">
                                 <group colspan="2">
                                     <field name="name" style="color: #384f85; font-weight: bold" readonly="name_readonly"/>
                                     <field name="name_ru" style="color: #384f85; font-weight: bold" readonly="name_readonly"/>
@@ -123,7 +134,7 @@
                                         <field name="requirements" placeholder="> Minimum requirements for applications can be listed here. &#10;> Please use bullet points." readonly="state_evaluation != 'draft' or proposal_id != False"/>
                                         <field name="results" placeholder="> Expected outcomes at the end of given implementation/research period. &#10;> Please use bullet points." style="margin-bottom:20 px" readonly="state_evaluation != 'draft'"/>
                                     </group>
-                                    
+
                                     <group string="Files" invisible="state_evaluation != 'draft' and file_count == 0" col="3">
                                         <p colspan="2" style="color:gray" invisible="id != False">
                                             <i>Save the project to add additional files.</i>
@@ -142,7 +153,6 @@
                                         </p>
                                     </group>
                                     <group string="Eligibility" invisible="id == False or state_publication == 'assigned'">
-                                        <!-- ♥ COPY THE BUTTONS HERE FOR USER CONVENIENCE -->
 
                                         <group col="6" colspan="2">
                                             <group colspan="2">
@@ -183,20 +193,20 @@
                                             <field name="email"/>
                                             <field name="student_program"/>
                                             <field name="student_degree"/>
-                                            <button name="action_view_application_accept" 
+                                            <button name="action_view_application_accept"
                                                     string="Accept ✔"
                                                     type="object"
                                                     class="btn-success"
                                                     confirm="Are you sure to accept the application? Other applications will be rejected automatically."
                                                     groups="student.group_professor"
-                                                    invisible="state != 'sent'"/>  
-                                            <button name="action_view_application_reject" 
+                                                    invisible="state != 'sent'"/>
+                                            <button name="action_view_application_reject"
                                                     string="Reject ✘"
                                                     type="object"
                                                     class="btn-danger"
                                                     confirm="Are you sure to reject the application?"
                                                     groups="student.group_professor"
-                                                    invisible="state != 'sent'"/>  
+                                                    invisible="state != 'sent'"/>
                                             <field name="state"/>
                                         </list>
                                     </field>
@@ -212,14 +222,14 @@
                                         <field name="student_account" invisible="1"/>
 
                                         <p colspan="2" style="color:gray;font-style: italic;" invisible="student_account == uid"> Only the assigned student can edit this section. </p>
-                                        
+
                                         <group>
                                             <field name="project_report_file" filename="project_report_filename" readonly="student_account != uid or state_publication != 'assigned'"/>
                                             <field name="project_report_filename" invisible="1"/>
                                         </group>
                                         <group>
                                             <div style="width: 200px">
-                                                <button name="hide_show_report_preview" 
+                                                <button name="hide_show_report_preview"
                                                     string="Show/Hide Report Preview"
                                                     type="object"
                                                     invisible="not project_report_file"/>
@@ -240,7 +250,7 @@
                                         <field name="professor_account" invisible="1"/>
 
                                         <p colspan="2" style="color:gray;font-style: italic;" invisible="professor_account == uid"> Only the project professor can edit this section. </p>
-                        
+
                                         <field name="professor_review_file" filename="professor_review_filename" readonly="professor_account != uid or state_publication != 'assigned'"/>
                                         <field name="professor_review_filename" invisible="1"/>
                                         <field name="professor_feedback" placeholder="Here the professor can express their experience of working on the project with the assigned student." readonly="professor_account != uid or state_publication != 'assigned'"/>
@@ -277,6 +287,10 @@
             </field>
         </record>
 
+        <!--
+            List View: Table of projects with key indicators.
+            Used for browsing and quick access to project records.
+        -->
         <record id="student_project_list_view" model="ir.ui.view">
             <field name="name">Projects - List View</field>
             <field name="model">student.project</field>
@@ -294,6 +308,10 @@
             </field>
         </record>
 
+        <!--
+            Graph View: Project states over time or by category.
+            Used for reporting and visual analytics.
+        -->
         <record id="student_project_graph_view" model="ir.ui.view">
             <field name="name">Projects - Graph View</field>
             <field name="model">student.project</field>
@@ -305,7 +323,10 @@
             </field>
         </record>
 
-        <!-- The graph view that student_menus.xml refers to -->
+        <!--
+            Action: Open graph view of project states.
+            Used for reporting on project evaluation status.
+        -->
         <record id="student_project_view_action_graph" model="ir.actions.act_window">
             <field name="name">Project Status Report</field>
             <field name="res_model">student.project</field>
@@ -318,6 +339,10 @@
             </field>
         </record>
 
+        <!--
+            Kanban View: Project dashboard grouped by state.
+            Used for visual project progress tracking.
+        -->
         <record id="student_project_kanban_view_state" model="ir.ui.view">
             <field name="name">Projects - Kanban View</field>
             <field name="model">student.project</field>
@@ -325,7 +350,7 @@
                 <kanban quick_create="false"
                         records_draggable="false"
                         default_group_by="project_state"
-                        class="o_res_partner_kanban o_kanban_large_column" 
+                        class="o_res_partner_kanban o_kanban_large_column"
                         name="student_project_kanban"
                         default_order="write_date desc">
                     <field name="project_state"/>
@@ -375,7 +400,10 @@
             </field>
         </record>
 
-        <!-- student_menus.xml refers to this in the menu (for professors) -->
+        <!--
+            Action: Professor's kanban view (My Projects Progress).
+            Shows only projects for the current professor.
+        -->
         <record id="student_project_kanban_professor_state" model="ir.actions.act_window">
             <field name="name">My Projects Progress</field>
             <field name="res_model">student.project</field>
@@ -390,7 +418,10 @@
             <field name="domain">[('professor_account', '=', uid)]</field>
         </record>
 
-        <!-- student_menus.xml refers to this in the menu (for managers) -->
+        <!--
+            Action: Manager/Supervisor's kanban view (All Projects Progress).
+            Shows all projects for managers and supervisors.
+        -->
         <record id="student_project_kanban_manager" model="ir.actions.act_window">
             <field name="name">All Projects Progress</field>
             <field name="res_model">student.project</field>
@@ -403,7 +434,10 @@
             </field>
         </record>
 
-        <!-- The view for students that student_menus.xml refers to -->
+        <!--
+            Action: Student view of available projects to apply.
+            Shows only projects open for student applications.
+        -->
         <record id="student_project_view_action_list" model="ir.actions.act_window">
             <field name="name">Available Projects</field>
             <field name="res_model">student.project</field>
@@ -418,7 +452,10 @@
             <field name="domain">[('state_publication', 'in', ['published', 'applied'])]</field>
         </record>
 
-        <!-- Define the action to open the list view of projects from the professor form-->
+        <!--
+            Action: Professor profile access to projects.
+            Used from the professor form to open their project list.
+        -->
         <record id="action_project" model="ir.actions.act_window">
             <field name="name">Projects</field>
             <field name="type">ir.actions.act_window</field>
@@ -432,6 +469,10 @@
             </field>
         </record>
 
+        <!--
+            Action: Student view of own assigned projects.
+            Shows only projects assigned to the current student.
+        -->
         <record id="student_projects_view_personal" model="ir.actions.act_window">
             <field name="name">My Projects</field>
             <field name="res_model">student.project</field>
@@ -445,16 +486,24 @@
         </record>
     </data>
 
+    <!--
+        Search View: Filter and group projects.
+        Provides quick filters for user role, professor, and eligibility.
+    -->
     <record id="student_project_view_search" model="ir.ui.view">
         <field name="name">student.project.search</field>
         <field name="model">student.project</field>
         <field name="arch" type="xml">
             <search string="Professor List">
                 <field name="name" string="Project" />
+                <!-- Filter: Only show projects for the current professor -->
                 <filter string="My projects" groups="student.group_professor" name="my_projects" domain="[('professor_account', '=', uid)]"/>
+                <!-- Filter: Only show projects available for student application -->
                 <filter string="Available for application" groups="student.group_student" name="available" domain="[('state_publication', 'in', ['published', 'applied'])]"/>
+                <!-- Filter: Projects that require professor attention (applied state) -->
                 <filter string="Requires attention" groups="student.group_professor" name="attention_professor" domain="[('professor_account', '=', uid), ('state_publication', '=', 'applied')]"/>
                 <group expand="1" string="Group By">
+                    <!-- Group by various project attributes -->
                     <filter string="Professor" name="professor" context="{'group_by':'professor_id'}"/>
                     <filter string="Project Format" name="project_format" context="{'group_by':'format'}"/>
                     <filter string="Faculty" name="faculty" context="{'group_by':'faculty_id'}"/>
@@ -464,23 +513,5 @@
                 </group>
             </search>
         </field>
-    </record>   
-
-<!--    <record id="student_project_view_personal" model="ir.actions.server">-->
-<!--        <field name="name">𝗠𝘆 𝗣𝗿𝗼𝗷𝗲𝗰𝘁</field>-->
-<!--        <field name="model_id" ref="model_student_project"/>-->
-<!--        <field name="state">code</field>-->
-<!--        <field name="code">-->
-<!--student_project_id = env['student.project'].sudo().search([('student_elected.student_account.id', '=', env.uid)], limit=1).id-->
-<!--if not student_project_id:-->
-<!--    raise UserError("You are not assigned to a project yet. Try applying to projects first.")-->
-<!--action = {-->
-<!--    "name": "My Project (Server)",-->
-<!--    "type": "ir.actions.act_window",-->
-<!--    "res_model": "student.project",-->
-<!--    "view_mode": "form",-->
-<!--    "res_id": student_project_id,-->
-<!--}-->
-<!--        </field>-->
-<!--    </record>-->
+    </record>
 </odoo>

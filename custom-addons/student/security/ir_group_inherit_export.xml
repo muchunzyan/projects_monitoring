@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- Allow export for managers -->
+    <!--
+        This file grants export permissions (base.group_allow_export) to custom user groups in the PaLMS system.
+        It ensures that managers, supervisors, professors, and students can export data from tree views.
+    -->
+
+    <!-- Grant export rights to Managers -->
     <record id="student.group_manager" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('base.group_allow_export'))]"/>
     </record>
 
-    <!-- Allow export for supervisors -->
+    <!-- Grant export rights to Supervisors -->
     <record id="student.group_supervisor" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('base.group_allow_export'))]"/>
     </record>
 
-    <!-- Allow export for professors -->
+    <!-- Grant export rights to Professors -->
     <record id="student.group_professor" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('base.group_allow_export'))]"/>
     </record>
 
-    <!-- Allow export for students -->
+    <!-- Grant export rights to Students -->
     <record id="student.group_student" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('base.group_allow_export'))]"/>
     </record>

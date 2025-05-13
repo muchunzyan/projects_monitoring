@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
+    <!--
+        This file defines all views and actions related to student project proposals in PaLMS.
+        Includes professor and student views, as well as full form layout, list, and search options.
+    -->
+
+    <!-- Action: View proposals addressed to the current professor -->
     <record id="student_proposal_view_professor" model="ir.actions.act_window">
         <field name="name">Project Proposals</field>
         <field name="res_model">student.proposal</field>
@@ -11,7 +17,8 @@
             </p>
         </field>
     </record>
-    
+
+    <!-- Action: View own proposals for students -->
     <record id="student_proposal_view_personal" model="ir.actions.act_window">
         <field name="name">Proposals</field>
         <field name="res_model">student.proposal</field>
@@ -26,6 +33,7 @@
         </field>
     </record>
 
+    <!-- List View: Show table of proposals -->
     <record id="student_proposal_view_tree" model="ir.ui.view">
         <field name="name">student.proposal.tree</field>
         <field name="model">student.proposal</field>
@@ -42,7 +50,8 @@
             </list>
         </field>
     </record>
-    
+
+    <!-- Action: Admin/staff view of all proposals -->
     <record id="student_proposal_view_public" model="ir.actions.act_window">
         <field name="name">All Proposals</field>
         <field name="res_model">student.proposal</field>
@@ -55,12 +64,14 @@
         </field>
     </record>
 
+    <!-- Form View: Full proposal form with role-based logic -->
     <record id="student_proposal_view_form" model="ir.ui.view">
         <field name="name">student.proposal.form</field>
         <field name="model">student.proposal</field>
         <field name="arch" type="xml">
             <form string="Proposal" on_load="trigger_func()">
                 <header>
+                    <!-- Student workflow buttons -->
                     <button name="action_view_proposal_send"
                         string="SEND PROPOSAL"
                         type="object"
@@ -76,6 +87,7 @@
                         class="oe_highlight"
                         invisible="state != 'sent'"/>
 
+                    <!-- Professor workflow buttons -->
                     <button name="action_view_proposal_accept"
                         string="ACCEPT PROPOSAL"
                         type="object"
@@ -93,16 +105,16 @@
                 </header>
                 <sheet>
                     <group>
+                        <!-- Main details -->
                         <group string="Overview">
                             <field name="name" readonly="name_readonly"/>
                             <field name="name_ru" readonly="name_readonly"/>
-
                             <field name="name_readonly" invisible="1"/>
-
                             <field name="proposal_professor" readonly="state != 'draft'"/>
                             <field name="state"/>
                             <field name="project_id" invisible="state in ['draft', 'rejected']"/>
-                        </group>                        
+                        </group>
+                        <!-- Metadata -->
                         <group string="Details">
                             <field name="type" readonly="state != 'draft'"/>
                             <field name="format" readonly="state != 'draft'"/>
@@ -110,24 +122,26 @@
                             <field name="language" readonly="state != 'draft'"/>
                             <field name="tag_ids" widget="many2many_tags" readonly="state != 'draft'"/>
                         </group>
+                        <!-- Basic contact info -->
                         <group string="Contacts">
                             <field name="proponent" readonly="True"/>
                             <field name="email"/>
                             <field name="phone"/>
-                        </group>                        
+                        </group>
+                        <!-- Extra contact methods -->
                         <group string="Additional Contacts">
                             <field name="additional_email" readonly="state != 'draft'"/>
                             <field name="additional_phone" readonly="state != 'draft'"/>
                             <field name="telegram" readonly="state != 'draft'"/>
                         </group>
+
+                        <!-- Additional detail sections -->
                         <notebook>
                             <page string="Proposal Details">
                                 <label for="description"/>
                                 <field name="description" readonly="state != 'draft'"/>
-
                                 <label for="results"/>
-                                <field name="results" style="margin-bottom:20 px" readonly="state != 'draft'"/>
-
+                                <field name="results" style="margin-bottom:20px" readonly="state != 'draft'"/>
                                 <label for="additional_files"/>
                                 <p colspan="2" style="color:gray" invisible="id != False">
                                     <i>Save the proposal to add additional files.</i>
@@ -145,6 +159,7 @@
         </field>
     </record>
 
+    <!-- Search View: Filter and group proposals -->
     <record id="student_proposal_view_search" model="ir.ui.view">
         <field name="name">student.proposal.search</field>
         <field name="model">student.proposal</field>
@@ -158,6 +173,7 @@
                 <field name="student_degree"/>
                 <field name="student_program"/>
                 <separator/>
+                <!-- Quick filters by state -->
                 <filter string="Sent" name="sent_proposals" domain="[('state', '=', 'sent')]"/>
                 <filter string="Rejected" name="rejected_proposals" domain="[('state', '=', 'rejected')]"/>
                 <filter string="Accepted" name="accepted_proposals" domain="[('state', '=', 'accepted')]"/>

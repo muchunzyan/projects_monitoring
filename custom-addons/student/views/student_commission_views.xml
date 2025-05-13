@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <odoo>
-    <!-- COMMISSIONS -->
+    <!--
+        This file defines the views and actions for the Commission module in PaLMS.
+        It covers commission creation, student defenses, and grading workflows.
+    -->
+
+    <!-- Action: Open commission list and form -->
+    <!-- Displays commission metadata and member assignment -->
     <record id="student_commission_view_action" model="ir.actions.act_window">
         <field name="name">Commissions</field>
         <field name="res_model">student.commission</field>
@@ -12,6 +18,7 @@
         </field>
     </record>
 
+    <!-- Tree and form views for commissions -->
     <record id="student_commission_view_tree" model="ir.ui.view">
         <field name="name">student.commission.tree</field>
         <field name="model">student.commission</field>
@@ -26,6 +33,7 @@
         </field>
     </record>
 
+    <!-- Buttons for setting and releasing commissions -->
     <record id="student_commission_view_form" model="ir.ui.view">
         <field name="name">student.commission.form</field>
         <field name="model">student.commission</field>
@@ -67,8 +75,9 @@
                         </group>
                         <group string="Miscellaneous" colspan="2">
                             <field name="meeting_other_details" readonly="lock or id and create_uid != uid"/>
-                            <field name="additional_files" widget="many2many_binary" string="Additional Files" readonly="lock or id and create_uid != uid"/>   
+                            <field name="additional_files" widget="many2many_binary" string="Additional Files" readonly="lock or id and create_uid != uid"/>
                         </group>
+                        <!-- Notebook with commission members and associated defenses -->
                         <notebook>
                             <page string="Commission Members">
                                 <field name="professor_ids" readonly="lock or id and create_uid != uid" domain="[('professor_faculty', '=', commission_faculty)]">
@@ -83,8 +92,9 @@
                                 <p colspan="2" style="color:gray" invisible="id">
                                     <i>Save the commission to select defenses.</i>
                                 </p>
-                                
+
                                 <field name="viewer_member" invisible="1"/>
+                                <!-- Dynamic visibility of defense assignment and grading forms -->
                                 <!-- FOR COMMISSION MEMBERS -->
                                 <field name="defense_ids" readonly="0" invisible="not id or not viewer_member">
                                     <list>
@@ -122,7 +132,8 @@
         </field>
     </record>
 
-    <!-- DEFENSE -->
+    <!-- Action: Open defense records -->
+    <!-- Form includes defense time, project linkage, and grade management -->
     <record id="student_defense_view_action" model="ir.actions.act_window">
         <field name="name">Student Project Defenses</field>
         <field name="res_model">student.defense</field>
@@ -155,7 +166,7 @@
                             <div class="o_row">
                                 <label for="personal_grade"/>
                                 <field name="personal_grade" style="min-width:60px;margin-right:20px"/>
-                               
+
                                 <button name="action_view_defense_grade"
                                     string="GRADE THE PROJECT"
                                     type="object"
@@ -168,7 +179,7 @@
                                 <label for="final_grade" style="font-weight:bold"/>
                                 <p invisible="final_grade_lock" style="color:gray;font-style: italic;margin-left:10px">
                                     Final grade cannot be set until all commission members grade the project.
-                                </p> 
+                                </p>
                                 <field name="final_grade" invisible="not final_grade_lock" class="oe_inline" help="The ultimate commission grade for the project. Set to the average of member grades by default, can be modified by the commission head."/>
                             </div>
 
@@ -187,7 +198,8 @@
         </field>
     </record>
 
-    <!-- GRADE -->
+    <!-- Action: Open grading forms per commission member -->
+    <!-- Grade form readonly unless user is the assigned reviewer -->
     <record id="student_grade_view_action" model="ir.actions.act_window">
         <field name="name">Commission Member Grades</field>
         <field name="res_model">student.grade</field>

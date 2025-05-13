@@ -1,35 +1,41 @@
 <odoo>
     <data>
-        <!-- Define a new user group -->
+        <!-- Define the group for general students -->
         <record id="student.group_student" model="res.groups">
-            <field name="category_id">77</field>
-            <field name="name">PaLMS - Students</field>
-            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="category_id">77</field> <!-- Security group category -->
+            <field name="name">PaLMS - Students</field> <!-- Display name of the group -->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/> <!-- Inherits basic user rights -->
         </record>
 
+        <!-- Define the group for students who are already assigned to a project -->
         <record id="student.group_elected_student" model="res.groups">
             <field name="category_id">77</field>
             <field name="name">PaLMS - Students with Projects</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
 
+        <!-- Define the group for professors who manage or evaluate projects -->
         <record id="student.group_professor" model="res.groups">
             <field name="category_id">77</field>
             <field name="name">PaLMS - Professors</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
+
+        <!-- Define the group for supervisors who oversee project processes -->
         <record id="student.group_supervisor" model="res.groups">
             <field name="category_id">77</field>
             <field name="name">PaLMS - Supervisors</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
 
+        <!-- Define the group for faculty or program managers -->
         <record id="student.group_manager" model="res.groups">
             <field name="category_id">77</field>
             <field name="name">PaLMS - Managers</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
 
+        <!-- Define the group for technical or functional administrators of the system -->
         <record id="student.group_administrator" model="res.groups">
             <field name="category_id">77</field>
             <field name="name">PaLMS - Administrators</field>

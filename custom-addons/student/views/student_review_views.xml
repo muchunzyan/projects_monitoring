@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <odoo>
+    <!--
+        This file defines views and actions for the student review tables in PaLMS.
+        Professors and creators can manage project review tables and assign reviewers.
+    -->
+
     <data>
+        <!-- Action: Show review tables in progress where user is creator or assigned professor -->
         <record id="student_review_table_view_action" model="ir.actions.act_window">
             <field name="name">Review Tables</field>
             <field name="res_model">student.review.table</field>
@@ -11,6 +17,7 @@
             </field>
         </record>
 
+        <!-- Tree View: List review tables with program, type, state, and creator -->
         <record id="student_review_table_view_tree" model="ir.ui.view">
             <field name="name">student.review.table.tree</field>
             <field name="model">student.review.table</field>
@@ -25,27 +32,32 @@
             </field>
         </record>
 
+        <!-- Form View: Full form to view or edit a review table and assign reviewers -->
         <record id="student_review_table_view_form" model="ir.ui.view">
             <field name="name">student.review.table.form</field>
             <field name="model">student.review.table</field>
             <field name="arch" type="xml">
                 <form string="Review Table">
                     <header>
+                        <!-- Button: Generate review lines, only visible in draft state -->
                         <button name="action_generate_review_lines"
                                 type="object"
                                 string="Generate Review Lines"
                                 class="btn-primary"
                                 invisible="state != 'draft'"/>
+                        <!-- Statusbar to display current review table state -->
                         <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed"/>
                     </header>
                     <sheet>
                         <group>
+                            <!-- Editable fields only if user is creator -->
                             <field name="name" readonly="creator_id != uid"/>
                             <field name="program_ids" widget="many2many_tags" readonly="creator_id != uid"/>
                             <field name="type" readonly="creator_id != uid"/>
                             <field name="creator_id" readonly="1"/>
                         </group>
                         <group>
+                            <!-- Editable list of review lines -->
                             <field name="line_ids">
                                 <list editable="bottom">
                                     <field name="project_id" readonly="parent.creator_id != uid"/>
