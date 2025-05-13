@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
+    <!--
+        This file defines the views and actions for academic programs in PaLMS.
+        It includes list, form, search, and graph views used to manage and analyze programs.
+    -->
+
+    <!-- Action: Open list and form views for programs -->
     <record id="student_program_view_action" model="ir.actions.act_window">
         <field name="name">Programs</field>
         <field name="res_model">student.program</field>
@@ -11,6 +17,7 @@
         </field>
     </record>
 
+    <!-- List View: Overview of program attributes -->
     <record id="student_program_view_tree" model="ir.ui.view">
         <field name="name">student.program.tree</field>
         <field name="model">student.program</field>
@@ -28,6 +35,7 @@
         </field>
     </record>
 
+    <!-- Search View: Filters and group-by options -->
     <record id="student_program_view_search" model="ir.ui.view">
         <field name="name">student.program.search</field>
         <field name="model">student.program</field>
@@ -36,7 +44,7 @@
                 <field name="name" string="Program Name"/>
                 <field name="supervisor" string="Supervisor"/>
                 <filter string="Has students" name="has_students" domain="[('student_number', '>', 0)]"/>
-                <filter string="Has projects  " name="has_students" domain="[('project_number', '>', 0)]"/>
+                <filter string="Has projects" name="has_projects" domain="[('project_number', '>', 0)]"/>
                 <group expand="1" string="Group By">
                     <filter string="Degree of Education" name="degree" context="{'group_by':'degree'}"/>
                     <filter string="Supervisor" name="supervisor" context="{'group_by':'supervisor'}"/>
@@ -47,8 +55,9 @@
                 </group>
             </search>
         </field>
-    </record>       
+    </record>
 
+    <!-- Graph View: Visual report on program/project statistics -->
     <record id="student_program_graph_view" model="ir.ui.view">
         <field name="name">Programs - Graph View</field>
         <field name="model">student.program</field>
@@ -61,7 +70,7 @@
         </field>
     </record>
 
-    <!-- The graph view that student_menus.xml refers to -->
+    <!-- Action: Open graph view directly -->
     <record id="student_program_view_action_graph" model="ir.actions.act_window">
         <field name="name">Program Summary</field>
         <field name="res_model">student.program</field>
@@ -74,6 +83,7 @@
         </field>
     </record>
 
+    <!-- Form View: Detailed program structure and related data -->
     <record id="student_program_view_form" model="ir.ui.view">
         <field name="name">student.program.form</field>
         <field name="model">student.program</field>

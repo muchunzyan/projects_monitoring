@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <odoo>
+    <!-- Root menu for the Decidely Polls module -->
     <menuitem id="poll_menu_root" name="Decidely">
+        <!-- Submenu to access the main Poll list view -->
         <menuitem id="poll_poll_menu" sequence="1" action="poll_poll_view_action"/>
     </menuitem>
 </odoo>

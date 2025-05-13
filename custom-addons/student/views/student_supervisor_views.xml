@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
+    <!--
+        This file defines the views and actions for managing supervisor records in PaLMS.
+        It includes list, form, and search views for tracking academic supervisors and their associated programs.
+    -->
+
+    <!-- Action: Open list and form views for supervisors -->
     <record id="student_supervisor_view_action" model="ir.actions.act_window">
         <field name="name">Supervisors</field>
         <field name="res_model">student.supervisor</field>
@@ -11,6 +17,7 @@
         </field>
     </record>
 
+    <!-- Tree View: Display supervisor name, faculty, and assigned programs -->
     <record id="student_supervisor_view_tree" model="ir.ui.view">
         <field name="name">student.supervisor.tree</field>
         <field name="model">student.supervisor</field>
@@ -23,6 +30,7 @@
         </field>
     </record>
 
+    <!-- Search View: Filter and group supervisors by name and faculty -->
     <record id="student_supervisor_view_search" model="ir.ui.view">
         <field name="name">student.supervisor.search</field>
         <field name="model">student.supervisor</field>
@@ -30,37 +38,29 @@
             <search string="Supervisor List">
                 <field name="name" string="Supervisor"/>
                 <field name="supervisor_faculty" string="Faculty"/>
-                <!-- <field name="project_ids" string="Projects"/>
-                <separator/> 
-                <filter string="Permanent Faculty Member" name="visiting_professor" domain="[('visiting_professor', '=', False)]"/>
-                <group expand="1" string="Group By">
-                    <filter string="Active" name="active" context="{'group_by':'active', 'residual_visible':True}"/>
-                </group> -->
             </search>
         </field>
     </record>
 
+    <!-- Form View: Detailed view of a supervisor and their programs -->
     <record id="student_supervisor_view_form" model="ir.ui.view">
         <field name="name">student.supervisor.form</field>
         <field name="model">student.supervisor</field>
         <field name="arch" type="xml">
-            <form string="Test">
-                <!-- <header>
-                    <button name="action_view_supervisor_projects"
-                        string="Pending projects"
-                        type="object"
-                        class="oe_highlight"/>
-                </header> -->
+            <form string="Supervisor">
                 <sheet>
                     <group>
+                        <!-- Basic identity and status -->
                         <group>
                             <field name="name"/>
                             <field name="active"/>
                         </group>
+                        <!-- Related user account and faculty -->
                         <group>
                             <field name="supervisor_account"/>
                             <field name="supervisor_faculty"/>
                         </group>
+                        <!-- Notebook tab: list of supervised programs -->
                         <notebook>
                             <page string="Programs">
                                 <field name="program_ids">

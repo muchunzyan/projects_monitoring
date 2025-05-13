@@ -1,10 +1,17 @@
 <odoo>
+    <!--
+        This file defines the views and actions for student milestone result submissions in PaLMS.
+        It allows students to upload files and comments for a specific milestone and project.
+    -->
+
+    <!-- Action: Open milestone result list and form -->
     <record id="student_milestone_result_view_action" model="ir.actions.act_window">
         <field name="name">Milestone Results</field>
         <field name="res_model">student.milestone.result</field>
         <field name="view_mode">list,form</field>
     </record>
 
+    <!-- Tree View: List of milestone results with key metadata -->
     <record id="student_milestone_result_view_tree" model="ir.ui.view">
         <field name="name">student.milestone.result.tree</field>
         <field name="model">student.milestone.result</field>
@@ -18,6 +25,7 @@
         </field>
     </record>
 
+    <!-- Form View: Submit milestone-related files and comments -->
     <record id="student_milestone_result_view_form" model="ir.ui.view">
         <field name="name">student.milestone.result.form</field>
         <field name="model">student.milestone.result</field>
@@ -25,12 +33,17 @@
             <form string="Milestone Result">
                 <sheet>
                     <group>
+                        <!-- Used to toggle read-only status for some fields -->
                         <field name="base_fields_readonly" invisible="1"/>
+                        <!-- Milestone and user are normally read-only -->
                         <field name="milestone_id" readonly="base_fields_readonly"/>
                         <field name="user_id" readonly="base_fields_readonly"/>
+                        <!-- Link to student project -->
                         <field name="student_project_id"/>
+                        <!-- File attachments and comments -->
                         <field name="attachment_ids" widget="many2many_binary"/>
                         <field name="comment"/>
+                        <!-- Timestamp of submission -->
                         <field name="submit_date"/>
                     </group>
                 </sheet>

@@ -1,26 +1,30 @@
 <?xml version="1.0"?>
 <odoo>
+    <!-- Window action to open the poll list and form views -->
     <record id="poll_poll_view_action" model="ir.actions.act_window">
-        <field name="name">Polls</field>
-        <field name="res_model">poll.poll</field>
-        <field name="view_mode">list,form</field>
+        <field name="name">Polls</field> <!-- Display name in the menu -->
+        <field name="res_model">poll.poll</field> <!-- Target model -->
+        <field name="view_mode">list,form</field> <!-- Views to use -->
+        <!-- Show polls where the current user is invited or is the creator -->
         <field name="domain">['|', ('user_ids', 'in', [uid]), ('created_by', '=', uid)]</field>
         <field name="help" type="html">
             <p>Create and manage polls</p>
         </field>
     </record>
 
+    <!-- Tree view definition for polls -->
     <record id="poll_poll_view_tree" model="ir.ui.view">
         <field name="name">poll.poll.tree</field>
         <field name="model">poll.poll</field>
         <field name="arch" type="xml">
             <list>
-                <field name="name"/>
-                <field name="created_by"/>
+                <field name="name"/> <!-- Poll name column -->
+                <field name="created_by"/> <!-- Creator column -->
             </list>
         </field>
     </record>
 
+    <!-- Form view definition for polls -->
     <record id="poll_poll_view_form" model="ir.ui.view">
         <field name="name">poll.poll.form</field>
         <field name="model">poll.poll</field>
@@ -28,16 +32,19 @@
             <form>
                 <sheet>
                     <group>
+                        <!-- Poll title and description (editable by creator only) -->
                         <field name="name" readonly="not created_by==uid"/>
                         <field name="description" readonly="not created_by==uid"/>
                         <field name="created_by" readonly="1"/>
 
+                        <!-- Instructions and input for selecting poll users -->
                         <label for="user_ids" class="oe_inline" invisible="id"/>
                         <p colspan="2" style="color:gray" invisible="id">
                             <i>Save the commission to choose users.</i>
                         </p>
                         <field name="user_ids" invisible="not id" widget="many2many_tags" readonly="not created_by==uid"/>
 
+                        <!-- Instructions and input for poll options -->
                         <label for="option_ids" class="oe_inline" invisible="id"/>
                         <p colspan="2" style="color:gray" invisible="id">
                             <i>Save the commission to create options.</i>
@@ -48,6 +55,7 @@
                             </list>
                         </field>
 
+                        <!-- Instructions and voting interface -->
                         <label for="vote_ids" class="oe_inline" invisible="id"/>
                         <p colspan="2" style="color:gray" invisible="option_ids and user_ids">
                             <i>Add options and users to vote.</i>

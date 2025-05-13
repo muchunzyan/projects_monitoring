@@ -1,23 +1,40 @@
 <?xml version="1.0"?>
 <odoo>
+    <!--
+        This file defines the full menu structure for the PaLMS 2 system.
+        It organizes user-facing navigation items into Personal, Projects, Faculty, Commissions, and Announcements sections.
+    -->
+
+    <!-- Root menu for the student module -->
     <menuitem id="student_menu_root" name="PaLMS 2">
+
+        <!-- Personal section: user-specific tools and views -->
         <menuitem id="personal_first_level_menu" name="Personal" sequence="1">
+
+            <!-- Tasks and Planning tools -->
             <menuitem id="tasks_and_planning_second_level_menu" name="Tasks &amp; Planning" sequence="1">
                 <menuitem id="my_tasks_action" action="student_menu_action_server_my_tasks" sequence="1"/>
                 <menuitem id="calendar_action" action="student_calendar_event_view_action" sequence="2"/>
             </menuitem>
+
+            <!-- Proposals, applications, and personal project participation -->
             <menuitem id="submissions_and_participation_second_level_menu" name="Submissions &amp; Participation" sequence="2">
                 <menuitem id="proposals_for_student_action" action="student_proposal_view_personal" sequence="1" groups="student.group_student,student.group_administrator"/>
                 <menuitem id="applications_action" action="student_application_view_personal" sequence="2" groups="student.group_student,student.group_administrator"/>
                 <menuitem id="applications_professor_action" action="student_application_view_professor" sequence="3" groups="student.group_professor,student.group_administrator"/>
                 <menuitem id="my_projects_for_student_action" action="student_projects_view_personal" sequence="4" groups="student.group_elected_student,student.group_administrator"/>
             </menuitem>
+
+            <!-- Dashboards available to staff -->
             <menuitem id="dashboards_second_level_menu" name="Dashboards" sequence="3">
                 <menuitem id="dashboards_action" action="student_dashboard_view_action" sequence="1" groups="student.group_manager,student.group_supervisor,student.group_professor"/>
             </menuitem>
         </menuitem>
 
+        <!-- Projects section: full project lifecycle and evaluation -->
         <menuitem id="projects_first_level_menu" name="Projects" sequence="2">
+
+            <!-- Proposals, applications, and availability -->
             <menuitem id="project_lifecycle_second_level_menu" name="Project Lifecycle" sequence="1">
                 <menuitem id="proposals_for_professor_action" action="student_proposal_view_professor" sequence="1" groups="student.group_professor,student.group_administrator"/>
                 <menuitem id="project_availability_action" action="student_availability_view_action" sequence="2" groups="student.group_administrator"/>
@@ -25,33 +42,46 @@
                 <menuitem id="application_list_for_professors_action" action="student_application_view_public" sequence="4" groups="student.group_supervisor,student.group_professor,student.group_administrator"/>
                 <menuitem id="all_proposals_action" action="student_proposal_view_public" sequence="5" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
             </menuitem>
+
+            <!-- Milestones and student submissions -->
             <menuitem id="milestones_second_level_menu" name="Milestones" sequence="2">
                 <menuitem id="milestones_action" action="student_milestone_view_action" sequence="1"/>
                 <menuitem id="milestone_results_action" action="student_milestone_result_view_action" sequence="2" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
             </menuitem>
+
+            <!-- Track progress and supervision -->
             <menuitem id="progress_tracking_second_level_menu" name="Progress Tracking" sequence="3">
                 <menuitem id="my_projects_progress_for_professors_action" action="student_project_kanban_professor_state" sequence="1" groups="student.group_professor,student.group_administrator"/>
                 <menuitem id="all_projects_progress_stuff_action" action="student_project_kanban_manager" sequence="2" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
                 <menuitem id="projects_supervision_board_action" action="student_availability_kanban_supervision" sequence="3" groups="student.group_supervisor,student.group_administrator"/>
                 <menuitem id="projects_groups_action" action="student_projects_group_view_action" sequence="4" groups="student.group_professor,student.group_manager,student.group_supervisor,student.group_administrator"/>
             </menuitem>
+
+            <!-- Reviews, defenses, and evaluations -->
             <menuitem id="review_and_evaluation_second_level_menu" name="Review &amp; Evaluation" sequence="4">
                 <menuitem id="review_tables_action" action="student_review_table_view_action" sequence="1" groups="student.group_manager,student.group_professor,student.group_supervisor,student.group_administrator"/>
                 <menuitem id="commission_members_grades_action" action="student_grade_view_action" sequence="2" groups="student.group_administrator"/>
             </menuitem>
+
+            <!-- Project classification metadata -->
             <menuitem id="tags_and_scientific_profiles_second_level_menu" name="Tags &amp; Scientific Profiles" sequence="5">
                 <menuitem id="tags_action" action="student_tag_view_action" sequence="1" groups="student.group_administrator,student.group_supervisor"/>
                 <menuitem id="scientific_profiles_action" action="student_scientific_profile_view_action" sequence="2" groups="student.group_administrator,student.group_manager"/>
             </menuitem>
         </menuitem>
 
+        <!-- Faculty and user management -->
         <menuitem id="faculty_users_first_level_menu" name="Faculty &amp; Users" sequence="3">
+
+            <!-- Academic hierarchy: faculties, programs, degrees -->
             <menuitem id="academic_structure_second_level_menu" name="Academic Structure" sequence="1">
                 <menuitem id="faculties_action" action="student_faculty_view_action" sequence="1" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
                 <menuitem id="programs_action" action="student_program_view_action" sequence="2" groups="student.group_manager,student.group_supervisor,student.group_administrator"/>
                 <menuitem id="degrees_of_education_action" action="student_degree_view_action" sequence="3" groups="student.group_administrator"/>
                 <menuitem id="university_campuses_action" action="student_campus_view_action" sequence="3" groups="student.group_administrator"/>
             </menuitem>
+
+            <!-- User registry and account linking -->
             <menuitem id="user_management_second_level_menu" name="User Management" sequence="2">
                 <menuitem id="faculty_manager_menu_action" action="student_manager_view_action" sequence="1" groups="student.group_administrator"/>
                 <menuitem id="faculty_supervisor_menu_action" action="student_supervisor_view_action" sequence="2" groups="student.group_administrator"/>
@@ -60,16 +90,22 @@
             </menuitem>
         </menuitem>
 
+        <!-- Commission coordination and polls -->
         <menuitem id="commissions_polls_first_level_menu" name="Commissions &amp; Polls" sequence="4">
+
+            <!-- Project defense workflows -->
             <menuitem id="defense_process_second_level_menu" name="Defense Process" sequence="1">
                 <menuitem id="commissions_action" action="student_commission_view_action" sequence="1"/>
                 <menuitem id="student_project_defenses_action" action="student_defense_view_action" sequence="1" groups="student.group_administrator"/>
             </menuitem>
+
+            <!-- Polls and voting mechanisms -->
             <menuitem id="voting_participation_second_level_menu" name="Voting &amp; Participation" sequence="2">
                 <menuitem id="polls_action" action="poll.poll_poll_view_action" sequence="1" groups="student.group_manager,student.group_professor,student.group_administrator"/>
             </menuitem>
         </menuitem>
 
+        <!-- Global announcement system -->
         <menuitem id="announcements_first_level_menu" name="Announcements" sequence="5">
             <menuitem id="announcement_action" action="student_announcement_view_action" sequence="1"/>
             <menuitem id="announcement_reply_action" action="student_announcement_reply_view_action" sequence="2"/>

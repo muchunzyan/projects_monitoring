@@ -1,4 +1,10 @@
 <odoo>
+    <!--
+        This file defines the views and actions for milestone management in PaLMS.
+        Milestones help track deadlines, documentation, and target programs within student projects.
+    -->
+
+    <!-- Action: Open milestone list and form views -->
     <record id="student_milestone_view_action" model="ir.actions.act_window">
         <field name="name">Milestones</field>
         <field name="res_model">student.milestone</field>
@@ -10,6 +16,7 @@
         </field>
     </record>
 
+    <!-- List View: Show milestone name, deadline, and programs -->
     <record id="student_milestone_view_tree" model="ir.ui.view">
         <field name="name">student.milestone.tree</field>
         <field name="model">student.milestone</field>
@@ -22,18 +29,21 @@
         </field>
     </record>
 
+    <!-- Form View: Show and edit milestone details -->
     <record id="student_milestone_view_form" model="ir.ui.view">
         <field name="name">student.milestone.form</field>
         <field name="model">student.milestone</field>
         <field name="arch" type="xml">
             <form string="Milestone">
                 <header>
+                    <!-- Button: Upload result (visible to students and professors only) -->
                     <button name="action_upload_result"
                             type="object"
                             string="Upload Result"
                             class="btn-primary"
                             groups="student.group_student,student.group_professor"
                             invisible="id==False"/>
+                    <!-- Button: View submitted results (visible to managers and supervisors) -->
                     <button name="action_view_milestone_results"
                             type="object"
                             string="View Results"
@@ -47,6 +57,7 @@
                         <field name="description"/>
                         <field name="deadline_date"/>
                         <field name="program_ids" widget="many2many_tags"/>
+                        <!-- Optional attachments -->
                         <field name="attachment_ids" widget="many2many_binary" invisible="attachment_ids==False"/>
                     </group>
                 </sheet>

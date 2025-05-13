@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!--
+            This view customizes the poll form view to support additional poll metadata.
+            It adds a Many2many field for faculties and a commission selector inside poll options.
+        -->
+
         <record id="view_poll_poll_form_inherit_custom" model="ir.ui.view">
             <field name="name">poll.poll.form.inherit.custom</field>
             <field name="model">poll.poll</field>
             <field name="inherit_id" ref="poll.poll_poll_view_form"/>
             <field name="arch" type="xml">
+
+                <!-- Add commission selector inside each poll option -->
                 <xpath expr="//sheet/group[1]/field[@name='option_ids']/list" position="inside">
                     <field name="commission_id" widget="many2one"/>
                 </xpath>
+
+                <!-- Insert faculty selection field before user_ids -->
                 <xpath expr="//sheet/group[1]/field[@name='user_ids']" position="before">
                     <field name="faculty_ids" widget="many2many_tags" readonly="not created_by==uid"/>
                 </xpath>

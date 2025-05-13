@@ -1,11 +1,19 @@
 <odoo>
+    <!--
+        This file defines the views and actions for student calendar events in PaLMS.
+        It includes a calendar view, a list view, and a form view for managing events like tasks, milestones, and announcements.
+    -->
+
+    <!-- Action to open the calendar with user-specific filtering -->
     <record id="student_calendar_event_view_action" model="ir.actions.act_window">
         <field name="name">Calendar</field>
         <field name="res_model">student.calendar.event</field>
         <field name="view_mode">calendar,list,form</field>
+        <!-- Show events where the user is a participant or the creator -->
         <field name="domain">['|', ('user_ids', 'in', [uid]), ('creator_id', 'in', [uid])]</field>
     </record>
 
+    <!-- Calendar view definition -->
     <record id="student_calendar_event_view_calendar" model="ir.ui.view">
         <field name="name">student.calendar.event.calendar</field>
         <field name="model">student.calendar.event</field>
@@ -22,6 +30,7 @@
     </record>
 
 
+    <!-- Form view for viewing and editing events -->
     <record id="student_calendar_event_view_form" model="ir.ui.view">
         <field name="name">student.calendar.event.form</field>
         <field name="model">student.calendar.event</field>
@@ -29,9 +38,11 @@
             <form>
                 <sheet>
                     <group>
+                        <!-- Used to restrict editability based on user permissions -->
                         <field name="can_edit" invisible="1"/>
                         <field name="creator_id" invisible="1"/>
 
+                        <!-- Event details (readonly if user is not editor) -->
                         <field name="name" readonly="can_edit==False"/>
                         <field name="event_type" readonly="can_edit==False"/>
                         <field name="start_datetime" readonly="can_edit==False"/>

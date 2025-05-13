@@ -1,1 +1,2 @@
+# This file imports all model modules so that Odoo can register them properly.
 from . import student_utils, student_application, student_proposal, student_faculty, student_professor, student_program, student_project, student_student, student_supervisor, student_manager, student_availability, student_commission, student_announcement, student_announcement_reply, student_calendar_event, student_milestone, student_milestone_result, student_project_group, student_review, student_dashboard, custom_project, custom_poll

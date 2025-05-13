@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <odoo>
 
+    <!--
+        This file defines views and actions related to project availability records in PaLMS.
+        These records track which academic programs and degrees a project is available for,
+        and allow supervisors to review, approve, reject, or return submissions.
+    -->
+
+    <!-- Action: Open availability list/form views -->
     <record id="student_availability_view_action" model="ir.actions.act_window">
         <field name="name">Project Availability</field>
         <field name="res_model">student.availability</field>
@@ -12,6 +19,7 @@
         </field>
     </record>
 
+    <!-- Form View: Full detail entry for availability record -->
     <record id="student_availability_view_form" model="ir.ui.view">
         <field name="name">student.availability.form</field>
         <field name="model">student.availability</field>
@@ -58,10 +66,10 @@
                         <group>
                             <field name="type" readonly="state in ['accepted', 'rejected']"/>
                             <field name="program_id" readonly="state != 'waiting'" domain="[('program_faculty_id.id', '=', program_id_faculty_domain)]"/>
-                            <field name="degree_ids" widget="many2many_tags" domain="[('level', '=', degree_ids_level_domain)]" readonly="state != 'waiting'"/>                    
+                            <field name="degree_ids" widget="many2many_tags" domain="[('level', '=', degree_ids_level_domain)]" readonly="state != 'waiting'"/>
                         </group>
                         <group colspan="2">
-                            <field name="reason" readonly="state != 'pending'" invisible="state in ['waiting','approved']" placeholder="Please specify the reason if the project will be rejected or returned. The reason will registered in the log."/>    
+                            <field name="reason" readonly="state != 'pending'" invisible="state in ['waiting','approved']" placeholder="Please specify the reason if the project will be rejected or returned. The reason will registered in the log."/>
                         </group>
 
                         <field name="program_id_faculty_domain" invisible="1"/>
@@ -93,15 +101,16 @@
         </field>
     </record>
 
+    <!-- Kanban View: Supervision board with grouped cards by state -->
     <record id="student_availability_kanban_view_supervision" model="ir.ui.view">
         <field name="name">Availability - Kanban View for Supervisors</field>
         <field name="model">student.availability</field>
         <field name="arch" type="xml">
             <kanban create="false"
-                    quick_create="false" 
-                    records_draggable="false" 
-                    default_group_by="state" 
-                    class="o_res_partner_kanban o_kanban_large_column" 
+                    quick_create="false"
+                    records_draggable="false"
+                    default_group_by="state"
+                    class="o_res_partner_kanban o_kanban_large_column"
                     name="student_availability_kanban"
                     default_order="write_date desc">
                 <field name="state"/>
@@ -144,7 +153,7 @@
         </field>
     </record>
 
-    <!-- student_menus.xml refers to this in the menu (for supervisors) -->
+    <!-- Action: Access kanban view as a board for supervisors -->
     <record id="student_availability_kanban_supervision" model="ir.actions.act_window">
         <field name="name">Project Supervision Board</field>
         <field name="res_model">student.availability</field>
@@ -159,7 +168,7 @@
         <field name="domain">[('state', '!=', 'waiting'), ('program_supervisor_account', '=', uid)]</field>
     </record>
 
-    <!-- ♥ Finish it -->
+    <!-- Search View: Filter and group availability records -->
     <record id="student_availability_view_search" model="ir.ui.view">
         <field name="name">student.availability.search</field>
         <field name="model">student.availability</field>
@@ -180,6 +189,7 @@
         </field>
     </record>
 
+    <!-- List View: Compact list view of availability records -->
     <record id="student_availability_view_list" model="ir.ui.view">
         <field name="name">Availability - List View</field>
         <field name="model">student.availability</field>

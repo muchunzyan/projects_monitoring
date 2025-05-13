@@ -1,3 +1,5 @@
+# This manifest file defines the configuration for the PaLMS 2 Odoo module.
+# It specifies metadata, dependencies, and the list of data and view files to be loaded.
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
@@ -6,7 +8,7 @@
     'version': '2.0.0',
     'category': 'Academic',
     'sequence': 15,
-    'summary': 'A prototype ERP solution for handling КР and ВКР submissions',
+    'summary': 'A prototype ERP solution for handling Course works and Final qualification works submissions',
     'author': 'Uchunzhyan Mikhail (CC BY-NC) 2025',
     'website': 'https://github.com/muchunzyan/projects_monitoring',
     'installable': True,

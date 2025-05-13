@@ -3,17 +3,29 @@ from odoo.exceptions import ValidationError
 from odoo.osv import expression
 from markupsafe import Markup
 
+# Announcement model used to publish messages to users with deadlines and access filtering
 class Announcement(models.Model):
     _name = "student.announcement"
     _description = "PaLMS - Announcements"
     _order = 'create_date desc'
 
+    # Announcement title
     name = fields.Char(string='Title', required=True, translate=True)
+
+    # Main content (HTML)
     content = fields.Html(string='Content', translate=True)
+
+    # Auto-filled creation timestamp
     create_date = fields.Datetime(string='Created On', readonly=True)
+
+    # Deadline when the announcement expires
     deadline_date = fields.Datetime(string='Deadline', required=True,
                                     help='At this time, the announcement will be taken off the publication')
+
+    # Whether the announcement is currently published
     is_published = fields.Boolean(string='Published', default=True, reqired=True, store=True, readonly=True)
+
+    # Author of the announcement
     author_id = fields.Many2one(
         comodel_name='res.users',
         string='Author',
@@ -21,16 +33,22 @@ class Announcement(models.Model):
         readonly=True,
         required=True
     )
+
+    # Groups the announcement is visible to
     target_group_ids = fields.Many2many(
         comodel_name='res.groups',
         string='Target Groups',
         required=True
     )
+
+    # Educational programs targeted by this announcement
     target_program_ids = fields.Many2many(
         comodel_name='student.program',
         string='Target Programs',
         required=True
     )
+
+    # Any file attachments added to the announcement
     attachment_ids = fields.Many2many(
         comodel_name='ir.attachment',
         relation='student_announcement_attachment_rel',
@@ -38,17 +56,24 @@ class Announcement(models.Model):
         column2='attachment_id',
         string='Attachments'
     )
+
+    # Discussion channel linked to the announcement
     channel_id = fields.Many2one('discuss.channel', string='Discuss Channel', readonly=True, copy=False)
+
+    # Replies linked to this announcement
     reply_ids = fields.One2many('student.announcement.reply', 'announcement_id', string='Replies')
 
+    # Whether creation notification has already been sent
     creation_notification_sent = fields.Boolean(string='Creation Notification Sent', readonly=True, default=False)
 
+    # Ensure deadline is in the future
     @api.constrains('deadline_date')
     def _check_deadline_date(self):
         for record in self:
             if record.deadline_date and record.deadline_date < fields.Datetime.now():
                 raise ValidationError("Deadline date must be in the future.")
 
+    # Override create to make attachments public and notify users
     @api.model
     def create(self, vals):
         record = super().create(vals)
@@ -56,24 +81,26 @@ class Announcement(models.Model):
         record._notify_target_users(is_update=False)
         return record
 
+    # Override write to send update notifications if needed
     def write(self, vals):
         res = super().write(vals)
         self._make_attachments_public()
-
         for rec in self:
             if rec.creation_notification_sent:
                 self._notify_target_users(is_update=True)
-
         return res
 
+    # Make all attachments public
     def _make_attachments_public(self):
         for announcement in self:
             for attachment in announcement.attachment_ids:
                 attachment.write({'public': True})
 
+    # Notify users based on target group and program/faculty intersection
     def _notify_target_users(self, is_update=False):
         for announcement in self:
             if announcement.is_published:
+                # Collect users based on programs and faculties
                 students = self.env['student.student'].sudo().search(
                     [('student_program', 'in', announcement.target_program_ids.ids)])
                 program_students_user_ids = students.mapped('student_account.id')
@@ -92,6 +119,7 @@ class Announcement(models.Model):
                     [('professor_faculty', 'in', faculties.ids)])
                 faculty_professors_user_ids = professors.mapped('professor_account.id')
 
+                # Apply group filter
                 group_user_ids = self.env['res.users'].sudo().search([
                     ('groups_id', 'in', announcement.target_group_ids.ids)
                 ]).ids
@@ -102,8 +130,8 @@ class Announcement(models.Model):
                         set(program_supervisors_user_ids) |
                         set(faculty_professors_user_ids))
                 target_user_ids = list(program_and_faculty_users & set(group_user_ids))
-
                 users = self.env['res.users'].browse(target_user_ids)
+
                 if users:
                     base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
                     announcement_url = f'{base_url}/web#id={announcement.id}&model=student.announcement&view_type=form'
@@ -115,40 +143,39 @@ class Announcement(models.Model):
                     )
 
                     if is_update:
-                        channel = announcement.channel_id
-                    else:
-                        # Send the email --------------------
-                        subtype_id = self.env.ref('student.student_message_subtype_email')
-                        template = self.env.ref('student.email_template_announcement_created')
-                        template.send_mail(self.id,
-                                           email_values={'email_to': ','.join(users.mapped('email')),
-                                                         'subtype_id': subtype_id.id},
-                                           force_send=True)
-                        # -----------------------------------
-
-                        announcement.env['student.utils'].send_message(
-                            'announcement',
-                            message_text,
-                            users,
-                            announcement.author_id,
-                            (str(announcement.id), str(announcement.name))
-                        )
-                        channel = announcement.env['discuss.channel'].sudo().search([
-                            ('name', '=', f"Announcement №{announcement.id} ({announcement.name})")
-                        ], limit=1)
-                        announcement.channel_id = channel
-
-                        announcement.creation_notification_sent = True
-
-                    if is_update:
-                        channel.sudo().message_post(
+                        # Post update to existing channel
+                        announcement.channel_id.sudo().message_post(
                             body=message_text,
                             author_id=announcement.author_id.partner_id.id,
                             message_type="comment",
                             subtype_xmlid='mail.mt_comment'
                         )
                     else:
-                        # Create calendar event
+                        # Email + Discuss + Calendar (on creation)
+                        subtype_id = self.env.ref('student.student_message_subtype_email')
+                        template = self.env.ref('student.email_template_announcement_created')
+                        template.send_mail(self.id,
+                                           email_values={'email_to': ','.join(users.mapped('email')),
+                                                         'subtype_id': subtype_id.id},
+                                           force_send=True)
+
+                        # Send message in Discuss
+                        self.env['student.utils'].send_message(
+                            'announcement',
+                            message_text,
+                            users,
+                            announcement.author_id,
+                            (str(announcement.id), str(announcement.name))
+                        )
+
+                        # Save or create the related channel
+                        channel = announcement.env['discuss.channel'].sudo().search([
+                            ('name', '=', f"Announcement №{announcement.id} ({announcement.name})")
+                        ], limit=1)
+                        announcement.channel_id = channel
+                        announcement.creation_notification_sent = True
+
+                        # Add deadline as a calendar event
                         self.env['student.calendar.event'].sudo().create({
                             'name': f'Announcement deadline: {announcement.name}',
                             'event_type': 'announcement_deadline',
@@ -159,6 +186,7 @@ class Announcement(models.Model):
                             'creator_id': self.env.user.id
                         })
 
+    # Action: reply to the announcement if it's published
     def action_reply_to_announcement(self):
         self.ensure_one()
         if not self.is_published:
@@ -191,6 +219,7 @@ class Announcement(models.Model):
                 }
             }
 
+    # Action: open replies linked to this announcement
     def action_view_announcement_replies(self):
         self.ensure_one()
         return {
@@ -205,6 +234,7 @@ class Announcement(models.Model):
             'target': 'current',
         }
 
+    # Extend search behavior with visibility filtering based on user group and role
     def _search(self, domain, offset=0, limit=None, order=None):
         user = self.sudo().env.user
         if not (
@@ -248,6 +278,7 @@ class Announcement(models.Model):
                     ])
         return super()._search(domain, offset=offset, limit=limit, order=order)
 
+    # Scheduled job: unpublish expired announcements automatically
     @api.model
     def _cron_unpublish_expired_announcements(self):
         now = fields.Datetime.now()

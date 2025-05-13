@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
+    <!--
+        This file defines the list and form views for student replies to announcements.
+        It also registers an action to access these replies from the UI.
+    -->
+
+    <!-- Action: Open the list view for Announcement Replies -->
     <record id="student_announcement_reply_view_action" model="ir.actions.act_window">
         <field name="name">Announcement Replies</field>
         <field name="res_model">student.announcement.reply</field>
@@ -12,6 +18,7 @@
         </field>
     </record>
 
+    <!-- List View: Show basic reply details in a table -->
     <record id="student_announcement_reply_view_tree" model="ir.ui.view">
         <field name="name">student.announcement.reply.tree</field>
         <field name="model">student.announcement.reply</field>
@@ -26,6 +33,7 @@
         </field>
     </record>
 
+    <!-- Form View: Show and edit individual reply -->
     <record id="student_announcement_reply_view_form" model="ir.ui.view">
         <field name="name">student.announcement.reply.form</field>
         <field name="model">student.announcement.reply</field>

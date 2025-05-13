@@ -1,3 +1,13 @@
+# =============================================================================
+# PaLMS Student Project Model
+# -----------------------------------------------------------------------------
+# This model defines the core logic for student project proposals in PaLMS.
+# Professors can create projects and submit them for program approval.
+# The model supports state transitions, file handling, project grouping, milestone tracking,
+# and integration with external project management (Odoo Project module).
+# It includes access restrictions, computed fields for filtering, and messaging logic for approval workflows.
+# =============================================================================
+
 from markupsafe import Markup
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError, AccessError, ValidationError
@@ -7,6 +17,9 @@ class Project(models.Model):
     _description = "PaLMS - Projects"
     _inherit = ['mail.thread', 'mail.activity.mixin', 'student.utils']
 
+    # === FIELD DEFINITIONS ===
+
+    # Indicates if the current user is following the related Odoo project.project record (for chat/notification logic)
     current_user_follower = fields.Boolean(string="Is the current user among the project followers?", compute='_compute_current_user_follower')
     def _compute_current_user_follower(self):
         if self.state_publication not in ['ineligible', 'published', 'applied'] and self.project_project_id:
@@ -17,6 +30,7 @@ class Project(models.Model):
 
     proposal_id = fields.Many2one('student.proposal', string="Proposal", readonly=True)
 
+    # --- Project state fields (business logic) ---
     state_evaluation = fields.Selection([('draft', 'Draft'),
                                          ('progress', 'In Progress'),
                                          ('approved', 'Approved'),
@@ -31,6 +45,7 @@ class Project(models.Model):
                                           ('dropped', 'Dropped')],
                                           group_expand='_expand_publication_groups', default='ineligible', string='Publication State', readonly=True, tracking=True)
 
+    # Main project state for board/kanban grouping and business transitions
     project_state = fields.Selection([('draft', 'Draft'),
                                       ('pending', 'Pending Academic Supervisor Review'),
                                       ('mixed', 'Mixed Evaluation'),
@@ -68,6 +83,8 @@ class Project(models.Model):
     write_date = fields.Datetime("Last Update", readonly=True)
     write_date_date = fields.Date("Last Update Date", compute="_compute_write_date", store=True, readonly=True)
 
+    # === COMPUTED FIELDS ===
+
     @api.depends('write_date')
     def _compute_write_date(self):
         for record in self:
@@ -82,6 +99,7 @@ class Project(models.Model):
         ('without', 'Without Reviewer')
     ], compute='_compute_reviewer_status', store=True)
 
+    # Indicates if there is a reviewer assigned for this project (business logic)
     def _compute_reviewer_status(self):
         for record in self:
             review_line = self.env['student.review.line'].search([('project_id', '=', record.id), ('reviewer_id', '!=', False)], limit=1)
@@ -133,6 +151,7 @@ class Project(models.Model):
                                             readonly=True)
     approved_program_ids_count = fields.Integer('Number of Approved Submissions', compute="_compute_program_counts", store=False, readonly=True)
 
+    # --- Computed counts for program relations ---
     @api.depends('program_ids','pending_program_ids','approved_program_ids')
     def _compute_program_counts(self):
         self.program_ids_count = len(self.program_ids)
@@ -144,6 +163,7 @@ class Project(models.Model):
 
     reason = fields.Text(string='Return/Rejection Reason')
 
+    # Computed field: users who are program supervisors for the selected programs (used for access and notifications)
     program_supervisors = fields.Many2many('res.users', compute='_compute_program_supervisors', string='Program Supervisors', store=True, readonly=True)
 
     @api.depends('program_ids')
@@ -249,6 +269,7 @@ class Project(models.Model):
                               ('8', '8'),
                               ('9', '9'),
                               ('10', '10')], string='Commission Grade (1-10)')
+    # Commission assigned for defense (important for access control at completion)
     commission_id = fields.Many2one('student.commission', string='Defense Commission')
 
     @api.depends('student_elected')
@@ -285,7 +306,9 @@ class Project(models.Model):
                 project.state_publication = 'applied'
                 project.project_state = 'applied'
 
-    # Show projects from the same faculty
+    # === SEARCH FILTERS (Board Views) ===
+    # Custom search override to filter projects for board/kanban views based on user faculty, program, or supervisor role.
+    # This implements business access logic for different roles and views.
     @api.model
     def search(self, args, offset=0, limit=None, order=None):
         active_view_type = self.env.context.get('view_type', False)
@@ -346,8 +369,8 @@ class Project(models.Model):
 
         return super(Project, self).search(args, offset=offset, limit=limit, order=order)
 
-    # COLORING #
-    # Handle the coloring of the project
+    # === COLOR COMPUTATIONS (Kanban Cards) ===
+    # Handle the coloring of the project for kanban/board views
     color_evaluation = fields.Integer(string="Evaluation Card Color", default=4, compute='_compute_evaluation_color_value', store=False)
     color_publication = fields.Integer(string="Publication Card Color", compute='_compute_publication_color_value', store=False)
 
@@ -388,7 +411,8 @@ class Project(models.Model):
                 case _:
                     ValidationError("This project has an invalid publication state. Please contact the system administrator.")
 
-    # Orders kanban groups/stages
+    # === STATE GROUP EXPANSIONS ===
+    # Used for custom ordering/grouping in board/kanban views.
     @api.model
     def _expand_evaluation_groups(self, states, domain, order):
         return ['draft', 'progress', 'approved', 'mixed', 'rejected']
@@ -401,7 +425,7 @@ class Project(models.Model):
     def _expand_state_groups(self, states, domain, order):
         return ['draft', 'pending', 'mixed', 'rejected', 'published', 'applied', 'assigned', 'completed', 'graded']
 
-    # UTILITY #
+    # === CREATE / WRITE OVERRIDES ===
     # Prevents the creation of the default log message
     @api.model
     def create(self, vals):
@@ -422,13 +446,17 @@ class Project(models.Model):
             vals['project_state'] = 'graded' if vals.get('grade') else 'completed'
         return super(Project, self).write(vals)
 
-    # BUTTON LOGIC #
+    # === BUTTON ACTIONS ===
+
+    # Restricts access to project modification to the owning professor (except admin/supervisor)
     def _check_professor_identity(self):
         if not self.env.user.has_group('student.group_administrator') and not self.env.user.has_group('student.group_supervisor'):
             if self.professor_account != self.env.user:
                 raise AccessError("You can only modify your projects.")
 
     # ♥ You may send different messages submission and re-submission.
+    # Submit project for supervisor/program approval.
+    # Handles state transitions, file access, program assignments, and notifies supervisors via email and messaging.
     def action_view_project_submit(self):
         self._check_professor_identity()
 
@@ -514,7 +542,8 @@ class Project(models.Model):
                 return self.env['student.utils'].message_display('Automatic Cancellation', 'The project submission is automatically cancelled.', False)
 
 
-    # Check if all supervisors have decided. If yes, mark the project accordingly.
+    # === BUSINESS LOGIC ===
+    # Check if all supervisors have made a decision. Used to determine the collective state after all program supervisors have acted.
     def _check_decisions(self):
         if len(self.pending_program_ids) == 0:
             if len(self.approved_program_ids) == len(self.program_ids):
@@ -528,6 +557,7 @@ class Project(models.Model):
         else:
             return 'progress'
 
+    # Supervisor approves a project for a particular program. Handles state changes, notifications, and integration.
     def action_view_project_approve(self, approved_program_id):
         if self.state_evaluation == "progress":
             if self.proposal_id:
@@ -570,7 +600,8 @@ class Project(models.Model):
         else:
             raise UserError("You can only reject projects submissions in 'Pending' status.")
 
-    # RESTRICTIONS #
+    # === ACCESS CONSTRAINTS ===
+
     @api.constrains("result_text", "notes")
     def _check_modifier_faculty_member(self):
         if self.state_publication == 'completed':
@@ -729,9 +760,10 @@ class Project(models.Model):
         action['domain'] = [('project_id', '=', self.project_project_id.id)]
         return action
 
+# === PROJECT CREATION INTEGRATION ===
+# Integration with Odoo project.project (creates a project for the accepted student project, adds followers and stages)
     project_project_tasks = fields.One2many('project.task', compute="_compute_project_project_tasks")
     project_project_id = fields.Many2one('project.project', string="Project Management")
-    # Creates the project.project for student.project
     def create_project_project(self):
         self.project_project_id = self.env['project.project'].create({
             'name': self.name,
@@ -768,9 +800,10 @@ class Project(models.Model):
     def _compute_project_project_tasks(self):
         self.project_project_tasks = self.env['project.project'].sudo().browse(self.project_project_id.id).tasks
 
-    # Chat visibility
+# === CHAT VISIBILITY ===
     chat_invisible = fields.Boolean("Chat Invisible", compute="_compute_chat_invisible", store=False)
 
+    # Controls chat/discussion visibility based on user role and project assignment
     def _compute_chat_invisible(self):
         accepted_ids = [self.professor_id.professor_account.id, self.student_elected.student_account.id]
 

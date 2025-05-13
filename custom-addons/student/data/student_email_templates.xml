@@ -1,7 +1,21 @@
 <?xml version="1.0"?>
+<!--
+    student_email_templates.xml
+
+    This file defines email templates for student project management events in PaLMS.
+    Templates cover notifications related to project submissions, approvals, applications,
+    proposals, commissions, polls, tasks, announcements, events, milestones, and review assignments.
+    Each template is triggered by specific events in the student project workflow and
+    ensures all stakeholders receive timely updates.
+-->
 <odoo>
     <data>
-        <!-- PROJECT -->
+        <!-- ========================================================= -->
+        <!-- PROJECT NOTIFICATIONS                                    -->
+        <!-- Notifications to professors regarding project submission, -->
+        <!-- approval, rejection, and return for revision.             -->
+        <!-- ========================================================= -->
+        <!-- Sent to professors when a project is submitted for review -->
         <record id="email_template_project_submission" model="mail.template">
             <field name="name">Project Submission Notification</field>
             <field name="model_id" ref="student.model_student_project"/>
@@ -18,6 +32,7 @@
             </field>
         </record>
 
+        <!-- Sent when a project is approved -->
         <record id="email_template_project_approval" model="mail.template">
             <field name="name">Project Approval Notification</field>
             <field name="model_id" ref="student.model_student_project"/>
@@ -37,6 +52,7 @@
             </field>
         </record>
 
+        <!-- Sent when a project is rejected with a reason -->
         <record id="email_template_project_rejection" model="mail.template">
             <field name="name">Project Rejection Notification</field>
             <field name="model_id" ref="student.model_student_project"/>
@@ -57,6 +73,7 @@
             </field>
         </record>
 
+        <!-- Sent when a project is returned for revision -->
         <record id="email_template_project_return" model="mail.template">
             <field name="name">Returned Project Notification</field>
             <field name="model_id" ref="student.model_student_project"/>
@@ -77,7 +94,12 @@
             </field>
         </record>
 
-        <!-- APPLICATION -->
+        <!-- ========================================================= -->
+        <!-- APPLICATION NOTIFICATIONS                                 -->
+        <!-- Notifications regarding student applications to projects: -->
+        <!-- sent to professors and students for application events.   -->
+        <!-- ========================================================= -->
+        <!-- Sent to professors when a student applies to a project -->
         <record id="email_template_application_send" model="mail.template">
             <field name="name">Received Application Notification</field>
             <field name="model_id" ref="student.model_student_application"/>
@@ -97,6 +119,7 @@
             </field>
         </record>
 
+        <!-- Sent to students when their application is accepted -->
         <record id="email_template_application_accept" model="mail.template">
             <field name="name">Application Accepted Notification</field>
             <field name="model_id" ref="student.model_student_application"/>
@@ -116,6 +139,7 @@
             </field>
         </record>
 
+        <!-- Sent to students when their application is rejected -->
         <record id="email_template_application_reject" model="mail.template">
             <field name="name">Application Rejected Notification</field>
             <field name="model_id" ref="student.model_student_application"/>
@@ -135,7 +159,12 @@
             </field>
         </record>
 
-        <!-- PROPOSAL -->
+        <!-- ========================================================= -->
+        <!-- PROPOSAL NOTIFICATIONS                                    -->
+        <!-- Notifications regarding student proposals:                -->
+        <!-- sent to professors and students for proposal events.      -->
+        <!-- ========================================================= -->
+        <!-- Sent to professors when a proposal is submitted -->
         <record id="email_template_proposal_send" model="mail.template">
             <field name="name">Received Proposal Notification</field>
             <field name="model_id" ref="student.model_student_proposal"/>
@@ -155,6 +184,7 @@
             </field>
         </record>
 
+        <!-- Sent to students when a proposal is accepted -->
         <record id="email_template_proposal_accept" model="mail.template">
             <field name="name">Proposal Accepted Notification</field>
             <field name="model_id" ref="student.model_student_proposal"/>
@@ -174,6 +204,7 @@
             </field>
         </record>
 
+        <!-- Sent to students when a proposal is rejected -->
         <record id="email_template_proposal_reject" model="mail.template">
             <field name="name">Proposal Rejected Notification</field>
             <field name="model_id" ref="student.model_student_proposal"/>
@@ -193,7 +224,11 @@
             </field>
         </record>
 
-        <!-- COMMISSION -->
+        <!-- ========================================================= -->
+        <!-- COMMISSION NOTIFICATIONS                                  -->
+        <!-- Sent to users when they are assigned to a commission.     -->
+        <!-- ========================================================= -->
+        <!-- Sent to users when they are assigned to a commission -->
         <record id="email_template_commission_set" model="mail.template">
             <field name="name">Commission Member Notification</field>
             <field name="model_id" ref="student.model_student_commission"/>
@@ -210,7 +245,11 @@
             </field>
         </record>
 
-        <!-- POLL -->
+        <!-- ========================================================= -->
+        <!-- POLL NOTIFICATIONS                                        -->
+        <!-- Sent to users when a new poll is created.                 -->
+        <!-- ========================================================= -->
+        <!-- Sent to users when a new poll is created -->
         <record id="email_template_poll_created" model="mail.template">
             <field name="name">Poll Created Notification</field>
             <field name="model_id" ref="poll.model_poll_poll"/>
@@ -228,7 +267,11 @@
             </field>
         </record>
 
-        <!-- TASK COMPLETED -->
+        <!-- ========================================================= -->
+        <!-- TASK COMPLETION NOTIFICATION                              -->
+        <!-- Sent to responsible users when a task is completed.       -->
+        <!-- ========================================================= -->
+        <!-- Sent to responsible users when a task is completed -->
         <record id="email_template_task_completed" model="mail.template">
             <field name="name">Task Completed Notification</field>
             <field name="model_id" ref="project.model_project_task"/>
@@ -249,7 +292,11 @@
             </field>
         </record>
 
-        <!-- ANNOUNCEMENT CREATED -->
+        <!-- ========================================================= -->
+        <!-- ANNOUNCEMENT NOTIFICATIONS                                -->
+        <!-- Sent when a new announcement is created.                  -->
+        <!-- ========================================================= -->
+        <!-- Sent when a new announcement is created -->
         <record id="email_template_announcement_created" model="mail.template">
             <field name="name">Announcement Created Notification</field>
             <field name="model_id" ref="student.model_student_announcement"/>
@@ -270,7 +317,11 @@
             </field>
         </record>
 
-        <!-- CALENDAR EVENT CREATED -->
+        <!-- ========================================================= -->
+        <!-- CALENDAR EVENT NOTIFICATIONS                              -->
+        <!-- Sent when a new calendar event is scheduled.              -->
+        <!-- ========================================================= -->
+        <!-- Sent when a new calendar event is scheduled -->
         <record id="email_template_calendar_event_created" model="mail.template">
             <field name="name">Calendar Event Created Notification</field>
             <field name="model_id" ref="student.model_student_calendar_event"/>
@@ -292,7 +343,11 @@
             </field>
         </record>
 
-        <!-- MILESTONE CREATED -->
+        <!-- ========================================================= -->
+        <!-- MILESTONE NOTIFICATIONS                                   -->
+        <!-- Sent when a new milestone is created.                     -->
+        <!-- ========================================================= -->
+        <!-- Sent when a new milestone is created -->
         <record id="email_template_milestone_created" model="mail.template">
             <field name="name">Milestone Created Notification</field>
             <field name="model_id" ref="student.model_student_milestone"/>
@@ -313,7 +368,11 @@
             </field>
         </record>
 
-        <!-- REVIEW TABLE CREATED -->
+        <!-- ========================================================= -->
+        <!-- REVIEW TABLE NOTIFICATIONS                                -->
+        <!-- Sent when a new review table is created.                  -->
+        <!-- ========================================================= -->
+        <!-- Sent when a new review table is created -->
         <record id="email_template_review_table_created" model="mail.template">
             <field name="name">Review Table Created Notification</field>
             <field name="model_id" ref="student.model_student_review_table"/>
@@ -331,7 +390,11 @@
             </field>
         </record>
 
-        <!-- REVIEWER ASSIGNED -->
+        <!-- ========================================================= -->
+        <!-- REVIEWER ASSIGNMENT NOTIFICATION                          -->
+        <!-- Sent to users when they are assigned as reviewers.        -->
+        <!-- ========================================================= -->
+        <!-- Sent to users when they are assigned as reviewers -->
         <record id="email_template_reviewer_assigned" model="mail.template">
             <field name="name">Reviewer Assigned Notification</field>
             <field name="model_id" ref="student.model_student_review_line"/>

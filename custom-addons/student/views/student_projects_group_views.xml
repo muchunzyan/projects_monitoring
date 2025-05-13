@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
+    <!--
+        This file defines the views and actions for managing groups of student projects in PaLMS.
+        Project groups are logical collections used for classification or tracking.
+    -->
+
+    <!-- Action: Open list and form views for project groups -->
     <record id="student_projects_group_view_action" model="ir.actions.act_window">
         <field name="name">Projects Groups</field>
         <field name="res_model">student.projects.group</field>
@@ -11,6 +17,7 @@
         </field>
     </record>
 
+    <!-- Tree View: List of project groups with their names and associated projects -->
     <record id="student_projects_group_view_tree" model="ir.ui.view">
         <field name="name">student.projects.group.tree</field>
         <field name="model">student.projects.group</field>
@@ -22,6 +29,7 @@
         </field>
     </record>
 
+    <!-- Form View: Detailed view to assign multiple projects to a group -->
     <record id="student_projects_group_view_form" model="ir.ui.view">
         <field name="name">student.projects.group.form</field>
         <field name="model">student.projects.group</field>

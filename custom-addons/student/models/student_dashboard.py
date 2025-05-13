@@ -1,9 +1,12 @@
+# This model provides a user interface for dynamically generating grouped graph views for administrative dashboards in PaLMS.
+
 from odoo import fields, models, api
 
 class Dashboard(models.TransientModel):
     _name = 'student.dashboard'
     _description = 'PaLMS - Dashboards'
 
+    # Selectable model from which to pull data for graphing
     model_name = fields.Selection([
         ('student.announcement', 'Announcements'),
         ('student.announcement.reply', 'Replies to Announcements'),
@@ -31,21 +34,21 @@ class Dashboard(models.TransientModel):
         ('student.tag', 'Tags'),
         ('student.scientific_profile', 'Scientific Profiles'),
         ('student.approval', 'Approvals'),
-
         ('project.project', 'Project'),
         ('project.task', 'Task'),
-
         ('poll.poll', 'Poll'),
         ('poll.option', 'Poll Options'),
         ('poll.vote', 'Poll Votes'),
     ], string='Model', required=True)
 
+    # Field used to group data in the graph view
     group_by_field_id = fields.Many2one(
         'ir.model.fields',
         string='Group By',
         domain="[('model', '=', model_name), ('ttype', 'in', ('char', 'selection', 'many2one', 'boolean')), ('store', '=', True)]"
     )
 
+    # Opens a graph view of the selected model grouped by the chosen field
     def action_open_graph(self):
         context = {}
         if self.group_by_field_id:
@@ -59,6 +62,7 @@ class Dashboard(models.TransientModel):
             'context': context,
         }
 
+    # When the model name is changed, reset the group_by field and update the domain
     @api.onchange('model_name')
     def _onchange_model_name(self):
         self.group_by_field_id = False
@@ -70,6 +74,10 @@ class Dashboard(models.TransientModel):
                     ('store', '=', True),
                     ('name', '!=', 'id')
                 ],
-                'group_by_field_id': [('model', '=', self.model_name), ('ttype', 'in', ('char', 'selection', 'many2one', 'boolean')), ('store', '=', True)],
+                'group_by_field_id': [
+                    ('model', '=', self.model_name),
+                    ('ttype', 'in', ('char', 'selection', 'many2one', 'boolean')),
+                    ('store', '=', True)
+                ],
             }
         }
