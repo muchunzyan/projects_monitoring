@@ -160,3 +160,5 @@ cython_debug/
 .idea/
 /project/
 /custom-addons/PaLMS Console/
+/odoo.conf
+/custom-addons/Misc/
