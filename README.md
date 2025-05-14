@@ -12,7 +12,9 @@ In addition, this repository includes a separate module **Decidely**, which allo
 
 ### PaLMS 2 — Project Administration and Learning Management System
 
-![PaLMS 2 icon](custom-addons/student/static/description/icon.png)
+<div style="text-align: center;">
+  <img src="custom-addons/student/static/description/icon.png" alt="PaLMS2 icon" width="150">
+</div>
 
 #### Features
 
@@ -86,7 +88,9 @@ student/
 
 ### Decidely — Polls and Group Decision Subsystem
 
-![Decidely icon](custom-addons/poll/static/description/icon.png)
+<div style="text-align: center;">
+  <img src="custom-addons/poll/static/description/icon.png" alt="Decidely icon" width="150">
+</div>
 
 #### Features
 
