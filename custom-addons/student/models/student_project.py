@@ -414,15 +414,15 @@ class Project(models.Model):
     # === STATE GROUP EXPANSIONS ===
     # Used for custom ordering/grouping in board/kanban views.
     @api.model
-    def _expand_evaluation_groups(self, states, domain, order):
+    def _expand_evaluation_groups(self, states, domain, order=None):
         return ['draft', 'progress', 'approved', 'mixed', 'rejected']
 
     @api.model
-    def _expand_publication_groups(self, states, domain, order):
+    def _expand_publication_groups(self, states, domain, order=None):
         return ['published', 'applied', 'assigned', 'completed', 'dropped'] # 'ineligible' is hidden
 
     @api.model
-    def _expand_state_groups(self, states, domain, order):
+    def _expand_state_groups(self, states, domain, order=None):
         return ['draft', 'pending', 'mixed', 'rejected', 'published', 'applied', 'assigned', 'completed', 'graded']
 
     # === CREATE / WRITE OVERRIDES ===
