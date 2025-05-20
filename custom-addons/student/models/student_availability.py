@@ -155,7 +155,7 @@ class ProjectAvailability(models.Model):
 
     # Remove "waiting" from grouped Kanban column options
     @api.model
-    def _expand_state_groups(self, states, domain, order):
+    def _expand_state_groups(self, states, domain, order=None):
         return ['pending', 'approved', 'rejected', 'returned']
 
     # Check user is authorized to supervise this program
