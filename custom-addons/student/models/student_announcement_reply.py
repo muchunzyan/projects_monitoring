@@ -36,7 +36,8 @@ class AnnouncementReply(models.Model):
     # Override create to validate announcement_id and set attachments as public
     @api.model
     def create(self, vals):
-        self._make_attachments_public()
+        record = super().create(vals)
+        record._make_attachments_public()
 
         # Retrieve announcement_id either from values or context
         announcement_id = vals.get('announcement_id') or self.env.context.get('default_announcement_id')
@@ -45,18 +46,19 @@ class AnnouncementReply(models.Model):
         if not announcement_id:
             raise ValidationError("Announcement ID is missing.")
 
-        return super().create(vals)
+        return record
 
     # Override write to ensure attachments are public after update
     def write(self, vals):
+        res = super().write(vals)
         self._make_attachments_public()
-        return super().write(vals)
+        return res
 
     # Mark all attachments as public
     def _make_attachments_public(self):
-        for announcement in self:
-            for attachment in announcement.attachment_ids:
-                attachment.write({'public': True})
+        for reply in self:
+            for attachment in reply.attachment_ids:
+                attachment.sudo().write({'public': True})
 
     # Override search to restrict access to own replies unless privileged
     def _search(self, domain, offset=0, limit=None, order=None):

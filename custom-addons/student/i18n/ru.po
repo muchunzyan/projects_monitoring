@@ -1,13 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* student
+# 	* poll
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-29 10:58+0000\n"
-"PO-Revision-Date: 2025-03-29 23:05+0300\n"
+"POT-Creation-Date: 2025-06-01 09:48+0000\n"
+"PO-Revision-Date: 2025-06-01 14:15+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -16,375 +17,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.5\n"
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_project_submission
-msgid ""
-"\n"
-"                <h2>Hello there!</h2>\n"
-"                <p>The program you are supervising has received a new "
-"project proposal. Please examine and decide on the eligibility of this "
-"proposal.\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте!</h2>\n"
-"                <p>Программа, которую вы курируете, получила новое "
-"предложение проекта. Пожалуйста, ознакомьтесь с ним и примите решение о его "
-"допустимости.\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_application_accept
-msgid ""
-"\n"
-"                <h2>Hello, <t t-out=\"object.applicant_account.name\"/>!</"
-"h2>\n"
-"                <p>Your application for the following project is accepted. "
-"Your PaLMS account is now assigned to this project, you can contact the "
-"supervising professor and start working on it.<br>\n"
-"                <b>Professor name: </b><t t-out=\"object."
-"application_professor.name\"/><br>\n"
-"                <b>Project name: </b><t t-out=\"object.project_id.name\"/"
-"><br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте, <t t-out=“object.applicant_account.name”/"
-">!</h2>\n"
-"                <p>Ваша заявка на следующий проект принята. Ваш аккаунт в "
-"PaLMS теперь привязан к этому проекту — вы можете связаться с научным "
-"руководителем и начать работу.<br>\n"
-"                <b>Имя преподавателя: </b><t t-out=“object."
-"application_professor.name”/><br>\n"
-"                <b>Название проекта: </b><t t-out=“object.project_id.name”/"
-"><br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_application_reject
-msgid ""
-"\n"
-"                <h2>Hello, <t t-out=\"object.applicant_account.name\"/>!</"
-"h2>\n"
-"                <p>Your application for the following project is rejected. "
-"You can apply to other available applications and provide more details next "
-"time. Good luck!<br>\n"
-"                <b>Professor name: </b><t t-out=\"object."
-"application_professor.name\"/><br>\n"
-"                <b>Project name: </b><t t-out=\"object.project_id.name\"/"
-"><br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте, <t t-out=“object.applicant_account.name”/"
-">!</h2>\n"
-"                <p>Ваша заявка на следующий проект отклонена. Вы можете "
-"подать заявку на другие доступные проекты и указать больше деталей в "
-"следующий раз. Удачи!<br>\n"
-"                <b>Имя преподавателя: </b><t t-out=“object."
-"application_professor.name”/><br>\n"
-"                <b>Название проекта: </b><t t-out=“object.project_id.name”/"
-"><br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_application_send
-msgid ""
-"\n"
-"                <h2>Hello, <t t-out=\"object.application_professor.name\"/>!"
-"</h2>\n"
-"                <p>You have received an application for one of your "
-"projects. Please log in to your PaLMS account and review the application in "
-"3 days.<br>\n"
-"                <b>Project name: </b><t t-out=\"object.project_id.name\"/"
-"><br>\n"
-"                <b>Applicant name: </b><t t-out=\"object.applicant_account."
-"name\"/><br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте, <t t-out=“object.application_professor."
-"name”/>!</h2>\n"
-"                <p>Вы получили заявку на один из ваших проектов. "
-"Пожалуйста, войдите в свой аккаунт PaLMS и рассмотрите заявку в течение 3 "
-"дней.<br>\n"
-"                <b>Название проекта: </b><t t-out=“object.project_id.name”/"
-"><br>\n"
-"                <b>Имя кандидата: </b><t t-out=“object.applicant_account."
-"name”/><br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_project_approval
-msgid ""
-"\n"
-"                <h2>Hello, <t t-out=\"object.professor_account.name\"/>!</"
-"h2>\n"
-"                <p>The following project you have submitted is approved. "
-"Now students can view it and send applications.<br>\n"
-"                <b>Project name: </b><t t-out=\"object.name\"/><br>\n"
-"                <b>Approved by: </b><t t-out=\"user.name\"/><br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте, <t t-out=“object.professor_account.name”/"
-">!</h2>\n"
-"                <p>Следующий проект, который вы отправили, был одобрен. "
-"Теперь студенты могут просматривать его и подавать заявки.<br>\n"
-"                <b>Название проекта: </b><t t-out=“object.name”/><br>\n"
-"                <b>Одобрено пользователем: </b><t t-out=“user.name”/><br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_project_rejection
-msgid ""
-"\n"
-"                <h2>Hello, <t t-out=\"object.professor_account.name\"/>!</"
-"h2>\n"
-"                <p>The following project you have submitted is rejected. "
-"You can see the reason for this decision below. Additional details can be "
-"found in project details.<br>\n"
-"                <b>Project name: </b><t t-out=\"object.name\"/><br>\n"
-"                <b>Rejected by: </b><t t-out=\"user.email\"/><br>\n"
-"                <b>Rejection reason: </b><t t-out=\"object.reason\"/><br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте, <t t-out=“object.professor_account.name”/"
-">!</h2>\n"
-"                <p>Следующий проект, который вы отправили, был отклонён. "
-"Ниже указана причина этого решения. Дополнительные сведения вы можете найти "
-"в деталях проекта.<br>\n"
-"                <b>Название проекта: </b><t t-out=“object.name”/><br>\n"
-"                <b>Отклонено пользователем: </b><t t-out=“user.email”/"
-"><br>\n"
-"                <b>Причина отклонения: </b><t t-out=“object.reason”/><br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_project_return
-msgid ""
-"\n"
-"                <h2>Hello, <t t-out=\"object.professor_account.name\"/>!</"
-"h2>\n"
-"                <p>The following project you have submitted is returned. "
-"You can see the reason for this decision below. Additional details can be "
-"found in project details.<br>\n"
-"                <b>Project name: </b><t t-out=\"object.name\"/><br>\n"
-"                <b>Returned by: </b><t t-out=\"user.email\"/><br>\n"
-"                <b>Return reason: </b><t t-out=\"object.reason\"/><br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте, <t t-out=“object.professor_account.name”/"
-">!</h2>\n"
-"                <p>Следующий проект, который вы отправили, был возвращён. "
-"Ниже указана причина этого решения. Дополнительные сведения вы можете найти "
-"в деталях проекта.<br>\n"
-"                <b>Название проекта: </b><t t-out=“object.name”/><br>\n"
-"                <b>Возвращено пользователем: </b><t t-out=“user.email”/"
-"><br>\n"
-"                <b>Причина возврата: </b><t t-out=“object.reason”/><br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_proposal_send
-msgid ""
-"\n"
-"                <h2>Hello, <t t-out=\"object.professor_account.name\"/>!</"
-"h2>\n"
-"                <p>You have received a proposal from a student. Please log "
-"in to your PaLMS account to review it.<br>\n"
-"                <b>Proposal name: </b><t t-out=\"object.name\"/><br>\n"
-"                <b>Proposed by: </b><t t-out=\"object.proponent_account."
-"name\"/><br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте, <t t-out=“object.professor_account.name”/"
-">!</h2>\n"
-"                <p>Вы получили предложение от студента. Пожалуйста, войдите "
-"в свой аккаунт PaLMS, чтобы ознакомиться с ним.<br>\n"
-"                <b>Название предложения: </b><t t-out=“object.name”/><br>\n"
-"                <b>Предложено пользователем: </b><t t-out=“object."
-"proponent_account.name”/><br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_proposal_reject
-msgid ""
-"\n"
-"                <h2>Hello, <t t-out=\"object.proponent_account.name\"/>!</"
-"h2>\n"
-"                <p>Your proposal for is rejected by the professor. You can "
-"apply to available projects or send your proposal to other professors. Good "
-"luck!<br>\n"
-"                <b>Professor name: </b><t t-out=\"object.proposal_professor."
-"name\"/><br>\n"
-"                <b>Proposal name: </b><t t-out=\"object.name\"/><br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте, <t t-out=“object.proponent_account.name”/"
-">!</h2>\n"
-"                <p>Ваше предложение было отклонено преподавателем. Вы "
-"можете подать заявку на доступные проекты или отправить своё предложение "
-"другим преподавателям. Удачи!<br>\n"
-"                <b>Имя преподавателя: </b><t t-out=“object."
-"proposal_professor.name”/><br>\n"
-"                <b>Название предложения: </b><t t-out=“object.name”/><br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_proposal_accept
-msgid ""
-"\n"
-"                <h2>Hello, <t t-out=\"object.proponent_account.name\"/>!</"
-"h2>\n"
-"                <p>Your proposal is accepted by the professor and sent to "
-"the program supervisor for approval. You can start working on it after the "
-"supervisor's confirmation is received.<br>\n"
-"                <b>Professor name: </b><t t-out=\"object.proposal_professor."
-"name\"/><br>\n"
-"                <b>Proposal name: </b><t t-out=\"object.name\"/><br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте, <t t-out=“object.proponent_account.name”/"
-">!</h2>\n"
-"                <p>Ваше предложение было одобрено преподавателем и "
-"отправлено на утверждение руководителю программы. Вы сможете приступить к "
-"работе после получения подтверждения от руководителя.<br>\n"
-"                <b>Имя преподавателя: </b><t t-out=“object."
-"proposal_professor.name”/><br>\n"
-"                <b>Название предложения: </b><t t-out=“object.name”/><br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
-
-#. module: student
-#: model:mail.template,body_html:student.email_template_commission_set
-msgid ""
-"\n"
-"                <h2>Hello, there!</h2>\n"
-"                <p>You are assigned to to a commission to evaluate and "
-"grade academic projects. Please log in to PaLMS to check the commission "
-"dates and other details.<br>\n"
-"                <br>\n"
-"                Best wishes,<br>\n"
-"                PaLMS Notification Service\n"
-"                </p>\n"
-"            "
-msgstr ""
-"\n"
-"                <h2>Здравствуйте!</h2>\n"
-"                <p>Вы назначены в комиссию для оценки и выставления оценок "
-"по академическим проектам. Пожалуйста, войдите в систему PaLMS, чтобы "
-"ознакомиться с датами заседаний комиссии и другими деталями.<br>\n"
-"                <br>\n"
-"                С наилучшими пожеланиями,<br>\n"
-"                Служба уведомлений PaLMS\n"
-"                </p>\n"
-"            "
+"X-Generator: Poedit 3.6\n"
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_commission.py:0
-#, python-format
 msgid " has graded a project."
 msgstr " оценил(а) проект."
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_commission.py:0
-#, python-format
 msgid " has regraded a project."
 msgstr " повторно оценил(а) проект."
 
 #. module: student
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_evaluation
+#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_state
 msgid "(Reacted:"
-msgstr "(Отреагировал(а):"
+msgstr "(Отреагировал:"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_student_view_form
@@ -434,6 +84,15 @@ msgstr "6-й курс"
 #: model_terms:ir.ui.view,arch_db:student.student_availability_kanban_view_supervision
 msgid ""
 "<br/>\n"
+"                                    <strong>Creation date: </strong>"
+msgstr ""
+"<br/>\n"
+"                                    <strong>Дата создания: </strong>"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_availability_kanban_view_supervision
+msgid ""
+"<br/>\n"
 "                                    <strong>Format: </strong>"
 msgstr ""
 "<br/>\n"
@@ -452,10 +111,541 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:student.student_availability_kanban_view_supervision
 msgid ""
 "<br/>\n"
-"                                    <strong>Project Name: </strong>"
+"                                    <strong>Professor: </strong>"
 msgstr ""
 "<br/>\n"
-"                                    <strong>Название проекта: </strong>"
+"                                    <strong>Профессор: </strong>"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_availability_kanban_view_supervision
+msgid ""
+"<br/>\n"
+"                                    <strong>Project Name (English): </strong>"
+msgstr ""
+"<br/>\n"
+"                                    <strong>Название проекта (английский): </"
+"strong>"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_availability_kanban_view_supervision
+msgid ""
+"<br/>\n"
+"                                    <strong>Project Name (Russian): </strong>"
+msgstr ""
+"<br/>\n"
+"                                    <strong>Название проекта (русский): </"
+"strong>"
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_project_submission
+msgid ""
+"<h2>Hello there!</h2>\n"
+"                <p>The program you are supervising has received a new "
+"project proposal. Please examine and decide on the eligibility of this "
+"proposal.\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте!</h2>\n"
+"                <p>Программа, которую вы курируете, получила новое "
+"предложение проекта. Пожалуйста, ознакомьтесь с ним и примите решение о его "
+"допустимости.\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_announcement_created
+msgid ""
+"<h2>Hello!</h2>\n"
+"                <p>A new announcement titled <b>{{object.name}}</b> has been "
+"published.<br/>\n"
+"                Please log in to PaLMS to check the details.</p>\n"
+"                <p>\n"
+"                <b>Deadline: </b><t t-out=\"object.deadline_date\"/><br/>\n"
+"                </p>\n"
+"                <p>\n"
+"                Best regards,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте!</h2>\n"
+"                <p>Было опубликовано новое объявление с заголовком "
+"<b>{{object.name}}</b>.<br/>\n"
+"                Пожалуйста, войдите в PaLMS, чтобы ознакомиться с "
+"подробностями.</p>\n"
+"                <p>\n"
+"                <b>Срок: </b><t t-out=\"object.deadline_date\"/><br/>\n"
+"                </p>\n"
+"                <p>\n"
+"                С уважением,<br/>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_milestone_created
+msgid ""
+"<h2>Hello!</h2>\n"
+"                <p>A new milestone titled <b>{{object.name}}</b> has been "
+"created and assigned to you or your program.<br/>\n"
+"                Please log in to PaLMS to check the details and deadlines.</"
+"p>\n"
+"                <p>\n"
+"                <b>Deadline: </b><t t-out=\"object.deadline_date\"/><br/>\n"
+"                </p>\n"
+"                <p>\n"
+"                Best regards,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте!</h2>\n"
+"                <p>Создан новый контрольный этап с названием "
+"<b>{{object.name}}</b>, который назначен вам или вашей программе.<br/>\n"
+"                Пожалуйста, войдите в систему PaLMS, чтобы ознакомиться с "
+"подробностями и сроками.</p>\n"
+"                <p>\n"
+"                <b>Срок: </b><t t-out=\"object.deadline_date\"/><br/>\n"
+"                </p>\n"
+"                <p>\n"
+"                С уважением,<br/>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_poll_created
+msgid ""
+"<h2>Hello!</h2>\n"
+"                <p>A new poll titled <b>{{object.name}}</b> has been "
+"created, and you are invited to participate.<br/>\n"
+"                Please log in to PaLMS to cast your vote.</p>\n"
+"                <p>\n"
+"                Best regards,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте!</h2>\n"
+"                <p>Создан новый опрос с названием <b>{{object.name}}</b>, и "
+"вам предложено принять в нём участие.<br/>\n"
+"                Пожалуйста, войдите в систему PaLMS, чтобы проголосовать.</"
+"p>\n"
+"                <p>\n"
+"                С уважением,<br/>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_review_table_created
+msgid ""
+"<h2>Hello!</h2>\n"
+"                <p>A new review table titled <b>{{object.name}}</b> has been "
+"created and assigned to you or your group.<br/>\n"
+"                Please log in to PaLMS to check the evaluation details and "
+"schedule.</p>\n"
+"                <p>\n"
+"                Best regards,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте!</h2>\n"
+"                <p>Создана новая таблица оценивания с названием "
+"<b>{{object.name}}</b>, которая назначена вам или вашей группе.<br/>\n"
+"                Пожалуйста, войдите в систему PaLMS, чтобы ознакомиться с "
+"деталями оценки и расписанием.</p>\n"
+"                <p>\n"
+"                С уважением,<br/>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_task_completed
+msgid ""
+"<h2>Hello!</h2>\n"
+"                <p>The following task has been marked as <b>Completed</b>."
+"<br/>\n"
+"                Please review the submitted results and, if everything is "
+"correct, change the task status to <b>Approved</b>.</p>\n"
+"                <p>\n"
+"                <b>Task name: </b><t t-out=\"object.name\"/><br/>\n"
+"                </p>\n"
+"                <p>\n"
+"                Best regards,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте!</h2>\n"
+"                <p>Следующее задание было помечено как <b>Выполнено</b>.<br/"
+">\n"
+"                Пожалуйста, ознакомьтесь с представленными результатами и, "
+"если всё верно, измените статус задания на <b>Одобрено</b>.</p>\n"
+"                <p>\n"
+"                <b>Название задания: </b><t t-out=\"object.name\"/><br/>\n"
+"                </p>\n"
+"                <p>\n"
+"                С уважением,<br/>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_reviewer_assigned
+msgid ""
+"<h2>Hello!</h2>\n"
+"                <p>You have been assigned as a reviewer for the project "
+"<b>{{object.project_id.name}}</b>.<br/>\n"
+"                Please log in to PaLMS and check the review table for "
+"detailed information.</p>\n"
+"                <p>\n"
+"                Best regards,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте!</h2>\n"
+"                <p>Вы назначены рецензентом проекта "
+"<b>{{object.project_id.name}}</b>.<br/>\n"
+"                Пожалуйста, войдите в систему PaLMS и ознакомьтесь с "
+"таблицей оценивания для получения подробной информации.</p>\n"
+"                <p>\n"
+"                С уважением,<br/>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_calendar_event_created
+msgid ""
+"<h2>Hello!</h2>\n"
+"                <p>You have been invited to a new event: <b>{{object.name}}</"
+"b>.<br/>\n"
+"                Please log in to PaLMS to check the details and prepare if "
+"needed.</p>\n"
+"                <p>\n"
+"                <b>Start: </b><t t-out=\"object.start_datetime\"/><br/>\n"
+"                <b>End: </b><t t-out=\"object.end_datetime\"/><br/>\n"
+"                </p>\n"
+"                <p>\n"
+"                Best regards,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте!</h2>\n"
+"                <p>Вас пригласили на новое событие: <b>{{object.name}}</b>."
+"<br/>\n"
+"                Пожалуйста, войдите в систему PaLMS, чтобы ознакомиться с "
+"деталями и, при необходимости, подготовиться.</p>\n"
+"                <p>\n"
+"                <b>Начало: </b><t t-out=\"object.start_datetime\"/><br/>\n"
+"                <b>Окончание: </b><t t-out=\"object.end_datetime\"/><br/>\n"
+"                </p>\n"
+"                <p>\n"
+"                С уважением,<br/>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_application_accept
+msgid ""
+"<h2>Hello, <t t-out=\"object.applicant_account.name\"/>!</h2>\n"
+"                <p>Your application for the following project is accepted. "
+"Your PaLMS account is now assigned to this project, you can contact the "
+"supervising professor and start working on it.<br/>\n"
+"                <b>Professor name: </b><t t-"
+"out=\"object.application_professor.name\"/><br/>\n"
+"                <b>Project name: </b><t t-out=\"object.project_id.name\"/"
+"><br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте, <t t-out=“object.applicant_account.name”/>!</h2>\n"
+"                <p>Ваша заявка на следующий проект принята. Ваш аккаунт в "
+"PaLMS теперь привязан к этому проекту — вы можете связаться с научным "
+"руководителем и начать работу.<br>\n"
+"                <b>Имя преподавателя: </b><t t-"
+"out=“object.application_professor.name”/><br>\n"
+"                <b>Название проекта: </b><t t-out=“object.project_id.name”/"
+"><br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_application_reject
+msgid ""
+"<h2>Hello, <t t-out=\"object.applicant_account.name\"/>!</h2>\n"
+"                <p>Your application for the following project is rejected. "
+"You can apply to other available applications and provide more details next "
+"time. Good luck!<br/>\n"
+"                <b>Professor name: </b><t t-"
+"out=\"object.application_professor.name\"/><br/>\n"
+"                <b>Project name: </b><t t-out=\"object.project_id.name\"/"
+"><br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте, <t t-out=“object.applicant_account.name”/>!</h2>\n"
+"                <p>Ваша заявка на следующий проект отклонена. Вы можете "
+"подать заявку на другие доступные проекты и указать больше деталей в "
+"следующий раз. Удачи!<br>\n"
+"                <b>Имя преподавателя: </b><t t-"
+"out=“object.application_professor.name”/><br>\n"
+"                <b>Название проекта: </b><t t-out=“object.project_id.name”/"
+"><br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_application_send
+msgid ""
+"<h2>Hello, <t t-out=\"object.application_professor.name\"/>!</h2>\n"
+"                <p>You have received an application for one of your "
+"projects. Please log in to your PaLMS account and review the application in "
+"3 days.<br/>\n"
+"                <b>Project name: </b><t t-out=\"object.project_id.name\"/"
+"><br/>\n"
+"                <b>Applicant name: </b><t t-"
+"out=\"object.applicant_account.name\"/><br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте, <t t-out=“object.application_professor.name”/>!</h2>\n"
+"                <p>Вы получили заявку на один из ваших проектов. Пожалуйста, "
+"войдите в свой аккаунт PaLMS и рассмотрите заявку в течение 3 дней.<br>\n"
+"                <b>Название проекта: </b><t t-out=“object.project_id.name”/"
+"><br>\n"
+"                <b>Имя кандидата: </b><t t-"
+"out=“object.applicant_account.name”/><br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_project_approval
+msgid ""
+"<h2>Hello, <t t-out=\"object.professor_account.name\"/>!</h2>\n"
+"                <p>The following project you have submitted is approved. Now "
+"students can view it and send applications.<br/>\n"
+"                <b>Project name: </b><t t-out=\"object.name\"/><br/>\n"
+"                <b>Approved by: </b><t t-out=\"user.name\"/><br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте, <t t-out=“object.professor_account.name”/>!</h2>\n"
+"                <p>Следующий проект, который вы отправили, был одобрен. "
+"Теперь студенты могут просматривать его и подавать заявки.<br>\n"
+"                <b>Название проекта: </b><t t-out=“object.name”/><br>\n"
+"                <b>Одобрено пользователем: </b><t t-out=“user.name”/><br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_project_rejection
+msgid ""
+"<h2>Hello, <t t-out=\"object.professor_account.name\"/>!</h2>\n"
+"                <p>The following project you have submitted is rejected. You "
+"can see the reason for this decision below. Additional details can be found "
+"in project details.<br/>\n"
+"                <b>Project name: </b><t t-out=\"object.name\"/><br/>\n"
+"                <b>Rejected by: </b><t t-out=\"user.email\"/><br/>\n"
+"                <b>Rejection reason: </b><t t-out=\"object.reason\"/><br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте, <t t-out=“object.professor_account.name”/>!</h2>\n"
+"                <p>Следующий проект, который вы отправили, был отклонён. "
+"Ниже указана причина этого решения. Дополнительные сведения вы можете найти "
+"в деталях проекта.<br>\n"
+"                <b>Название проекта: </b><t t-out=“object.name”/><br>\n"
+"                <b>Отклонено пользователем: </b><t t-out=“user.email”/><br>\n"
+"                <b>Причина отклонения: </b><t t-out=“object.reason”/><br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_project_return
+msgid ""
+"<h2>Hello, <t t-out=\"object.professor_account.name\"/>!</h2>\n"
+"                <p>The following project you have submitted is returned. You "
+"can see the reason for this decision below. Additional details can be found "
+"in project details.<br/>\n"
+"                <b>Project name: </b><t t-out=\"object.name\"/><br/>\n"
+"                <b>Returned by: </b><t t-out=\"user.email\"/><br/>\n"
+"                <b>Return reason: </b><t t-out=\"object.reason\"/><br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте, <t t-out=“object.professor_account.name”/>!</h2>\n"
+"                <p>Следующий проект, который вы отправили, был возвращён. "
+"Ниже указана причина этого решения. Дополнительные сведения вы можете найти "
+"в деталях проекта.<br>\n"
+"                <b>Название проекта: </b><t t-out=“object.name”/><br>\n"
+"                <b>Возвращено пользователем: </b><t t-out=“user.email”/"
+"><br>\n"
+"                <b>Причина возврата: </b><t t-out=“object.reason”/><br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_proposal_send
+msgid ""
+"<h2>Hello, <t t-out=\"object.professor_account.name\"/>!</h2>\n"
+"                <p>You have received a proposal from a student. Please log "
+"in to your PaLMS account to review it.<br/>\n"
+"                <b>Proposal name: </b><t t-out=\"object.name\"/><br/>\n"
+"                <b>Proposed by: </b><t t-"
+"out=\"object.proponent_account.name\"/><br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте, <t t-out=“object.professor_account.name”/>!</h2>\n"
+"                <p>Вы получили предложение от студента. Пожалуйста, войдите "
+"в свой аккаунт PaLMS, чтобы ознакомиться с ним.<br>\n"
+"                <b>Название предложения: </b><t t-out=“object.name”/><br>\n"
+"                <b>Предложено пользователем: </b><t t-"
+"out=“object.proponent_account.name”/><br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_proposal_reject
+msgid ""
+"<h2>Hello, <t t-out=\"object.proponent_account.name\"/>!</h2>\n"
+"                <p>Your proposal for is rejected by the professor. You can "
+"apply to available projects or send your proposal to other professors. Good "
+"luck!<br/>\n"
+"                <b>Professor name: </b><t t-"
+"out=\"object.proposal_professor.name\"/><br/>\n"
+"                <b>Proposal name: </b><t t-out=\"object.name\"/><br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте, <t t-out=“object.proponent_account.name”/>!</h2>\n"
+"                <p>Ваше предложение было отклонено преподавателем. Вы можете "
+"подать заявку на доступные проекты или отправить своё предложение другим "
+"преподавателям. Удачи!<br>\n"
+"                <b>Имя преподавателя: </b><t t-"
+"out=“object.proposal_professor.name”/><br>\n"
+"                <b>Название предложения: </b><t t-out=“object.name”/><br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_proposal_accept
+msgid ""
+"<h2>Hello, <t t-out=\"object.proponent_account.name\"/>!</h2>\n"
+"                <p>Your proposal is accepted by the professor and sent to "
+"the program supervisor for approval. You can start working on it after the "
+"supervisor's confirmation is received.<br/>\n"
+"                <b>Professor name: </b><t t-"
+"out=\"object.proposal_professor.name\"/><br/>\n"
+"                <b>Proposal name: </b><t t-out=\"object.name\"/><br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте, <t t-out=“object.proponent_account.name”/>!</h2>\n"
+"                <p>Ваше предложение было одобрено преподавателем и "
+"отправлено на утверждение руководителю программы. Вы сможете приступить к "
+"работе после получения подтверждения от руководителя.<br>\n"
+"                <b>Имя преподавателя: </b><t t-"
+"out=“object.proposal_professor.name”/><br>\n"
+"                <b>Название предложения: </b><t t-out=“object.name”/><br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: student
+#: model:mail.template,body_html:student.email_template_commission_set
+msgid ""
+"<h2>Hello, there!</h2>\n"
+"                <p>You are assigned to a commission to evaluate and grade "
+"academic projects. Please log in to PaLMS to check the commission dates and "
+"other details.<br/>\n"
+"                <br/>\n"
+"                Best wishes,<br/>\n"
+"                PaLMS Notification Service\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<h2>Здравствуйте!</h2>\n"
+"                <p>Вы назначены в комиссию для оценки и выставления оценок "
+"по академическим проектам. Пожалуйста, войдите в систему PaLMS, чтобы "
+"ознакомиться с датами заседаний комиссии и другими деталями.<br>\n"
+"                <br>\n"
+"                С наилучшими пожеланиями,<br>\n"
+"                Служба уведомлений PaLMS\n"
+"                </p>\n"
+"            "
+
+#. module: poll
+#: model_terms:ir.ui.view,arch_db:poll.poll_poll_view_form
+msgid "<i>Add options and users to vote.</i>"
+msgstr "<i>Добавьте варианты ответа и пользователей для голосования.</i>"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_application_kanban_view
@@ -472,6 +662,16 @@ msgstr "<i>Название проекта:  </i>"
 msgid "<i>Save the application to add additional files.</i>"
 msgstr "<i>Сохраните заявку, чтобы добавить дополнительные файлы.</i>"
 
+#. module: poll
+#: model_terms:ir.ui.view,arch_db:poll.poll_poll_view_form
+msgid "<i>Save the commission to choose users.</i>"
+msgstr "<i>Сохраните комиссию, чтобы выбрать пользователей.</i>"
+
+#. module: poll
+#: model_terms:ir.ui.view,arch_db:poll.poll_poll_view_form
+msgid "<i>Save the commission to create options.</i>"
+msgstr "<i>Сохраните комиссию, чтобы создать варианты ответа.</i>"
+
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_commission_view_form
 msgid "<i>Save the commission to select defenses.</i>"
@@ -484,8 +684,7 @@ msgstr "<i>Сохраните проект, чтобы добавить допо
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
-msgid ""
-"<i>Save the project to set up the academic programs for submission.</i>"
+msgid "<i>Save the project to set up the academic programs for submission.</i>"
 msgstr ""
 "<i>Сохраните проект, чтобы настроить учебные программы для для отправки на "
 "утверждение.</i>"
@@ -496,8 +695,12 @@ msgid "<i>Save the proposal to add additional files.</i>"
 msgstr "<i>Сохраните предложение, чтобы добавить дополнительные файлы.</i>"
 
 #. module: student
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_evaluation
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_publication
+#: model_terms:ir.ui.view,arch_db:student.view_project_task_form_inherit_custom
+msgid "<i>Save the task to add additional files.</i>"
+msgstr "<i>Сохраните задание, чтобы добавить дополнительные файлы.</i>"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_state
 msgid "<strong>Last update: </strong>"
 msgstr "<strong>Последнее обновление: </strong>"
 
@@ -533,21 +736,18 @@ msgstr ""
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_application.py:0
-#, python-format
 msgid "A new application has been created by %s."
 msgstr "Новая заявка была создана пользователем %s."
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_project.py:0
-#, python-format
 msgid "A new project has been created by %s."
 msgstr "Новый проект был создан пользователем %s."
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_project.py:0
-#, python-format
 msgid "A new project has been created upon the proposal of %s."
 msgstr "Новый проект был создан по предложению %s."
 
@@ -595,6 +795,11 @@ msgid "Academic Info"
 msgstr "Академическая информация"
 
 #. module: student
+#: model:ir.ui.menu,name:student.academic_structure_second_level_menu
+msgid "Academic Structure"
+msgstr "Академическая структура"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_program__supervisor
 msgid "Academic Supervisor"
 msgstr "Академический руководитель"
@@ -622,6 +827,7 @@ msgstr "Принято"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__message_needaction
 #: model:ir.model.fields,field_description:student.field_student_commission__message_needaction
+#: model:ir.model.fields,field_description:student.field_student_milestone__message_needaction
 #: model:ir.model.fields,field_description:student.field_student_project__message_needaction
 #: model:ir.model.fields,field_description:student.field_student_proposal__message_needaction
 msgid "Action Needed"
@@ -643,6 +849,7 @@ msgstr "Активно"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__activity_ids
+#: model:ir.model.fields,field_description:student.field_student_milestone__activity_ids
 #: model:ir.model.fields,field_description:student.field_student_project__activity_ids
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 msgid "Activities"
@@ -650,18 +857,21 @@ msgstr "Активности"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__activity_exception_decoration
+#: model:ir.model.fields,field_description:student.field_student_milestone__activity_exception_decoration
 #: model:ir.model.fields,field_description:student.field_student_project__activity_exception_decoration
 msgid "Activity Exception Decoration"
 msgstr "Иконка исключения активности"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__activity_state
+#: model:ir.model.fields,field_description:student.field_student_milestone__activity_state
 #: model:ir.model.fields,field_description:student.field_student_project__activity_state
 msgid "Activity State"
 msgstr "Состояние активности"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__activity_type_icon
+#: model:ir.model.fields,field_description:student.field_student_milestone__activity_type_icon
 #: model:ir.model.fields,field_description:student.field_student_project__activity_type_icon
 msgid "Activity Type Icon"
 msgstr "Иконка типа активности"
@@ -680,6 +890,11 @@ msgstr "Добавить новую заявку!"
 #: model_terms:ir.actions.act_window,help:student.student_proposal_view_public
 msgid "Add a new proposal."
 msgstr "Добавить новое предложение."
+
+#. module: student
+#: model_terms:ir.actions.act_window,help:student.student_scientific_profile_view_action
+msgid "Add a new scientific profile."
+msgstr "Добавить новый научный профиль."
 
 #. module: student
 #: model_terms:ir.actions.act_window,help:student.student_tag_view_action
@@ -715,6 +930,11 @@ msgid "Additional Files"
 msgstr "Дополнительные файлы"
 
 #. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_announcement_view_form
+msgid "Additional Info"
+msgstr "Дополнительная информация"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__additional_phone
 #: model:ir.model.fields,field_description:student.field_student_proposal__additional_phone
 msgid "Additional Phone"
@@ -726,9 +946,13 @@ msgid "Additional Resources"
 msgstr "Дополнительные ресурсы"
 
 #. module: student
+#: model_terms:ir.ui.view,arch_db:student.view_project_task_form_inherit_custom
+msgid "Additional files for the task."
+msgstr "Дополнительные файлы для задания."
+
+#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
-msgid ""
-"Additional files that may include reports, source files, analysis, etc."
+msgid "Additional files that may include reports, source files, analysis, etc."
 msgstr ""
 "Дополнительные файлы, которые могут включать отчёты, исходные файлы, анализ "
 "и т. д."
@@ -736,8 +960,7 @@ msgstr ""
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 msgid "Additional files to describe the content of the project further."
-msgstr ""
-"Дополнительные файлы для более подробного описания содержания проекта."
+msgstr "Дополнительные файлы для более подробного описания содержания проекта."
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_faculty__address
@@ -745,11 +968,54 @@ msgid "Address"
 msgstr "Адрес"
 
 #. module: student
+#: model:ir.actions.act_window,name:student.student_project_kanban_manager
+#: model:ir.ui.menu,name:student.all_projects_progress_stuff_action
+msgid "All Projects Progress"
+msgstr "Прогресс всех проектов"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_proposal_view_public
+#: model:ir.ui.menu,name:student.all_proposals_action
+msgid "All Proposals"
+msgstr "Список предложений"
+
+#. module: student
 #. odoo-python
 #: code:addons/student/models/student_application.py:0
-#, python-format
 msgid "An application is sent by %s."
 msgstr "Заявка отправлена пользователем %s."
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__announcement_id
+#: model_terms:ir.ui.view,arch_db:student.student_announcement_view_form
+msgid "Announcement"
+msgstr "Объявление"
+
+#. module: student
+#: model:mail.template,name:student.email_template_announcement_created
+msgid "Announcement Created Notification"
+msgstr "Уведомление о создании уведомления"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_calendar_event__event_type__announcement_deadline
+msgid "Announcement Deadline"
+msgstr "Дедлайн объявления"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_announcement_reply_view_action
+#: model:ir.ui.menu,name:student.announcement_reply_action
+#: model_terms:ir.ui.view,arch_db:student.student_announcement_reply_view_tree
+msgid "Announcement Replies"
+msgstr "Ответы на объявление"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_announcement_view_action
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_announcement
+#: model:ir.ui.menu,name:student.announcement_action
+#: model:ir.ui.menu,name:student.announcements_first_level_menu
+#: model_terms:ir.ui.view,arch_db:student.student_announcement_view_tree
+msgid "Announcements"
+msgstr "Объявления"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_search
@@ -789,7 +1055,7 @@ msgstr "Детали заявки"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_application_view_public
-#: model:ir.ui.menu,name:student.project_application_public
+#: model:ir.ui.menu,name:student.application_list_for_professors_action
 #: model_terms:ir.ui.view,arch_db:student.student_application_view_search
 msgid "Application List"
 msgstr "Список заявок"
@@ -800,6 +1066,7 @@ msgid "Application Message"
 msgstr "Сообщение заявки"
 
 #. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_project__project_state__applied
 #: model:ir.model.fields.selection,name:student.selection__student_project__state_publication__applied
 msgid "Application Received"
 msgstr "Заявка получена"
@@ -823,8 +1090,7 @@ msgstr "Статус заявки"
 #. module: student
 #: model:ir.actions.act_window,name:student.student_application_view_personal
 #: model:ir.model.fields,field_description:student.field_student_project__application_ids
-#: model:ir.ui.menu,name:student.personal_application_private
-#: model:ir.ui.menu,name:student.project_first_application_menu
+#: model:ir.ui.menu,name:student.applications_action
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 #: model_terms:ir.ui.view,arch_db:student.student_student_view_form
 msgid "Applications"
@@ -832,9 +1098,14 @@ msgstr "Заявки"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_application_view_professor
-#: model:ir.ui.menu,name:student.personal_application_professor
+#: model:ir.ui.menu,name:student.applications_professor_action
 msgid "Applications for My Projects"
 msgstr "Заявки на мои проекты"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_application
+msgid "Applications for Projects"
+msgstr "Заявки на проекты"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_student__application_ids
@@ -842,8 +1113,7 @@ msgid "Applications of the Student"
 msgstr "Заявки студента"
 
 #. module: student
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_evaluation
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_publication
+#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_state
 msgid "Applications:"
 msgstr "Заявки:"
 
@@ -851,6 +1121,11 @@ msgstr "Заявки:"
 #: model:ir.model.fields,field_description:student.field_student_approval__name
 msgid "Approval Record Name"
 msgstr "Название записи об утверждении"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_approval
+msgid "Approvals"
+msgstr "Утверждения"
 
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_availability__state__approved
@@ -954,6 +1229,7 @@ msgid "Are you sure you want to submit this project?"
 msgstr "Вы уверены, что хотите отправить этот проект?"
 
 #. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_project__project_state__assigned
 #: model:ir.model.fields.selection,name:student.selection__student_project__state_publication__assigned
 msgid "Assigned"
 msgstr "Назначено"
@@ -980,7 +1256,13 @@ msgid "Assignment"
 msgstr "Назначение"
 
 #. module: student
+#: model:ir.model.fields,help:student.field_student_announcement__deadline_date
+msgid "At this time, the announcement will be taken off the publication"
+msgstr "В настоящее время объявление будет снято с публикации"
+
+#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
+#: model_terms:ir.ui.view,arch_db:student.view_project_task_form_inherit_custom
 msgid "Attach a file"
 msgstr "Прикрепить файл"
 
@@ -992,16 +1274,28 @@ msgstr "Прикреплённые файлы"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__message_attachment_count
 #: model:ir.model.fields,field_description:student.field_student_commission__message_attachment_count
+#: model:ir.model.fields,field_description:student.field_student_milestone__message_attachment_count
 #: model:ir.model.fields,field_description:student.field_student_project__message_attachment_count
 #: model:ir.model.fields,field_description:student.field_student_proposal__message_attachment_count
 msgid "Attachment Count"
 msgstr "Количество вложений"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_project_task__additional_files
+#: model:ir.model.fields,field_description:student.field_student_announcement__attachment_ids
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__attachment_ids
 #: model:ir.model.fields,field_description:student.field_student_availability__additional_files
+#: model:ir.model.fields,field_description:student.field_student_milestone__attachment_ids
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__attachment_ids
 #: model:ir.model.fields,field_description:student.field_student_project__additional_files
 msgid "Attachments"
 msgstr "Вложения"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement__author_id
+#: model:ir.model.fields,field_description:student.field_student_milestone__author_id
+msgid "Author"
+msgstr "Автор"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_availability_view_search
@@ -1010,7 +1304,7 @@ msgstr "Список доступности"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_project_view_action_list
-#: model:ir.ui.menu,name:student.project_project_list
+#: model:ir.ui.menu,name:student.available_projects_action
 msgid "Available Projects"
 msgstr "Доступные проекты"
 
@@ -1036,6 +1330,11 @@ msgstr "ВЕТКА"
 #: model:ir.model.fields.selection,name:student.selection__student_program__degree__ba
 msgid "Bachelor's"
 msgstr "Бакалавриат"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__base_fields_readonly
+msgid "Base fields readonly"
+msgstr "Базовые поля только для чтения"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_program_view_form
@@ -1081,6 +1380,28 @@ msgid "CREATE PROJECT"
 msgstr "СОЗДАТЬ ПРОЕКТ"
 
 #. module: student
+#: model:ir.actions.act_window,name:student.student_calendar_event_view_action
+#: model:ir.ui.menu,name:student.calendar_action
+#: model_terms:ir.ui.view,arch_db:student.student_calendar_event_view_calendar
+msgid "Calendar"
+msgstr "Календарь"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_poll_vote__calendar_event_id
+msgid "Calendar Event"
+msgstr "Событие в календаре"
+
+#. module: student
+#: model:mail.template,name:student.email_template_calendar_event_created
+msgid "Calendar Event Created Notification"
+msgstr "Уведомление о создании события в календаре"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_calendar_event
+msgid "Calendar Events"
+msgstr "События в календаре"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_faculty__campus
 #: model:ir.model.fields,field_description:student.field_student_project__campus_id
 msgid "Campus"
@@ -1090,6 +1411,21 @@ msgstr "Кампус"
 #: model_terms:ir.ui.view,arch_db:student.student_campus_view_form
 msgid "Campus Details"
 msgstr "Информация о кампусе"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_campus
+msgid "Campuses"
+msgstr "Кампусы"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__can_edit
+msgid "Can Edit"
+msgstr "Можно редактировать"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_dashboard_view_form
+msgid "Cancel"
+msgstr "Отменить"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__chat_invisible
@@ -1103,10 +1439,28 @@ msgid "City Name"
 msgstr "Название города"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__color
+msgid "Color Index"
+msgstr "Индекс цвета"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__comment
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__comment
+msgid "Comment"
+msgstr "Комментарий"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_poll_option__commission_id
 #: model:ir.model.fields,field_description:student.field_student_defense__commission_id
+#: model:ir.model.fields.selection,name:student.selection__student_calendar_event__event_type__commission
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 msgid "Commission"
 msgstr "Комиссия"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_defense
+msgid "Commission Defenses"
+msgstr "Защиты комиссии"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_project__grade
@@ -1114,9 +1468,14 @@ msgid "Commission Grade (1-10)"
 msgstr "Оценка комиссии (1–10)"
 
 #. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_grade
+msgid "Commission Grades"
+msgstr "Оценки комиссии"
+
+#. module: student
 #: model:ir.actions.act_window,name:student.student_grade_view_action
 #: model:ir.model.fields,field_description:student.field_student_defense__member_grades
-#: model:ir.ui.menu,name:student.grade_model_menu_action
+#: model:ir.ui.menu,name:student.commission_members_grades_action
 msgid "Commission Member Grades"
 msgstr "Оценки членов комиссии"
 
@@ -1142,19 +1501,13 @@ msgid "Commission Number"
 msgstr "Номер комиссии"
 
 #. module: student
-#: model:ir.ui.menu,name:student.util_second_level_menu_b
-msgid "Commission Objects"
-msgstr "Объекты комиссии"
-
-#. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__lock
 msgid "Commission is set (TECHNICAL)"
 msgstr "Комиссия установлена (ТЕХНИЧЕСКИ)"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_commission_view_form
-msgid ""
-"Commission will be locked and members will be notified. Do you confirm?"
+msgid "Commission will be locked and members will be notified. Do you confirm?"
 msgstr ""
 "Комиссия будет заблокирована, и члены получат уведомление. Подтвердите "
 "действие?"
@@ -1166,9 +1519,15 @@ msgstr "Комиссия №«{{object.commission_number}}» установле�
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_commission_view_action
-#: model:ir.ui.menu,name:student.commission_model_menu_action
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_commission
+#: model:ir.ui.menu,name:student.commissions_action
 msgid "Commissions"
 msgstr "Комиссии"
+
+#. module: student
+#: model:ir.ui.menu,name:student.commissions_polls_first_level_menu
+msgid "Commissions & Polls"
+msgstr "Комиссии и опросы"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
@@ -1176,7 +1535,9 @@ msgid "Common"
 msgstr "Общее"
 
 #. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_project__project_state__completed
 #: model:ir.model.fields.selection,name:student.selection__student_project__state_publication__completed
+#: model:ir.model.fields.selection,name:student.selection__student_review_table__state__completed
 msgid "Completed"
 msgstr "Завершено"
 
@@ -1192,6 +1553,11 @@ msgid "Contacts"
 msgstr "Контакты"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement__content
+msgid "Content"
+msgstr "Содержание"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_proposal__project_id
 msgid "Converted to"
 msgstr "Преобразовано в"
@@ -1199,52 +1565,132 @@ msgstr "Преобразовано в"
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_approval__type__cw
 #: model:ir.model.fields.selection,name:student.selection__student_availability__type__cw
+#: model:ir.model.fields.selection,name:student.selection__student_project__type__cw
 #: model:ir.model.fields.selection,name:student.selection__student_proposal__type__cw
+#: model:ir.model.fields.selection,name:student.selection__student_review_table__type__cw
 msgid "Course Work (Курсовая работа)"
 msgstr "Курсовая работа"
+
+#. module: poll
+#: model:ir.model.fields,field_description:poll.field_poll_poll__create_notification_sent
+msgid "Create Notification Sent"
+msgstr "Уведомление о создании отправлено"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_commission_view_form
+msgid "Create Poll"
+msgstr "Создать опрос"
+
+#. module: student
+#. odoo-python
+#: code:addons/student/models/student_commission.py:0
+msgid "Create Poll - Select Options"
+msgstr "Создать опрос - Выбрать варианты"
+
+#. module: student
+#: model_terms:ir.actions.act_window,help:student.student_review_table_view_action
+msgid "Create a review table to manage project reviews."
+msgstr "Создайте таблицу обзоров для управления обзорами проектов."
+
+#. module: student
+#: model_terms:ir.actions.act_window,help:student.student_milestone_view_action
+msgid "Create and manage milestones to track project progress."
+msgstr ""
+"Создавайте и управляйте этапами для отслеживания хода выполнения проекта."
+
+#. module: poll
+#: model_terms:ir.actions.act_window,help:poll.poll_poll_view_action
+msgid "Create and manage polls"
+msgstr "Создание и управление опросами"
+
+#. module: student
+#: model_terms:ir.actions.act_window,help:student.student_announcement_view_action
+msgid "Create your first announcement"
+msgstr "Создайте свое первое объявление"
+
+#. module: student
+#: model_terms:ir.actions.act_window,help:student.student_projects_group_view_action
+msgid "Create your first projects group"
+msgstr "Создайте свою первую группу проектов"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_project__create_date
 msgid "Created"
 msgstr "Создано"
 
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_poll__created_by
+#: model:ir.model.fields,field_description:student.field_student_review_table__creator_id
+msgid "Created By"
+msgstr "Создано"
+
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement__create_date
+msgid "Created On"
+msgstr "Создано"
+
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_option__create_uid
+#: model:ir.model.fields,field_description:poll.field_poll_poll__create_uid
+#: model:ir.model.fields,field_description:poll.field_poll_vote__create_uid
+#: model:ir.model.fields,field_description:student.field_student_announcement__create_uid
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__create_uid
 #: model:ir.model.fields,field_description:student.field_student_application__create_uid
 #: model:ir.model.fields,field_description:student.field_student_approval__create_uid
 #: model:ir.model.fields,field_description:student.field_student_availability__create_uid
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__create_uid
 #: model:ir.model.fields,field_description:student.field_student_campus__create_uid
 #: model:ir.model.fields,field_description:student.field_student_commission__create_uid
+#: model:ir.model.fields,field_description:student.field_student_dashboard__create_uid
 #: model:ir.model.fields,field_description:student.field_student_defense__create_uid
 #: model:ir.model.fields,field_description:student.field_student_degree__create_uid
 #: model:ir.model.fields,field_description:student.field_student_faculty__create_uid
 #: model:ir.model.fields,field_description:student.field_student_grade__create_uid
 #: model:ir.model.fields,field_description:student.field_student_manager__create_uid
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__create_uid
+#: model:ir.model.fields,field_description:student.field_student_milestone__create_uid
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__create_uid
 #: model:ir.model.fields,field_description:student.field_student_professor__create_uid
 #: model:ir.model.fields,field_description:student.field_student_program__create_uid
 #: model:ir.model.fields,field_description:student.field_student_project__create_uid
+#: model:ir.model.fields,field_description:student.field_student_projects_group__create_uid
 #: model:ir.model.fields,field_description:student.field_student_proposal__create_uid
+#: model:ir.model.fields,field_description:student.field_student_review_line__create_uid
+#: model:ir.model.fields,field_description:student.field_student_review_table__create_uid
+#: model:ir.model.fields,field_description:student.field_student_scientific_profile__create_uid
 #: model:ir.model.fields,field_description:student.field_student_student__create_uid
 #: model:ir.model.fields,field_description:student.field_student_supervisor__create_uid
 #: model:ir.model.fields,field_description:student.field_student_tag__create_uid
 msgid "Created by"
 msgstr "Создано пользователем"
 
-#. module: student
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_option__create_date
+#: model:ir.model.fields,field_description:poll.field_poll_poll__create_date
+#: model:ir.model.fields,field_description:poll.field_poll_vote__create_date
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__create_date
 #: model:ir.model.fields,field_description:student.field_student_application__create_date
 #: model:ir.model.fields,field_description:student.field_student_approval__create_date
 #: model:ir.model.fields,field_description:student.field_student_availability__create_date
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__create_date
 #: model:ir.model.fields,field_description:student.field_student_campus__create_date
 #: model:ir.model.fields,field_description:student.field_student_commission__create_date
+#: model:ir.model.fields,field_description:student.field_student_dashboard__create_date
 #: model:ir.model.fields,field_description:student.field_student_defense__create_date
 #: model:ir.model.fields,field_description:student.field_student_degree__create_date
 #: model:ir.model.fields,field_description:student.field_student_faculty__create_date
 #: model:ir.model.fields,field_description:student.field_student_grade__create_date
 #: model:ir.model.fields,field_description:student.field_student_manager__create_date
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__create_date
+#: model:ir.model.fields,field_description:student.field_student_milestone__create_date
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__create_date
 #: model:ir.model.fields,field_description:student.field_student_professor__create_date
 #: model:ir.model.fields,field_description:student.field_student_program__create_date
+#: model:ir.model.fields,field_description:student.field_student_projects_group__create_date
 #: model:ir.model.fields,field_description:student.field_student_proposal__create_date
+#: model:ir.model.fields,field_description:student.field_student_review_line__create_date
+#: model:ir.model.fields,field_description:student.field_student_review_table__create_date
+#: model:ir.model.fields,field_description:student.field_student_scientific_profile__create_date
 #: model:ir.model.fields,field_description:student.field_student_student__create_date
 #: model:ir.model.fields,field_description:student.field_student_supervisor__create_date
 #: model:ir.model.fields,field_description:student.field_student_tag__create_date
@@ -1257,6 +1703,18 @@ msgid "Creation Date"
 msgstr "Дата создания"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement__creation_notification_sent
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__creation_notification_sent
+#: model:ir.model.fields,field_description:student.field_student_milestone__creation_notification_sent
+msgid "Creation Notification Sent"
+msgstr "Уведомление о создании отправлено"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__creator_id
+msgid "Creator"
+msgstr "Создатель"
+
+#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_student_view_search
 msgid "Current Academic Year"
 msgstr "Текущий академический год"
@@ -1265,6 +1723,18 @@ msgstr "Текущий академический год"
 #: model:ir.model.fields,field_description:student.field_student_grade__user_can_grade
 msgid "Current user is the grading professor"
 msgstr "Текущий пользователь — преподаватель, выставляющий оценку"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_dashboard_view_form
+msgid "Dashboard parameters"
+msgstr "Параметры дешборда"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_dashboard_view_action
+#: model:ir.ui.menu,name:student.dashboards_action
+#: model:ir.ui.menu,name:student.dashboards_second_level_menu
+msgid "Dashboards"
+msgstr "Дешборды"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_commission_view_form
@@ -1277,9 +1747,41 @@ msgid "Date & Time"
 msgstr "Дата и время"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_project_task__date_deadline
+#: model:ir.model.fields,field_description:student.field_student_announcement__deadline_date
+#: model:ir.model.fields,field_description:student.field_student_milestone__deadline_date
+msgid "Deadline"
+msgstr "Дедлайн"
+
+#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_faculty_view_search
 msgid "Dean"
 msgstr "Декан"
+
+#. module: poll
+#: model:ir.ui.menu,name:poll.poll_menu_root
+msgid "Decidely"
+msgstr "Decidely"
+
+#. module: student
+#: model:ir.model,name:student.model_poll_option
+msgid "Decidely - Poll Options"
+msgstr "Decidely - Варианты опроса"
+
+#. module: student
+#: model:ir.model,name:student.model_poll_vote
+msgid "Decidely - Poll Votes"
+msgstr "Decidely - Голоса в опросе"
+
+#. module: student
+#: model:ir.model,name:student.model_poll_poll
+msgid "Decidely - Polls"
+msgstr "Decidely - Опросы"
+
+#. module: poll
+#: model:ir.model,name:poll.model_poll_utils
+msgid "Decidely - Utility Methods"
+msgstr "Decidely - Вспомогательные методы"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__default
@@ -1300,6 +1802,11 @@ msgstr "Комиссия по защите"
 #: model:ir.model.fields,field_description:student.field_student_defense__defense_time
 msgid "Defense Presentation Time"
 msgstr "Время презентации защиты"
+
+#. module: student
+#: model:ir.ui.menu,name:student.defense_process_second_level_menu
+msgid "Defense Process"
+msgstr "Процесс защиты"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_defense__project_id
@@ -1403,17 +1910,16 @@ msgstr "Степень образования"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_degree_view_action
-#: model:ir.ui.menu,name:student.degree_model_menu_action
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_degree
+#: model:ir.ui.menu,name:student.degrees_of_education_action
 msgid "Degrees of Education"
 msgstr "Степени образования"
 
-#. module: student
-#: model:ir.ui.menu,name:student.faculty_first_department_menu
-msgid "Departments"
-msgstr "Кафедры"
-
-#. module: student
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_poll__description
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__description
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__description
+#: model:ir.model.fields,field_description:student.field_student_milestone__description
 msgid "Description"
 msgstr "Описание"
 
@@ -1439,21 +1945,41 @@ msgid "Details"
 msgstr "Подробности"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement__channel_id
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__channel_id
+#: model:ir.model.fields,field_description:student.field_student_milestone__channel_id
+msgid "Discuss Channel"
+msgstr "Канал Discuss"
+
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_option__display_name
+#: model:ir.model.fields,field_description:poll.field_poll_poll__display_name
+#: model:ir.model.fields,field_description:poll.field_poll_vote__display_name
+#: model:ir.model.fields,field_description:student.field_student_announcement__display_name
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__display_name
 #: model:ir.model.fields,field_description:student.field_student_application__display_name
 #: model:ir.model.fields,field_description:student.field_student_approval__display_name
 #: model:ir.model.fields,field_description:student.field_student_availability__display_name
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__display_name
 #: model:ir.model.fields,field_description:student.field_student_campus__display_name
 #: model:ir.model.fields,field_description:student.field_student_commission__display_name
+#: model:ir.model.fields,field_description:student.field_student_dashboard__display_name
 #: model:ir.model.fields,field_description:student.field_student_defense__display_name
 #: model:ir.model.fields,field_description:student.field_student_degree__display_name
 #: model:ir.model.fields,field_description:student.field_student_faculty__display_name
 #: model:ir.model.fields,field_description:student.field_student_grade__display_name
 #: model:ir.model.fields,field_description:student.field_student_manager__display_name
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__display_name
+#: model:ir.model.fields,field_description:student.field_student_milestone__display_name
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__display_name
 #: model:ir.model.fields,field_description:student.field_student_professor__display_name
 #: model:ir.model.fields,field_description:student.field_student_program__display_name
 #: model:ir.model.fields,field_description:student.field_student_project__display_name
+#: model:ir.model.fields,field_description:student.field_student_projects_group__display_name
 #: model:ir.model.fields,field_description:student.field_student_proposal__display_name
+#: model:ir.model.fields,field_description:student.field_student_review_line__display_name
+#: model:ir.model.fields,field_description:student.field_student_review_table__display_name
+#: model:ir.model.fields,field_description:student.field_student_scientific_profile__display_name
 #: model:ir.model.fields,field_description:student.field_student_student__display_name
 #: model:ir.model.fields,field_description:student.field_student_supervisor__display_name
 #: model:ir.model.fields,field_description:student.field_student_tag__display_name
@@ -1462,8 +1988,10 @@ msgstr "Отображаемое имя"
 
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_application__state__draft
+#: model:ir.model.fields.selection,name:student.selection__student_project__project_state__draft
 #: model:ir.model.fields.selection,name:student.selection__student_project__state_evaluation__draft
 #: model:ir.model.fields.selection,name:student.selection__student_proposal__state__draft
+#: model:ir.model.fields.selection,name:student.selection__student_review_table__state__draft
 msgid "Draft"
 msgstr "Черновик"
 
@@ -1473,14 +2001,11 @@ msgid "Dropped"
 msgstr "Отчислен(а)"
 
 #. module: student
-#: model:ir.model.fields,help:student.field_student_availability__degree_ids_level_domain
-msgid "Dynamic domain used for degree choice."
-msgstr "Динамическое доменное условие для выбора степени."
-
-#. module: student
-#: model:ir.model.fields,help:student.field_student_availability__program_id_faculty_domain
-msgid "Dynamic domain used for program choice."
-msgstr "Динамическое доменное условие для выбора программы."
+#: model:ir.model.constraint,message:student.constraint_student_review_line_unique_project_in_table
+msgid "Each project can appear only once in the same review table."
+msgstr ""
+"Каждый проект может появляться в одной и той же таблице обзора только один "
+"раз."
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_project__student_elected
@@ -1499,6 +2024,11 @@ msgstr "Право на участие"
 #: model_terms:ir.ui.view,arch_db:student.student_student_view_search
 msgid "Email"
 msgstr "Email"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__end_datetime
+msgid "End Time"
+msgstr "Время окончания"
 
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_availability__language__en
@@ -1529,6 +2059,11 @@ msgid "Evaluation State"
 msgstr "Статус оценки"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__event_type
+msgid "Event Type"
+msgstr "Тип события"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_student__graduation
 msgid "Expected Graduation Year"
 msgstr "Ожидаемый год выпуска"
@@ -1542,8 +2077,10 @@ msgstr "Ожидаемые результаты"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_faculty_view_action
+#: model:ir.model.fields,field_description:student.field_poll_poll__faculty_ids
 #: model:ir.model.fields,field_description:student.field_student_campus__faculty_id
-#: model:ir.ui.menu,name:student.faculty_model_menu_action
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_faculty
+#: model:ir.ui.menu,name:student.faculties_action
 msgid "Faculties"
 msgstr "Факультеты"
 
@@ -1556,13 +2093,17 @@ msgstr "Факультеты"
 #: model:ir.model.fields,field_description:student.field_student_project__faculty_id
 #: model:ir.model.fields,field_description:student.field_student_student__student_faculty
 #: model:ir.model.fields,field_description:student.field_student_supervisor__supervisor_faculty
-#: model:ir.ui.menu,name:student.faculty_first_level_menu
 #: model_terms:ir.ui.view,arch_db:student.student_manager_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_professor_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_supervisor_view_search
 msgid "Faculty"
 msgstr "Факультет"
+
+#. module: student
+#: model:ir.ui.menu,name:student.faculty_users_first_level_menu
+msgid "Faculty & Users"
+msgstr "Факультет и пользователи"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_faculty__dean
@@ -1615,6 +2156,7 @@ msgstr "Пятый курс"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
+#: model_terms:ir.ui.view,arch_db:student.view_project_task_form_inherit_custom
 msgid "Files"
 msgstr "Файлы"
 
@@ -1626,7 +2168,9 @@ msgstr "Итоговая оценка комиссии (1–10)"
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_approval__type__fqw
 #: model:ir.model.fields.selection,name:student.selection__student_availability__type__fqw
+#: model:ir.model.fields.selection,name:student.selection__student_project__type__fqw
 #: model:ir.model.fields.selection,name:student.selection__student_proposal__type__fqw
+#: model:ir.model.fields.selection,name:student.selection__student_review_table__type__fqw
 msgid "Final Qualifying Work (ВКР)"
 msgstr "Выпускная квалификационная работа (ВКР)"
 
@@ -1651,6 +2195,7 @@ msgstr "Первый курс"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__message_follower_ids
 #: model:ir.model.fields,field_description:student.field_student_commission__message_follower_ids
+#: model:ir.model.fields,field_description:student.field_student_milestone__message_follower_ids
 #: model:ir.model.fields,field_description:student.field_student_project__message_follower_ids
 #: model:ir.model.fields,field_description:student.field_student_proposal__message_follower_ids
 msgid "Followers"
@@ -1659,6 +2204,7 @@ msgstr "Подписчики"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__message_partner_ids
 #: model:ir.model.fields,field_description:student.field_student_commission__message_partner_ids
+#: model:ir.model.fields,field_description:student.field_student_milestone__message_partner_ids
 #: model:ir.model.fields,field_description:student.field_student_project__message_partner_ids
 #: model:ir.model.fields,field_description:student.field_student_proposal__message_partner_ids
 msgid "Followers (Partners)"
@@ -1666,6 +2212,7 @@ msgstr "Подписчики (Партнёры)"
 
 #. module: student
 #: model:ir.model.fields,help:student.field_student_commission__activity_type_icon
+#: model:ir.model.fields,help:student.field_student_milestone__activity_type_icon
 #: model:ir.model.fields,help:student.field_student_project__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Иконка Font Awesome, например: fa-tasks"
@@ -1683,19 +2230,19 @@ msgid "Fourth Year"
 msgstr "Четвертый курс"
 
 #. module: student
-#: model:ir.ui.menu,name:student.personal_first_professor_student_menu
-msgid "From Students"
-msgstr "От студентов"
-
-#. module: student
-#: model_terms:ir.ui.view,arch_db:student.student_project_view_form
-msgid "GO TO PROJECT TASKS ►"
-msgstr "ПЕРЕЙТИ К ЗАДАЧАМ ПРОЕКТА ►"
-
-#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_defense_view_form
 msgid "GRADE THE PROJECT"
 msgstr "ОЦЕНИТЬ ПРОЕКТ"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_review_table_view_form
+msgid "Generate Review Lines"
+msgstr "Сгенерировать строки"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_project__project_state__graded
+msgid "Graded"
+msgstr "Оценено"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_grade__project_id
@@ -1713,6 +2260,7 @@ msgid "Grading Professor"
 msgstr "Преподаватель, оценивающий проект"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_dashboard__group_by_field_id
 #: model_terms:ir.ui.view,arch_db:student.student_application_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_availability_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_faculty_view_search
@@ -1725,9 +2273,9 @@ msgid "Group By"
 msgstr "Группировать по"
 
 #. module: student
-#: model:ir.ui.menu,name:student.faculty_first_group_menu
-msgid "Groups"
-msgstr "Группы"
+#: model:ir.model.fields,field_description:student.field_student_projects_group__name
+msgid "Group Name"
+msgstr "Название группы"
 
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_application__urgency_category__handled
@@ -1737,6 +2285,7 @@ msgstr "Обработано"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__has_message
 #: model:ir.model.fields,field_description:student.field_student_commission__has_message
+#: model:ir.model.fields,field_description:student.field_student_milestone__has_message
 #: model:ir.model.fields,field_description:student.field_student_project__has_message
 #: model:ir.model.fields,field_description:student.field_student_proposal__has_message
 msgid "Has Message"
@@ -1782,8 +2331,8 @@ msgstr ""
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 msgid ""
-"Here the student can express negative or positive experiences related to "
-"the project."
+"Here the student can express negative or positive experiences related to the "
+"project."
 msgstr ""
 "Здесь студент может поделиться положительным или отрицательным опытом, "
 "связанным с проектом."
@@ -1803,22 +2352,35 @@ msgstr "Скрыть подтип в настройках подписчиков
 msgid "Hybrid"
 msgstr "Гибридный"
 
-#. module: student
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_option__id
+#: model:ir.model.fields,field_description:poll.field_poll_poll__id
+#: model:ir.model.fields,field_description:poll.field_poll_vote__id
+#: model:ir.model.fields,field_description:student.field_student_announcement__id
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__id
 #: model:ir.model.fields,field_description:student.field_student_application__id
 #: model:ir.model.fields,field_description:student.field_student_approval__id
 #: model:ir.model.fields,field_description:student.field_student_availability__id
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__id
 #: model:ir.model.fields,field_description:student.field_student_campus__id
 #: model:ir.model.fields,field_description:student.field_student_commission__id
+#: model:ir.model.fields,field_description:student.field_student_dashboard__id
 #: model:ir.model.fields,field_description:student.field_student_defense__id
 #: model:ir.model.fields,field_description:student.field_student_degree__id
 #: model:ir.model.fields,field_description:student.field_student_faculty__id
 #: model:ir.model.fields,field_description:student.field_student_grade__id
 #: model:ir.model.fields,field_description:student.field_student_manager__id
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__id
+#: model:ir.model.fields,field_description:student.field_student_milestone__id
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__id
 #: model:ir.model.fields,field_description:student.field_student_professor__id
 #: model:ir.model.fields,field_description:student.field_student_program__id
 #: model:ir.model.fields,field_description:student.field_student_project__id
+#: model:ir.model.fields,field_description:student.field_student_projects_group__id
 #: model:ir.model.fields,field_description:student.field_student_proposal__id
+#: model:ir.model.fields,field_description:student.field_student_review_line__id
+#: model:ir.model.fields,field_description:student.field_student_review_table__id
+#: model:ir.model.fields,field_description:student.field_student_scientific_profile__id
 #: model:ir.model.fields,field_description:student.field_student_student__id
 #: model:ir.model.fields,field_description:student.field_student_supervisor__id
 #: model:ir.model.fields,field_description:student.field_student_tag__id
@@ -1828,12 +2390,14 @@ msgstr "ID"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__activity_exception_icon
+#: model:ir.model.fields,field_description:student.field_student_milestone__activity_exception_icon
 #: model:ir.model.fields,field_description:student.field_student_project__activity_exception_icon
 msgid "Icon"
 msgstr "Иконка"
 
 #. module: student
 #: model:ir.model.fields,help:student.field_student_commission__activity_exception_icon
+#: model:ir.model.fields,help:student.field_student_milestone__activity_exception_icon
 #: model:ir.model.fields,help:student.field_student_project__activity_exception_icon
 msgid "Icon to indicate an exception activity."
 msgstr "Иконка для обозначения исключительной активности."
@@ -1841,6 +2405,7 @@ msgstr "Иконка для обозначения исключительной 
 #. module: student
 #: model:ir.model.fields,help:student.field_student_application__message_needaction
 #: model:ir.model.fields,help:student.field_student_commission__message_needaction
+#: model:ir.model.fields,help:student.field_student_milestone__message_needaction
 #: model:ir.model.fields,help:student.field_student_project__message_needaction
 #: model:ir.model.fields,help:student.field_student_proposal__message_needaction
 msgid "If checked, new messages require your attention."
@@ -1848,18 +2413,16 @@ msgstr "Если отмечено, новые сообщения требуют 
 
 #. module: student
 #: model:ir.model.fields,help:student.field_student_application__message_has_error
-#: model:ir.model.fields,help:student.field_student_application__message_has_sms_error
 #: model:ir.model.fields,help:student.field_student_commission__message_has_error
-#: model:ir.model.fields,help:student.field_student_commission__message_has_sms_error
+#: model:ir.model.fields,help:student.field_student_milestone__message_has_error
 #: model:ir.model.fields,help:student.field_student_project__message_has_error
-#: model:ir.model.fields,help:student.field_student_project__message_has_sms_error
 #: model:ir.model.fields,help:student.field_student_proposal__message_has_error
-#: model:ir.model.fields,help:student.field_student_proposal__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Если отмечено, у некоторых сообщений возникла ошибка доставки."
 
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_project__state_evaluation__progress
+#: model:ir.model.fields.selection,name:student.selection__student_review_table__state__in_progress
 msgid "In Progress"
 msgstr "В процессе"
 
@@ -1873,13 +2436,26 @@ msgstr "Недопустимо"
 msgid "Internal Only"
 msgstr "Только для внутреннего использования"
 
+#. module: poll
+#: model:ir.model.fields,field_description:poll.field_poll_poll__user_ids
+msgid "Interviewed users"
+msgstr "Опрошенные пользователи"
+
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__message_is_follower
 #: model:ir.model.fields,field_description:student.field_student_commission__message_is_follower
+#: model:ir.model.fields,field_description:student.field_student_milestone__message_is_follower
 #: model:ir.model.fields,field_description:student.field_student_project__message_is_follower
 #: model:ir.model.fields,field_description:student.field_student_proposal__message_is_follower
 msgid "Is Follower"
 msgstr "Является подписчиком"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_availability__is_group_project
+#: model:ir.model.fields,field_description:student.field_student_project__is_group_project
+#: model:ir.model.fields,field_description:student.field_student_proposal__is_group_project
+msgid "Is Group Project?"
+msgstr "Групповой проект?"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_project__current_user_follower
@@ -1889,7 +2465,6 @@ msgstr "Находится ли текущий пользователь сред
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_commission.py:0
-#, python-format
 msgid ""
 "It is not possible to delete graded project defenses and their commissions!"
 msgstr ""
@@ -1899,7 +2474,6 @@ msgstr ""
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_commission.py:0
-#, python-format
 msgid "It is not possible to delete graded project defenses!"
 msgstr "Нельзя удалить защиту проекта с выставленной оценкой!"
 
@@ -1928,43 +2502,69 @@ msgstr "Последнее обновление"
 msgid "Last Update Date"
 msgstr "Дата последнего обновления"
 
-#. module: student
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_option__write_uid
+#: model:ir.model.fields,field_description:poll.field_poll_poll__write_uid
+#: model:ir.model.fields,field_description:poll.field_poll_vote__write_uid
+#: model:ir.model.fields,field_description:student.field_student_announcement__write_uid
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__write_uid
 #: model:ir.model.fields,field_description:student.field_student_application__write_uid
 #: model:ir.model.fields,field_description:student.field_student_approval__write_uid
 #: model:ir.model.fields,field_description:student.field_student_availability__write_uid
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__write_uid
 #: model:ir.model.fields,field_description:student.field_student_campus__write_uid
 #: model:ir.model.fields,field_description:student.field_student_commission__write_uid
+#: model:ir.model.fields,field_description:student.field_student_dashboard__write_uid
 #: model:ir.model.fields,field_description:student.field_student_defense__write_uid
 #: model:ir.model.fields,field_description:student.field_student_degree__write_uid
 #: model:ir.model.fields,field_description:student.field_student_faculty__write_uid
 #: model:ir.model.fields,field_description:student.field_student_grade__write_uid
 #: model:ir.model.fields,field_description:student.field_student_manager__write_uid
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__write_uid
+#: model:ir.model.fields,field_description:student.field_student_milestone__write_uid
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__write_uid
 #: model:ir.model.fields,field_description:student.field_student_professor__write_uid
 #: model:ir.model.fields,field_description:student.field_student_program__write_uid
 #: model:ir.model.fields,field_description:student.field_student_project__write_uid
+#: model:ir.model.fields,field_description:student.field_student_projects_group__write_uid
 #: model:ir.model.fields,field_description:student.field_student_proposal__write_uid
+#: model:ir.model.fields,field_description:student.field_student_review_line__write_uid
+#: model:ir.model.fields,field_description:student.field_student_review_table__write_uid
+#: model:ir.model.fields,field_description:student.field_student_scientific_profile__write_uid
 #: model:ir.model.fields,field_description:student.field_student_student__write_uid
 #: model:ir.model.fields,field_description:student.field_student_supervisor__write_uid
 #: model:ir.model.fields,field_description:student.field_student_tag__write_uid
 msgid "Last Updated by"
 msgstr "Последнее обновление выполнено пользователем"
 
-#. module: student
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_option__write_date
+#: model:ir.model.fields,field_description:poll.field_poll_poll__write_date
+#: model:ir.model.fields,field_description:poll.field_poll_vote__write_date
+#: model:ir.model.fields,field_description:student.field_student_announcement__write_date
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__write_date
 #: model:ir.model.fields,field_description:student.field_student_application__write_date
 #: model:ir.model.fields,field_description:student.field_student_approval__write_date
 #: model:ir.model.fields,field_description:student.field_student_availability__write_date
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__write_date
 #: model:ir.model.fields,field_description:student.field_student_campus__write_date
 #: model:ir.model.fields,field_description:student.field_student_commission__write_date
+#: model:ir.model.fields,field_description:student.field_student_dashboard__write_date
 #: model:ir.model.fields,field_description:student.field_student_defense__write_date
 #: model:ir.model.fields,field_description:student.field_student_degree__write_date
 #: model:ir.model.fields,field_description:student.field_student_faculty__write_date
 #: model:ir.model.fields,field_description:student.field_student_grade__write_date
 #: model:ir.model.fields,field_description:student.field_student_manager__write_date
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__write_date
+#: model:ir.model.fields,field_description:student.field_student_milestone__write_date
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__write_date
 #: model:ir.model.fields,field_description:student.field_student_professor__write_date
 #: model:ir.model.fields,field_description:student.field_student_program__write_date
+#: model:ir.model.fields,field_description:student.field_student_projects_group__write_date
 #: model:ir.model.fields,field_description:student.field_student_proposal__write_date
+#: model:ir.model.fields,field_description:student.field_student_review_line__write_date
+#: model:ir.model.fields,field_description:student.field_student_review_table__write_date
+#: model:ir.model.fields,field_description:student.field_student_scientific_profile__write_date
 #: model:ir.model.fields,field_description:student.field_student_student__write_date
 #: model:ir.model.fields,field_description:student.field_student_supervisor__write_date
 #: model:ir.model.fields,field_description:student.field_student_tag__write_date
@@ -2011,12 +2611,23 @@ msgid "Management"
 msgstr "Менеджмент"
 
 #. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_manager_view_search
+msgid "Manager"
+msgstr "Менеджер"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_manager_view_search
+msgid "Manager List"
+msgstr "Список менеджеров"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_manager__name
 msgid "Manager Name"
 msgstr "Имя менеджера"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_manager_view_action
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_manager
 #: model:ir.ui.menu,name:student.faculty_manager_menu_action
 #: model_terms:ir.ui.view,arch_db:student.student_faculty_view_form
 msgid "Managers"
@@ -2027,6 +2638,11 @@ msgstr "Менеджеры"
 #: model:ir.model.fields.selection,name:student.selection__student_program__degree__ms
 msgid "Master's"
 msgstr "Магистратура"
+
+#. module: poll
+#: model:ir.model.fields.selection,name:poll.selection__poll_vote__vote__maybe
+msgid "Maybe"
+msgstr "Возможно"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__meeting_type
@@ -2041,6 +2657,7 @@ msgstr "Оценка участника (1–10)"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__message_has_error
 #: model:ir.model.fields,field_description:student.field_student_commission__message_has_error
+#: model:ir.model.fields,field_description:student.field_student_milestone__message_has_error
 #: model:ir.model.fields,field_description:student.field_student_project__message_has_error
 #: model:ir.model.fields,field_description:student.field_student_proposal__message_has_error
 msgid "Message Delivery error"
@@ -2055,19 +2672,20 @@ msgstr "Тип сообщения"
 #: model:ir.model.fields,help:student.field_student_message_subtype__name
 msgid ""
 "Message subtype gives a more precise type on the message, especially for "
-"system notifications. For example, it can be a notification related to a "
-"new record (New), or to a stage change in a process (Stage change). Message "
+"system notifications. For example, it can be a notification related to a new "
+"record (New), or to a stage change in a process (Stage change). Message "
 "subtypes allow to precisely tune the notifications the user want to receive "
 "on its wall."
 msgstr ""
 "Подтип сообщения уточняет его характер, особенно для системных уведомлений. "
 "Например, это может быть уведомление о создании записи (Новое) или об "
-"изменении стадии процесса (Смена стадии). Подтипы позволяют точно "
-"настроить, какие уведомления пользователь хочет видеть на своей стене."
+"изменении стадии процесса (Смена стадии). Подтипы позволяют точно настроить, "
+"какие уведомления пользователь хочет видеть на своей стене."
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__message_ids
 #: model:ir.model.fields,field_description:student.field_student_commission__message_ids
+#: model:ir.model.fields,field_description:student.field_student_milestone__message_ids
 #: model:ir.model.fields,field_description:student.field_student_project__message_ids
 #: model:ir.model.fields,field_description:student.field_student_proposal__message_ids
 msgid "Messages"
@@ -2079,11 +2697,59 @@ msgid ""
 "Messages with internal subtypes will be visible only by employees, aka "
 "members of base_user group"
 msgstr ""
-"Сообщения с внутренними подтипами будут видны только сотрудникам "
-"(участникам группы base_user)"
+"Сообщения с внутренними подтипами будут видны только сотрудникам (участникам "
+"группы base_user)"
 
 #. module: student
-#: model:ir.ui.menu,name:student.util_second_level_menu_c
+#: model:ir.model.fields,field_description:student.field_project_task__student_milestone_id
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__milestone_id
+#: model_terms:ir.ui.view,arch_db:student.student_milestone_view_form
+msgid "Milestone"
+msgstr "Контрольная точка"
+
+#. module: student
+#: model:mail.template,name:student.email_template_milestone_created
+msgid "Milestone Created Notification"
+msgstr "Уведомление о создании контрольной точки"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_calendar_event__event_type__milestone_deadline
+msgid "Milestone Deadline"
+msgstr "Крайний срок контрольной точки"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_milestone_result_view_form
+msgid "Milestone Result"
+msgstr "Результат контрольной точки"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_milestone_result_view_action
+#: model:ir.model.fields,field_description:student.field_student_project__milestone_result_ids
+#: model:ir.ui.menu,name:student.milestone_results_action
+#: model_terms:ir.ui.view,arch_db:student.student_milestone_result_view_tree
+msgid "Milestone Results"
+msgstr "Результаты контрольной точки"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_project_view_form
+msgid "Milestone results"
+msgstr "Результаты контрольной точки"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_milestone_view_action
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_milestone
+#: model:ir.ui.menu,name:student.milestones_action
+#: model:ir.ui.menu,name:student.milestones_second_level_menu
+#: model_terms:ir.ui.view,arch_db:student.student_milestone_view_tree
+msgid "Milestones"
+msgstr "Контрольные точки"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_milestone_result
+msgid "Milestones Results"
+msgstr "Результаты контрольных точек"
+
+#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_commission_view_form
 msgid "Miscellaneous"
 msgstr "Разное"
@@ -2094,6 +2760,7 @@ msgid "Missed"
 msgstr "Пропущено"
 
 #. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_project__project_state__mixed
 #: model:ir.model.fields.selection,name:student.selection__student_project__state_evaluation__mixed
 msgid "Mixed Evaluation"
 msgstr "Смешанная оценка"
@@ -2105,6 +2772,7 @@ msgid "Mode of Education"
 msgstr "Форма обучения"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_dashboard__model_name
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__res_model
 msgid "Model"
 msgstr "Модель"
@@ -2119,18 +2787,26 @@ msgstr ""
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__my_activity_date_deadline
+#: model:ir.model.fields,field_description:student.field_student_milestone__my_activity_date_deadline
 #: model:ir.model.fields,field_description:student.field_student_project__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Крайний срок моей активности"
 
 #. module: student
-#: model:ir.ui.menu,name:student.personal_first_student_menu
-msgid "My Submissions"
-msgstr "Мои отправки"
+#: model:ir.actions.act_window,name:student.student_projects_view_personal
+#: model:ir.ui.menu,name:student.my_projects_for_student_action
+msgid "My Projects"
+msgstr "Мои проекты"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_project_kanban_professor_state
+#: model:ir.ui.menu,name:student.my_projects_progress_for_professors_action
+msgid "My Projects Progress"
+msgstr "Прогресс моих проектов"
 
 #. module: student
 #: model:ir.actions.server,name:student.student_menu_action_server_my_tasks
-#: model:ir.ui.menu,name:student.personal_tasks_private
+#: model:ir.ui.menu,name:student.my_tasks_action
 msgid "My Tasks"
 msgstr "Мои задачи"
 
@@ -2139,7 +2815,12 @@ msgstr "Мои задачи"
 msgid "My projects"
 msgstr "Мои проекты"
 
-#. module: student
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_option__name
+#: model:ir.model.fields,field_description:poll.field_poll_poll__name
+#: model:ir.model.fields,field_description:student.field_student_milestone__name
+#: model:ir.model.fields,field_description:student.field_student_review_table__name
+#: model:ir.model.fields,field_description:student.field_student_scientific_profile__name
 #: model:ir.model.fields,field_description:student.field_student_tag__name
 #: model_terms:ir.ui.view,arch_db:student.student_student_view_search
 msgid "Name"
@@ -2152,22 +2833,64 @@ msgid "Name Readonly"
 msgstr "Название (только для чтения)"
 
 #. module: student
+#: model:mail.template,subject:student.email_template_announcement_created
+msgid "New Announcement «{{object.name}}» Created"
+msgstr "Создано новое объявление «{{object.name}}»"
+
+#. module: student
+#: model:mail.template,subject:student.email_template_calendar_event_created
+msgid "New Event «{{object.name}}» Scheduled"
+msgstr "Новое событие «{{object.name}}» запланировано"
+
+#. module: student
+#: model:mail.template,subject:student.email_template_milestone_created
+msgid "New Milestone «{{object.name}}» Created"
+msgstr "Создана новая контрольная точка «{{object.name}}»"
+
+#. module: student
+#: model:mail.template,subject:student.email_template_poll_created
+msgid "New Poll «{{object.name}}» Created"
+msgstr "Создан новый опрос «{{object.name}}»"
+
+#. module: student
+#: model:mail.template,subject:student.email_template_review_table_created
+msgid "New Review Table «{{object.name}}» Created"
+msgstr "Создана новая таблица рецензий «{{object.name}}»"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__activity_date_deadline
+#: model:ir.model.fields,field_description:student.field_student_milestone__activity_date_deadline
 #: model:ir.model.fields,field_description:student.field_student_project__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Крайний срок следующей активности"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__activity_summary
+#: model:ir.model.fields,field_description:student.field_student_milestone__activity_summary
 #: model:ir.model.fields,field_description:student.field_student_project__activity_summary
 msgid "Next Activity Summary"
 msgstr "Описание следующей активности"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__activity_type_id
+#: model:ir.model.fields,field_description:student.field_student_milestone__activity_type_id
 #: model:ir.model.fields,field_description:student.field_student_project__activity_type_id
 msgid "Next Activity Type"
 msgstr "Тип следующей активности"
+
+#. module: poll
+#: model:ir.model.fields.selection,name:poll.selection__poll_vote__vote__no
+msgid "No"
+msgstr "Нет"
+
+#. module: student
+#: model_terms:ir.actions.act_window,help:student.student_announcement_reply_view_action
+msgid ""
+"No replies yet. Announcements expecting documents will appear here once "
+"users respond."
+msgstr ""
+"Пока нет ответов. Объявления, ожидающие документы, появятся здесь после "
+"того, как пользователи ответят."
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_project__notes
@@ -2177,6 +2900,7 @@ msgstr "Заметки и комментарии"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__message_needaction_counter
 #: model:ir.model.fields,field_description:student.field_student_commission__message_needaction_counter
+#: model:ir.model.fields,field_description:student.field_student_milestone__message_needaction_counter
 #: model:ir.model.fields,field_description:student.field_student_project__message_needaction_counter
 #: model:ir.model.fields,field_description:student.field_student_proposal__message_needaction_counter
 msgid "Number of Actions"
@@ -2192,6 +2916,11 @@ msgstr "Количество заявок"
 #: model:ir.model.fields,field_description:student.field_student_project__approved_program_ids_count
 msgid "Number of Approved Submissions"
 msgstr "Количество одобренных отправок"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_professor__number_of_commissions
+msgid "Number of Commissions"
+msgstr "Количество комиссий"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_faculty__manager_number
@@ -2251,6 +2980,7 @@ msgid "Number of Total Submissions"
 msgstr "Общее количество отправок"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_project_task__file_count
 #: model:ir.model.fields,field_description:student.field_student_project__file_count
 msgid "Number of attached files"
 msgstr "Количество прикрепленных файлов"
@@ -2258,6 +2988,7 @@ msgstr "Количество прикрепленных файлов"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__message_has_error_counter
 #: model:ir.model.fields,field_description:student.field_student_commission__message_has_error_counter
+#: model:ir.model.fields,field_description:student.field_student_milestone__message_has_error_counter
 #: model:ir.model.fields,field_description:student.field_student_project__message_has_error_counter
 #: model:ir.model.fields,field_description:student.field_student_proposal__message_has_error_counter
 msgid "Number of errors"
@@ -2266,6 +2997,7 @@ msgstr "Количество ошибок"
 #. module: student
 #: model:ir.model.fields,help:student.field_student_application__message_needaction_counter
 #: model:ir.model.fields,help:student.field_student_commission__message_needaction_counter
+#: model:ir.model.fields,help:student.field_student_milestone__message_needaction_counter
 #: model:ir.model.fields,help:student.field_student_project__message_needaction_counter
 #: model:ir.model.fields,help:student.field_student_proposal__message_needaction_counter
 msgid "Number of messages requiring action"
@@ -2274,6 +3006,7 @@ msgstr "Количество сообщений, требующих действ
 #. module: student
 #: model:ir.model.fields,help:student.field_student_application__message_has_error_counter
 #: model:ir.model.fields,help:student.field_student_commission__message_has_error_counter
+#: model:ir.model.fields,help:student.field_student_milestone__message_has_error_counter
 #: model:ir.model.fields,help:student.field_student_project__message_has_error_counter
 #: model:ir.model.fields,help:student.field_student_proposal__message_has_error_counter
 msgid "Number of messages with delivery error"
@@ -2299,14 +3032,12 @@ msgstr "Онлайн"
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_project.py:0
-#, python-format
 msgid "Only administrators can delete assigned projects!"
 msgstr "Только администраторы могут удалять назначенные проекты!"
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_project.py:0
-#, python-format
 msgid "Only its professor or related supervisors can delete this project!"
 msgstr ""
 "Только этот преподаватель или связанные руководители могут удалить проект!"
@@ -2324,9 +3055,23 @@ msgstr "Только преподаватель проекта может ред
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_proposal.py:0
-#, python-format
 msgid "Only the proposing student can delete the proposal!"
 msgstr "Только предложивший студент может удалить это предложение!"
+
+#. module: poll
+#: model:ir.model.fields,field_description:poll.field_poll_vote__option_id
+msgid "Option"
+msgstr "Опция"
+
+#. module: poll
+#: model:ir.model.fields,field_description:poll.field_poll_poll__option_ids
+msgid "Options"
+msgstr "Опции"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_calendar_event__event_type__custom
+msgid "Other"
+msgstr "Другое"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__meeting_other_details
@@ -2342,6 +3087,11 @@ msgid "Overview"
 msgstr "Обзор"
 
 #. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_project_view_form
+msgid "PROJECT MANAGEMENT DETAILS"
+msgstr "ПОДРОБНАЯ ИНФОРМАЦИЯ О ПРОЕКТЕ"
+
+#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_professor_view_form
 msgid "PROJECTS"
 msgstr "ПРОЕКТЫ"
@@ -2349,17 +3099,27 @@ msgstr "ПРОЕКТЫ"
 #. module: student
 #: model:res.groups,name:student.group_administrator
 msgid "PaLMS - Administrators"
-msgstr "PaLMS – Администраторы"
+msgstr "PaLMS - Администраторы"
+
+#. module: student
+#: model:ir.model,name:student.model_student_announcement
+msgid "PaLMS - Announcements"
+msgstr "PaLMS - Объявления"
 
 #. module: student
 #: model:ir.model,name:student.model_student_application
-msgid "PaLMS - Application for Project"
-msgstr "PaLMS – Заявки на проекты"
+msgid "PaLMS - Applications for Projects"
+msgstr "PaLMS - Заявки на проекты"
 
 #. module: student
 #: model:ir.model,name:student.model_student_approval
 msgid "PaLMS - Approvals"
 msgstr "PaLMS – Утверждения"
+
+#. module: student
+#: model:ir.model,name:student.model_student_calendar_event
+msgid "PaLMS - Calendar Events"
+msgstr "PaLMS - События календаря"
 
 #. module: student
 #: model:ir.model,name:student.model_student_campus
@@ -2382,6 +3142,11 @@ msgid "PaLMS - Commissions"
 msgstr "PaLMS – Комиссии"
 
 #. module: student
+#: model:ir.model,name:student.model_student_dashboard
+msgid "PaLMS - Dashboards"
+msgstr "PaLMS - Дешборды"
+
+#. module: student
 #: model:ir.model,name:student.model_student_degree
 msgid "PaLMS - Degrees of Education"
 msgstr "PaLMS – Степени образования"
@@ -2398,6 +3163,16 @@ msgid "PaLMS - Managers"
 msgstr "PaLMS – Менеджеры"
 
 #. module: student
+#: model:ir.model,name:student.model_student_milestone
+msgid "PaLMS - Milestones"
+msgstr "PaLMS - Контрольные точки"
+
+#. module: student
+#: model:ir.model,name:student.model_student_milestone_result
+msgid "PaLMS - Milestones Results"
+msgstr "PaLMS - Результаты контрольных точек"
+
+#. module: student
 #: model:ir.model,name:student.model_student_professor
 #: model:res.groups,name:student.group_professor
 msgid "PaLMS - Professors"
@@ -2409,19 +3184,44 @@ msgid "PaLMS - Programs"
 msgstr "PaLMS – Программы"
 
 #. module: student
-#: model:ir.model,name:student.model_student_availability
-msgid "PaLMS - Project Availability"
-msgstr "PaLMS – Доступность проектов"
-
-#. module: student
 #: model:ir.model,name:student.model_student_proposal
-msgid "PaLMS - Project Proposal"
+msgid "PaLMS - Project Proposals"
 msgstr "PaLMS – Предложения по проектам"
 
 #. module: student
 #: model:ir.model,name:student.model_student_project
 msgid "PaLMS - Projects"
 msgstr "PaLMS – Проекты"
+
+#. module: student
+#: model:ir.model,name:student.model_student_availability
+msgid "PaLMS - Projects Availability"
+msgstr "PaLMS – Доступность проектов"
+
+#. module: student
+#: model:ir.model,name:student.model_student_projects_group
+msgid "PaLMS - Projects Groups"
+msgstr "PaLMS - Проектные группы"
+
+#. module: student
+#: model:ir.model,name:student.model_student_announcement_reply
+msgid "PaLMS - Replies to Announcements"
+msgstr "PaLMS - Ответы на объявления"
+
+#. module: student
+#: model:ir.model,name:student.model_student_review_table
+msgid "PaLMS - Review Tables"
+msgstr "PaLMS - Таблицы рецензий"
+
+#. module: student
+#: model:ir.model,name:student.model_student_scientific_profile
+msgid "PaLMS - Scientific Profiles"
+msgstr "PaLMS - Научные профили"
+
+#. module: student
+#: model:ir.model,name:student.model_student_review_line
+msgid "PaLMS - Student Review Lines"
+msgstr "PaLMS - Строки рецензий"
 
 #. module: student
 #: model:ir.model,name:student.model_student_student
@@ -2451,6 +3251,11 @@ msgid "PaLMS - Utility Methods"
 msgstr "PaLMS – Вспомогательные методы"
 
 #. module: student
+#: model:ir.ui.menu,name:student.student_menu_root
+msgid "PaLMS 2"
+msgstr "PaLMS 2"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__parent_id
 msgid "Parent"
 msgstr "Родитель"
@@ -2458,19 +3263,29 @@ msgstr "Родитель"
 #. module: student
 #: model:ir.model.fields,help:student.field_student_message_subtype__parent_id
 msgid ""
-"Parent subtype, used for automatic subscription. This field is not "
-"correctly named. For example on a project, the parent_id of project "
-"subtypes refers to task-related subtypes."
+"Parent subtype, used for automatic subscription. This field is not correctly "
+"named. For example on a project, the parent_id of project subtypes refers to "
+"task-related subtypes."
 msgstr ""
 "Родительский подтип, используется для автоматической подписки. Название "
 "этого поля некорректно. Например, в проекте parent_id подтипов проекта "
 "ссылается на подтипы, связанные с задачами."
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__user_ids
+msgid "Participants"
+msgstr "Участники"
+
+#. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_application__urgency_category__pending
 #: model:ir.model.fields.selection,name:student.selection__student_availability__state__pending
 msgid "Pending"
 msgstr "Ожидает обработки"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_project__project_state__pending
+msgid "Pending Academic Supervisor Review"
+msgstr "В ожидании проверки научным руководителем"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_project__pending_program_ids
@@ -2491,7 +3306,7 @@ msgstr "Личное"
 #: model:ir.model.fields.selection,name:student.selection__student_degree__level__phd
 #: model:ir.model.fields.selection,name:student.selection__student_program__degree__phd
 msgid "PhD"
-msgstr "PhD"
+msgstr "Доктор наук"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__phone
@@ -2525,6 +3340,35 @@ msgstr ""
 msgid "Please use the Commission interface to grade the project."
 msgstr "Пожалуйста, используйте интерфейс комиссии для оценки проекта."
 
+#. modules: poll, student
+#: model:ir.model.fields,field_description:poll.field_poll_option__poll_id
+#: model:ir.model.fields,field_description:poll.field_poll_vote__poll_id
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__poll_poll
+msgid "Poll"
+msgstr "Опрос"
+
+#. module: student
+#: model:mail.template,name:student.email_template_poll_created
+msgid "Poll Created Notification"
+msgstr "Уведомление о создании опроса"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__poll_option
+msgid "Poll Options"
+msgstr "Варианты опроса"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__poll_vote
+msgid "Poll Votes"
+msgstr "Голоса в опросе"
+
+#. modules: poll, student
+#: model:ir.actions.act_window,name:poll.poll_poll_view_action
+#: model:ir.ui.menu,name:poll.poll_poll_menu
+#: model:ir.ui.menu,name:student.polls_action
+msgid "Polls"
+msgstr "Опросы"
+
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_degree__year__prep
 #: model:ir.model.fields.selection,name:student.selection__student_student__progress__prep
@@ -2535,6 +3379,7 @@ msgstr "Подготовительный год"
 #: model:ir.model.fields,field_description:student.field_student_availability__professor_id
 #: model:ir.model.fields,field_description:student.field_student_project__professor_id
 #: model:ir.model.fields,field_description:student.field_student_proposal__proposal_professor
+#: model:ir.model.fields.selection,name:student.selection__student_review_line__sent_by__professor
 #: model_terms:ir.ui.view,arch_db:student.student_application_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_availability_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_professor_view_search
@@ -2589,14 +3434,15 @@ msgid "Professor of the Applied Project"
 msgstr "Преподаватель проекта, на который осуществлялась подача"
 
 #. module: student
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_evaluation
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_publication
+#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_state
 msgid "Professor:"
-msgstr "Преподаватель:"
+msgstr "Профессор:"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_professor_view_action
 #: model:ir.model.fields,field_description:student.field_student_faculty__professor_ids
+#: model:ir.model.fields,field_description:student.field_student_review_table__professor_ids
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_professor
 #: model:ir.ui.menu,name:student.faculty_professor_menu_action
 #: model_terms:ir.ui.view,arch_db:student.student_faculty_view_form
 msgid "Professors"
@@ -2612,9 +3458,8 @@ msgid ""
 msgstr ""
 "Преподаватели могут определить критерии подачи заявок для каждой "
 "академической программы. После утверждения проекта руководителем программы "
-"он становится доступен для подачи заявок студентами этой программы. "
-"Студенты других программ могут просматривать проект, но не могут подавать "
-"заявки."
+"он становится доступен для подачи заявок студентами этой программы. Студенты "
+"других программ могут просматривать проект, но не могут подавать заявки."
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_approval__program_id
@@ -2675,7 +3520,6 @@ msgstr "Статистика программы"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_program_view_action_graph
-#: model:ir.ui.menu,name:student.program_graph_manager
 msgid "Program Summary"
 msgstr "Краткое описание программы"
 
@@ -2692,7 +3536,9 @@ msgstr "Руководители академической программы"
 #. module: student
 #: model:ir.actions.act_window,name:student.student_program_view_action
 #: model:ir.model.fields,field_description:student.field_student_faculty__program_ids
-#: model:ir.ui.menu,name:student.program_model_menu_action
+#: model:ir.model.fields,field_description:student.field_student_review_table__program_ids
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_program
+#: model:ir.ui.menu,name:student.programs_action
 #: model_terms:ir.ui.view,arch_db:student.student_faculty_view_form
 #: model_terms:ir.ui.view,arch_db:student.student_manager_view_form
 #: model_terms:ir.ui.view,arch_db:student.student_supervisor_view_form
@@ -2705,12 +3551,19 @@ msgid "Progress"
 msgstr "Прогресс"
 
 #. module: student
+#: model:ir.ui.menu,name:student.progress_tracking_second_level_menu
+msgid "Progress Tracking"
+msgstr "Отслеживание прогресса"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__project_id
 #: model:ir.model.fields,field_description:student.field_student_availability__project_id
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__student_project_id
+#: model:ir.model.fields,field_description:student.field_student_review_line__project_id
 #: model:ir.model.fields.selection,name:student.selection__student_availability__format__project
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__project_project
 #: model:ir.model.fields.selection,name:student.selection__student_project__format__project
 #: model:ir.model.fields.selection,name:student.selection__student_proposal__format__project
-#: model:ir.ui.menu,name:student.project_first_level_menu
 #: model_terms:ir.ui.view,arch_db:student.student_application_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_search
 msgid "Project"
@@ -2723,12 +3576,11 @@ msgstr "Уведомление об утверждении проекта"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_availability_view_action
-#: model:ir.ui.menu,name:student.availability_model_menu_action
+#: model:ir.ui.menu,name:student.project_availability_action
 msgid "Project Availability"
 msgstr "Доступность проекта"
 
 #. module: student
-#: model:ir.ui.menu,name:student.util_second_level_menu_a
 #: model_terms:ir.ui.view,arch_db:student.student_availability_view_form
 msgid "Project Details"
 msgstr "Подробности проекта"
@@ -2739,16 +3591,15 @@ msgid "Project Evaluation"
 msgstr "Оценка проекта"
 
 #. module: student
-#: model:ir.actions.act_window,name:student.student_project_kanban_professor_evaluation
-#: model:ir.ui.menu,name:student.project_project_kanban_evaluation
-msgid "Project Evaluation Board"
-msgstr "Комиссия по оценке проекта"
-
-#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_availability_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_search
 msgid "Project Format"
 msgstr "Формат проекта"
+
+#. module: student
+#: model:ir.ui.menu,name:student.project_lifecycle_second_level_menu
+msgid "Project Lifecycle"
+msgstr "Жизненный цикл проекта"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_project__project_project_id
@@ -2757,22 +3608,18 @@ msgstr "Управление проектом"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_availability__name
-msgid "Project Name"
+#: model:ir.model.fields,field_description:student.field_student_project__name
+msgid "Project Name (English)"
 msgstr "Название проекта"
 
 #. module: student
-#: model:ir.model.fields,field_description:student.field_student_project__name
-msgid "Project Name (English)"
-msgstr "Название проекта (на английском)"
-
-#. module: student
+#: model:ir.model.fields,field_description:student.field_student_availability__name_ru
 #: model:ir.model.fields,field_description:student.field_student_project__name_ru
 msgid "Project Name (Russian)"
 msgstr "Название проекта (на русском)"
 
 #. module: student
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_evaluation
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_publication
+#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_state
 msgid "Project Name:"
 msgstr "Название проекта:"
 
@@ -2783,7 +3630,8 @@ msgstr "Задачи проекта"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_proposal_view_professor
-#: model:ir.ui.menu,name:student.personal_proposal_professor
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_proposal
+#: model:ir.ui.menu,name:student.proposals_for_professor_action
 msgid "Project Proposals"
 msgstr "Предложения по проекту"
 
@@ -2803,13 +3651,17 @@ msgid "Project Report Filename"
 msgstr "Имя файла отчета по проекту"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_project__project_state
+msgid "Project State"
+msgstr "Стадия проекта"
+
+#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_availability_view_form
 msgid "Project Status"
 msgstr "Статус проекта"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_project_view_action_graph
-#: model:ir.ui.menu,name:student.project_graph_manager
 msgid "Project Status Report"
 msgstr "Отчет о статусе проекта"
 
@@ -2820,7 +3672,7 @@ msgstr "Уведомление о подаче проекта"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_availability_kanban_supervision
-#: model:ir.ui.menu,name:student.availability_kanban_supervision
+#: model:ir.ui.menu,name:student.projects_supervision_board_action
 msgid "Project Supervision Board"
 msgstr "Совет по сопровождению проекта"
 
@@ -2830,16 +3682,48 @@ msgid "Project Tasks"
 msgstr "Задачи проекта"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_project__type
+msgid "Project Type"
+msgstr "Тип проекта"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_review_table__type
+msgid "Project Type (КР/ВКР)"
+msgstr "Тип проекта (КР/ВКР)"
+
+#. module: student
 #: model:ir.actions.act_window,name:student.action_project
 #: model:ir.model.fields,field_description:student.field_student_campus__project_ids
 #: model:ir.model.fields,field_description:student.field_student_professor__project_ids
-#: model:ir.ui.menu,name:student.project_first_project_menu
+#: model:ir.model.fields,field_description:student.field_student_projects_group__project_ids
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_project
+#: model:ir.ui.menu,name:student.projects_first_level_menu
 #: model_terms:ir.ui.view,arch_db:student.student_faculty_view_form
 #: model_terms:ir.ui.view,arch_db:student.student_professor_view_form
 #: model_terms:ir.ui.view,arch_db:student.student_professor_view_search
 #: model_terms:ir.ui.view,arch_db:student.student_program_view_form
 msgid "Projects"
 msgstr "Проекты"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_availability
+msgid "Projects Availability"
+msgstr "Доступность проектов"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_availability__projects_group_id
+#: model:ir.model.fields,field_description:student.field_student_project__projects_group_id
+#: model_terms:ir.ui.view,arch_db:student.student_projects_group_view_form
+msgid "Projects Group"
+msgstr "Группа проектов"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_projects_group_view_action
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_projects_group
+#: model:ir.ui.menu,name:student.projects_groups_action
+#: model_terms:ir.ui.view,arch_db:student.student_projects_group_view_tree
+msgid "Projects Groups"
+msgstr "Проектные группы"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_degree__project_ids
@@ -2863,8 +3747,6 @@ msgid "Proposal Details"
 msgstr "Детали предложения"
 
 #. module: student
-#: model:ir.actions.act_window,name:student.student_proposal_view_public
-#: model:ir.ui.menu,name:student.project_proposal_list
 #: model_terms:ir.ui.view,arch_db:student.student_proposal_view_search
 msgid "Proposal List"
 msgstr "Список предложений"
@@ -2896,8 +3778,7 @@ msgstr "Статус предложения"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_proposal_view_personal
-#: model:ir.ui.menu,name:student.personal_proposal_private
-#: model:ir.ui.menu,name:student.project_first_proposal_menu
+#: model:ir.ui.menu,name:student.proposals_for_student_action
 #: model_terms:ir.ui.view,arch_db:student.student_student_view_form
 msgid "Proposals"
 msgstr "Предложения"
@@ -2935,6 +3816,8 @@ msgid "Publication State"
 msgstr "Статус публикации"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement__is_published
+#: model:ir.model.fields.selection,name:student.selection__student_project__project_state__published
 #: model:ir.model.fields.selection,name:student.selection__student_project__state_publication__published
 msgid "Published"
 msgstr "Опубликовано"
@@ -2943,12 +3826,6 @@ msgstr "Опубликовано"
 #: model_terms:ir.ui.view,arch_db:student.student_faculty_view_form
 msgid "Published Projects"
 msgstr "Опубликованные проекты"
-
-#. module: student
-#: model:ir.actions.act_window,name:student.student_project_kanban_professor_publication
-#: model:ir.ui.menu,name:student.project_project_kanban_publication
-msgid "Published Projects Board"
-msgstr "Доска опубликованных проектов"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_availability_view_form
@@ -2983,6 +3860,7 @@ msgstr "ВЕРНУТЬ"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__rating_ids
 #: model:ir.model.fields,field_description:student.field_student_commission__rating_ids
+#: model:ir.model.fields,field_description:student.field_student_milestone__rating_ids
 #: model:ir.model.fields,field_description:student.field_student_project__rating_ids
 #: model:ir.model.fields,field_description:student.field_student_proposal__rating_ids
 msgid "Ratings"
@@ -3006,6 +3884,7 @@ msgstr "Отклонить ✘"
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_application__state__rejected
 #: model:ir.model.fields.selection,name:student.selection__student_availability__state__rejected
+#: model:ir.model.fields.selection,name:student.selection__student_project__project_state__rejected
 #: model:ir.model.fields.selection,name:student.selection__student_project__state_evaluation__rejected
 #: model:ir.model.fields.selection,name:student.selection__student_proposal__state__rejected
 #: model_terms:ir.ui.view,arch_db:student.student_application_view_search
@@ -3014,9 +3893,34 @@ msgid "Rejected"
 msgstr "Отклонено"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__announcement_id
+msgid "Related Announcement"
+msgstr "Соответствующее объявление"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__commission_id
+msgid "Related Commission"
+msgstr "Соответствующая комиссия"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__milestone_id
+msgid "Related Milestone"
+msgstr "Соответствующая контрольная точка"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__poll_id
+msgid "Related Poll"
+msgstr "Связанный опрос"
+
+#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_availability_view_search
 msgid "Related Project"
 msgstr "Связанный проект"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__task_id
+msgid "Related Task"
+msgstr "Связанная задача"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__relation_field
@@ -3024,9 +3928,20 @@ msgid "Relation field"
 msgstr "Связанные поля"
 
 #. module: student
-#: model:ir.ui.menu,name:student.project_second_project_menu
-msgid "Reports"
-msgstr "Отчеты"
+#: model:ir.model.fields,field_description:student.field_student_announcement__reply_ids
+msgid "Replies"
+msgstr "Ответы"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_announcement_reply
+#: model_terms:ir.ui.view,arch_db:student.student_announcement_reply_view_form
+msgid "Replies to Announcements"
+msgstr "Ответы на объявления"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_announcement_view_form
+msgid "Reply"
+msgstr "Ответ"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_search
@@ -3042,6 +3957,7 @@ msgstr "Исследование"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__activity_user_id
+#: model:ir.model.fields,field_description:student.field_student_milestone__activity_user_id
 #: model:ir.model.fields,field_description:student.field_student_project__activity_user_id
 msgid "Responsible User"
 msgstr "Ответственный пользователь"
@@ -3074,6 +3990,51 @@ msgid "Returned Project Notification"
 msgstr "Уведомление о возвращенном проекте"
 
 #. module: student
+#: model:ir.ui.menu,name:student.review_and_evaluation_second_level_menu
+msgid "Review & Evaluation"
+msgstr "Обзор и оценка"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_review_table__line_ids
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_review_line
+msgid "Review Lines"
+msgstr "Строки рецензии"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_review_line__table_id
+#: model_terms:ir.ui.view,arch_db:student.student_review_table_view_form
+msgid "Review Table"
+msgstr "Таблица рецензирования"
+
+#. module: student
+#: model:mail.template,name:student.email_template_review_table_created
+msgid "Review Table Created Notification"
+msgstr "Уведомление о создании таблицы рецензирования"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_review_table_view_action
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_review_table
+#: model:ir.ui.menu,name:student.review_tables_action
+#: model_terms:ir.ui.view,arch_db:student.student_review_table_view_tree
+msgid "Review Tables"
+msgstr "Таблицы рецензирования"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_review_line__reviewer_id
+msgid "Reviewer"
+msgstr "Рецензент"
+
+#. module: student
+#: model:mail.template,name:student.email_template_reviewer_assigned
+msgid "Reviewer Assigned Notification"
+msgstr "Уведомление о назначении рецензента"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_project__reviewer_status
+msgid "Reviewer Status"
+msgstr "Статус рецензента"
+
+#. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_availability__language__ru
 #: model:ir.model.fields.selection,name:student.selection__student_program__language__ru
 #: model:ir.model.fields.selection,name:student.selection__student_project__language__ru
@@ -3097,17 +4058,26 @@ msgid "SET COMMISSION"
 msgstr "НАЗНАЧИТЬ КОМИССИЮ"
 
 #. module: student
-#: model:ir.model.fields,field_description:student.field_student_application__message_has_sms_error
-#: model:ir.model.fields,field_description:student.field_student_commission__message_has_sms_error
-#: model:ir.model.fields,field_description:student.field_student_project__message_has_sms_error
-#: model:ir.model.fields,field_description:student.field_student_proposal__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Ошибка доставки SMS"
-
-#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 msgid "SUBMIT"
 msgstr "ОТПРАВИТЬ"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_scientific_profile_view_form
+msgid "Scientific Profile Details"
+msgstr "Подробная информация о научной деятельности"
+
+#. module: student
+#: model:ir.actions.act_window,name:student.student_scientific_profile_view_action
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_scientific_profile
+#: model:ir.ui.menu,name:student.scientific_profiles_action
+msgid "Scientific Profiles"
+msgstr "Научные профили"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_professor__scientific_profile_ids
+msgid "Scientific profile"
+msgstr "Научный профиль"
 
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_student__progress__2
@@ -3153,6 +4123,11 @@ msgstr ""
 "Рекомендуется указать описание как на английском, так и на русском."
 
 #. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_dashboard_view_form
+msgid "Show Graph"
+msgstr "Показать график"
+
+#. module: student
 #: model:ir.model.fields,field_description:student.field_student_project__project_preview_toggle
 msgid "Show Preview"
 msgstr "Показать предварительный просмотр"
@@ -3175,11 +4150,16 @@ msgstr "Шестой курс"
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 msgid ""
-"Specify if there are any additional links, resources or repositories "
-"related to the project. Files can be added to 'Additional Files' section."
+"Specify if there are any additional links, resources or repositories related "
+"to the project. Files can be added to 'Additional Files' section."
 msgstr ""
-"Укажите, есть ли дополнительные ссылки, ресурсы или репозитории, связанные "
-"с проектом. Файлы можно добавить в раздел «Дополнительные файлы»."
+"Укажите, есть ли дополнительные ссылки, ресурсы или репозитории, связанные с "
+"проектом. Файлы можно добавить в раздел «Дополнительные файлы»."
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__start_datetime
+msgid "Start Time"
+msgstr "Время начала"
 
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_availability__format__startup
@@ -3190,12 +4170,14 @@ msgstr "Стартап"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_availability__state
+#: model:ir.model.fields,field_description:student.field_student_review_table__state
 #: model_terms:ir.ui.view,arch_db:student.student_proposal_view_search
 msgid "State"
 msgstr "Статус"
 
 #. module: student
 #: model:ir.model.fields,help:student.field_student_commission__activity_state
+#: model:ir.model.fields,help:student.field_student_milestone__activity_state
 #: model:ir.model.fields,help:student.field_student_project__activity_state
 msgid ""
 "Status based on activities\n"
@@ -3209,6 +4191,7 @@ msgstr ""
 "Запланировано: будущие активности."
 
 #. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_review_line__sent_by__student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 msgid "Student"
 msgstr "Студент"
@@ -3261,13 +4244,14 @@ msgid "Student List"
 msgstr "Список студентов"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_project__student_elected_name
 #: model:ir.model.fields,field_description:student.field_student_student__name
 msgid "Student Name"
 msgstr "Имя студента"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_defense_view_action
-#: model:ir.ui.menu,name:student.defense_model_menu_action
+#: model:ir.ui.menu,name:student.student_project_defenses_action
 msgid "Student Project Defenses"
 msgstr "Защиты проектов студента"
 
@@ -3278,9 +4262,15 @@ msgid "Student Track"
 msgstr "Трек студента"
 
 #. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_state
+msgid "Student:"
+msgstr "Студент:"
+
+#. module: student
 #: model:ir.actions.act_window,name:student.student_student_view_action
 #: model:ir.model.fields,field_description:student.field_student_faculty__student_ids
 #: model:ir.model.fields,field_description:student.field_student_program__student_ids
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_student
 #: model:ir.ui.menu,name:student.faculty_student_menu_action
 #: model_terms:ir.ui.view,arch_db:student.student_faculty_view_form
 #: model_terms:ir.ui.view,arch_db:student.student_program_view_form
@@ -3292,6 +4282,23 @@ msgstr "Студенты"
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 msgid "Submission State"
 msgstr "Статус подачи"
+
+#. module: student
+#: model:ir.ui.menu,name:student.submissions_and_participation_second_level_menu
+msgid "Submissions & Participation"
+msgstr "Подача заявок и участие"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__user_id
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__user_id
+msgid "Submitted By"
+msgstr "Отправлено"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement_reply__submit_date
+#: model:ir.model.fields,field_description:student.field_student_milestone_result__submit_date
+msgid "Submitted On"
+msgstr "Отправлено"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_availability_view_list
@@ -3312,6 +4319,7 @@ msgstr "Цвет карточки руководства"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_program_view_search
+#: model_terms:ir.ui.view,arch_db:student.student_supervisor_view_form
 #: model_terms:ir.ui.view,arch_db:student.student_supervisor_view_search
 msgid "Supervisor"
 msgstr "Академический руководитель"
@@ -3329,10 +4337,16 @@ msgstr "Имя руководителя"
 #. module: student
 #: model:ir.actions.act_window,name:student.student_supervisor_view_action
 #: model:ir.model.fields,field_description:student.field_student_faculty__supervisor_ids
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_supervisor
 #: model:ir.ui.menu,name:student.faculty_supervisor_menu_action
 #: model_terms:ir.ui.view,arch_db:student.student_faculty_view_form
 msgid "Supervisors"
 msgstr "Академические руководители"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_project_view_search
+msgid "Tag"
+msgstr "Тег"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_tag_view_form
@@ -3341,11 +4355,28 @@ msgstr "Детали тега"
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_tag_view_action
-#: model:ir.model.fields,field_description:student.field_student_commission__tag_ids
-#: model:ir.ui.menu,name:student.tag_model_menu_action
-#: model_terms:ir.ui.view,arch_db:student.student_commission_view_form
+#: model:ir.model.fields,field_description:student.field_student_availability__tag_ids
+#: model:ir.model.fields,field_description:student.field_student_project__tag_ids
+#: model:ir.model.fields,field_description:student.field_student_proposal__tag_ids
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__student_tag
+#: model:ir.ui.menu,name:student.tags_action
 msgid "Tags"
 msgstr "Теги"
+
+#. module: student
+#: model:ir.ui.menu,name:student.tags_and_scientific_profiles_second_level_menu
+msgid "Tags & Scientific Profiles"
+msgstr "Теги и научные профили"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_announcement_view_form
+msgid "Target Audience"
+msgstr "Целевая аудитория"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement__target_group_ids
+msgid "Target Groups"
+msgstr "Целевые группы"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_search
@@ -3353,10 +4384,34 @@ msgid "Target Program"
 msgstr "Целевая программа"
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement__target_program_ids
+#: model:ir.model.fields,field_description:student.field_student_milestone__program_ids
 #: model:ir.model.fields,field_description:student.field_student_project__availability_ids
 #: model:ir.model.fields,field_description:student.field_student_project__program_ids
 msgid "Target Programs"
 msgstr "Целевые программы"
+
+#. module: student
+#: model:ir.model,name:student.model_project_task
+#: model:ir.model.fields.selection,name:student.selection__student_calendar_event__event_type__task
+#: model:ir.model.fields.selection,name:student.selection__student_dashboard__model_name__project_task
+msgid "Task"
+msgstr "Задача"
+
+#. module: student
+#: model:mail.template,name:student.email_template_task_completed
+msgid "Task Completed Notification"
+msgstr "Уведомление о выполнении задачи"
+
+#. module: student
+#: model:mail.template,subject:student.email_template_task_completed
+msgid "Task «{{object.name}}» has been marked as Completed"
+msgstr "Задание «{{object.name}}» было помечено как выполненное"
+
+#. module: student
+#: model:ir.ui.menu,name:student.tasks_and_planning_second_level_menu
+msgid "Tasks & Planning"
+msgstr "Задачи и планирование"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_application_view_form
@@ -3372,39 +4427,34 @@ msgstr "Технический журнал и детали"
 #: model:ir.model.fields,field_description:student.field_student_application__telegram
 #: model:ir.model.fields,field_description:student.field_student_proposal__telegram
 msgid "Telegram ID"
-msgstr "Telegram ID"
+msgstr "ID Telegram"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_professor_view_form
-#: model_terms:ir.ui.view,arch_db:student.student_supervisor_view_form
 msgid "Test"
 msgstr "Тест"
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_application.py:0
-#, python-format
 msgid "The application is sent to the professor, %s, for evaluation."
 msgstr "Заявка отправлена преподавателю %s на рассмотрение."
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_application.py:0
-#, python-format
 msgid "The application sent by %s is accepted."
 msgstr "Заявка, отправленная %s, принята."
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_application.py:0
-#, python-format
 msgid "The application sent by %s is rejected."
 msgstr "Заявка, отправленная %s, отклонена."
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_application.py:0
-#, python-format
 msgid "The application submission is cancelled."
 msgstr "Подача заявки отменена."
 
@@ -3416,10 +4466,9 @@ msgstr "Кампус автоматически назначается на ос
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_commission.py:0
-#, python-format
 msgid ""
-"The commission № is set. Commission members are free to grade projects "
-"after the defense presentations."
+"The commission № is set. Commission members are free to grade projects after "
+"the defense presentations."
 msgstr ""
 "Комиссия № установлена. После презентации проектов члены комиссии могут "
 "выставлять оценки."
@@ -3427,7 +4476,6 @@ msgstr ""
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_commission.py:0
-#, python-format
 msgid "The commission № is unset."
 msgstr "Комиссия № снята."
 
@@ -3452,23 +4500,25 @@ msgid "The number of offered projects can't be negative."
 msgstr "Количество предлагаемых проектов не может быть отрицательным."
 
 #. module: student
+#: model:ir.model.fields,field_description:student.field_student_review_line__sent
+msgid "The paper has been sent to the reviewer"
+msgstr "Работа отправлена рецензенту"
+
+#. module: student
 #. odoo-python
 #: code:addons/student/models/student_project.py:0
-#, python-format
 msgid "The project is approved by ."
 msgstr "Проект утвержден пользователем ."
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_project.py:0
-#, python-format
 msgid "The project is rejected by .<br><b>Rejection reason: </b>"
 msgstr "Проект отклонен пользователем .<br><b>Причина отклонения: </b>"
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_project.py:0
-#, python-format
 msgid ""
 "The project is returned by  for the reason below. Resubmission after "
 "applying requested modifications is possible.<br><b>Return reason: </b>"
@@ -3479,7 +4529,6 @@ msgstr ""
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_project.py:0
-#, python-format
 msgid ""
 "The project is returned from all submitted programs, so it is automatically "
 "reverted to 'Draft' status."
@@ -3490,7 +4539,6 @@ msgstr ""
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_project.py:0
-#, python-format
 msgid "The project submission is cancelled."
 msgstr "Подача проекта отменена."
 
@@ -3500,15 +4548,19 @@ msgid ""
 "The ultimate commission grade for the project. Set to the average of member "
 "grades by default, can be modified by the commission head."
 msgstr ""
-"Итоговая оценка комиссии за проект. По умолчанию устанавливается как "
-"среднее значение оценок членов комиссии, но может быть изменена "
-"председателем."
+"Итоговая оценка комиссии за проект. По умолчанию устанавливается как среднее "
+"значение оценок членов комиссии, но может быть изменена председателем."
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_commission__viewer_member
 msgid "The viewing user is a commission member (TECHNICAL)"
 msgstr ""
 "Пользователь, просматривающий данные, является членом комиссии (ТЕХНИЧЕСКОЕ)"
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_review_line__sent_by
+msgid "The work will be sent to the reviewer by"
+msgstr "Работа будет отправлена рецензенту"
 
 #. module: student
 #: model_terms:ir.actions.act_window,help:student.student_program_view_action_graph
@@ -3527,19 +4579,11 @@ msgstr "Пока нет проектов. Отчет не может быть с
 
 #. module: student
 #: model_terms:ir.actions.act_window,help:student.action_project
-#: model_terms:ir.actions.act_window,help:student.student_project_kanban_professor_evaluation
+#: model_terms:ir.actions.act_window,help:student.student_project_kanban_manager
+#: model_terms:ir.actions.act_window,help:student.student_project_kanban_professor_state
 #: model_terms:ir.actions.act_window,help:student.student_project_view_action_list
 msgid "There are no projects yet. You can create the first one. Yay!"
 msgstr "Пока нет проектов. Вы можете создать первый. Ура!"
-
-#. module: student
-#: model_terms:ir.actions.act_window,help:student.student_project_kanban_professor_publication
-msgid ""
-"There are no published projects. You can create the first one and send it "
-"for approval."
-msgstr ""
-"Нет опубликованных проектов. Вы можете создать первый и отправить его на "
-"утверждение."
 
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_student__progress__3
@@ -3549,14 +4593,12 @@ msgstr "Третий курс"
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_application.py:0
-#, python-format
 msgid "This application is accepted by the professor."
 msgstr "Эта заявка принята преподавателем."
 
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_application.py:0
-#, python-format
 msgid ""
 "This application is rejected as another one is accepted by the professor."
 msgstr "Эта заявка отклонена, так как преподаватель принял другую."
@@ -3564,7 +4606,6 @@ msgstr "Эта заявка отклонена, так как преподава
 #. module: student
 #. odoo-python
 #: code:addons/student/models/student_application.py:0
-#, python-format
 msgid "This application is rejected by the professor."
 msgstr "Эта заявка отклонена преподавателем."
 
@@ -3572,6 +4613,12 @@ msgstr "Эта заявка отклонена преподавателем."
 #: model:ir.model.constraint,message:student.constraint_student_student_check_uniqueness
 msgid "This student is already registered."
 msgstr "Этот студент уже зарегистрирован."
+
+#. module: student
+#: model:ir.model.fields,field_description:student.field_student_announcement__name
+#: model:ir.model.fields,field_description:student.field_student_calendar_event__name
+msgid "Title"
+msgstr "Название"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_message_subtype__track_recipients
@@ -3589,13 +4636,14 @@ msgstr "Тип"
 
 #. module: student
 #: model:ir.model.fields,help:student.field_student_commission__activity_exception_decoration
+#: model:ir.model.fields,help:student.field_student_milestone__activity_exception_decoration
 #: model:ir.model.fields,help:student.field_student_project__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "Тип исключительной активности в записи."
 
 #. module: student
 #: model:ir.actions.act_window,name:student.student_campus_view_action
-#: model:ir.ui.menu,name:student.campus_model_menu_action
+#: model:ir.ui.menu,name:student.university_campuses_action
 msgid "University Campuses"
 msgstr "Кампусы университета"
 
@@ -3603,6 +4651,16 @@ msgstr "Кампусы университета"
 #: model:ir.model.fields,field_description:student.field_student_campus__university_name
 msgid "University Name"
 msgstr "Название университета"
+
+#. module: student
+#: model:ir.actions.server,name:student.ir_cron_unpublish_expired_announcements_ir_actions_server
+msgid "Unpublish Expired Announcements"
+msgstr "Отменить публикацию просроченных объявлений"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_milestone_view_form
+msgid "Upload Result"
+msgstr "Загрузить результат"
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__urgency_category
@@ -3629,8 +4687,9 @@ msgstr ""
 msgid "Used to order subtypes."
 msgstr "Используется для сортировки подтипов."
 
-#. module: student
+#. modules: poll, student
 #: model:ir.model,name:student.model_res_users
+#: model:ir.model.fields,field_description:poll.field_poll_vote__user_id
 msgid "User"
 msgstr "Пользователь"
 
@@ -3643,14 +4702,19 @@ msgid "User Account"
 msgstr "Учетная запись пользователя"
 
 #. module: student
-#: model:ir.ui.menu,name:student.faculty_first_member_menu
-msgid "Users"
-msgstr "Пользователи"
+#: model:ir.ui.menu,name:student.user_management_second_level_menu
+msgid "User Management"
+msgstr "Управление пользователями"
 
 #. module: student
-#: model:ir.ui.menu,name:student.util_first_level_menu
-msgid "Utility"
-msgstr "Утилиты"
+#: model_terms:ir.ui.view,arch_db:student.student_announcement_view_form
+msgid "View Replies"
+msgstr "Просмотреть ответы"
+
+#. module: student
+#: model_terms:ir.ui.view,arch_db:student.student_milestone_view_form
+msgid "View Results"
+msgstr "Просмотреть результаты"
 
 #. module: student
 #: model_terms:ir.actions.act_window,help:student.student_application_view_personal
@@ -3662,6 +4726,21 @@ msgstr "Просмотреть проекты"
 #: model:ir.model.fields,field_description:student.field_student_professor__visiting_professor
 msgid "Visiting professor?"
 msgstr "Приглашенный преподаватель?"
+
+#. module: poll
+#: model:ir.model.fields,field_description:poll.field_poll_vote__vote
+msgid "Vote"
+msgstr "Голос"
+
+#. module: poll
+#: model:ir.model.fields,field_description:poll.field_poll_poll__vote_ids
+msgid "Votes"
+msgstr "Голоса"
+
+#. module: student
+#: model:ir.ui.menu,name:student.voting_participation_second_level_menu
+msgid "Voting & Participation"
+msgstr "Голосование и участие"
 
 #. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
@@ -3678,8 +4757,7 @@ msgid ""
 "WARNING! This is a development command. Are you sure that you want to reset "
 "the project?"
 msgstr ""
-"ВНИМАНИЕ! Это команда для разработки. Вы уверены, что хотите сбросить "
-"проект?"
+"ВНИМАНИЕ! Это команда для разработки. Вы уверены, что хотите сбросить проект?"
 
 #. module: student
 #: model:ir.model.fields.selection,name:student.selection__student_availability__state__waiting
@@ -3689,6 +4767,7 @@ msgstr "Ожидает подачи"
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_application__website_message_ids
 #: model:ir.model.fields,field_description:student.field_student_commission__website_message_ids
+#: model:ir.model.fields,field_description:student.field_student_milestone__website_message_ids
 #: model:ir.model.fields,field_description:student.field_student_project__website_message_ids
 #: model:ir.model.fields,field_description:student.field_student_proposal__website_message_ids
 msgid "Website Messages"
@@ -3697,6 +4776,7 @@ msgstr "Сообщения с сайта"
 #. module: student
 #: model:ir.model.fields,help:student.field_student_application__website_message_ids
 #: model:ir.model.fields,help:student.field_student_commission__website_message_ids
+#: model:ir.model.fields,help:student.field_student_milestone__website_message_ids
 #: model:ir.model.fields,help:student.field_student_project__website_message_ids
 #: model:ir.model.fields,help:student.field_student_proposal__website_message_ids
 msgid "Website communication history"
@@ -3708,6 +4788,16 @@ msgid "Whether to display all the recipients or only the important ones."
 msgstr "Отображать всех получателей или только важных."
 
 #. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_project__reviewer_status__with
+msgid "With Reviewer"
+msgstr "С рецензентом"
+
+#. module: student
+#: model:ir.model.fields.selection,name:student.selection__student_project__reviewer_status__without
+msgid "Without Reviewer"
+msgstr "Без рецензента"
+
+#. module: student
 #: model_terms:ir.ui.view,arch_db:student.student_project_view_form
 msgid "Workflow"
 msgstr "Рабочий процесс"
@@ -3717,6 +4807,28 @@ msgstr "Рабочий процесс"
 #: model_terms:ir.ui.view,arch_db:student.student_student_view_search
 msgid "Year of Enrollment"
 msgstr "Год поступления"
+
+#. module: poll
+#: model:ir.model.fields.selection,name:poll.selection__poll_vote__vote__yes
+msgid "Yes"
+msgstr "Да"
+
+#. module: student
+#: model_terms:ir.actions.act_window,help:student.student_projects_view_personal
+msgid "You are not assigned to a project yet. Try applying to projects first."
+msgstr ""
+"Вы еще не назначены на проект. Попробуйте сначала подать заявку на участие в "
+"проектах."
+
+#. module: student
+#: model:ir.model.constraint,message:student.constraint_student_announcement_reply_unique_reply_per_user
+msgid "You can only submit one reply per announcement."
+msgstr "Вы можете отправить только один ответ на каждое объявление."
+
+#. module: student
+#: model:ir.model.constraint,message:student.constraint_student_milestone_result_unique_result_per_user
+msgid "You can only submit one result from project per milestone."
+msgstr "Вы можете отправить только один результат по проекту за каждый этап."
 
 #. module: student
 #: model:ir.model.constraint,message:student.constraint_student_application_check_uniqueness
@@ -3737,6 +4849,12 @@ msgstr "У вас нет ожидающих рассмотрения предл�
 #: model:ir.model.constraint,message:student.constraint_student_availability_check_uniqueness
 msgid "You have specified duplicate target programs."
 msgstr "Вы указали дублирующиеся целевые программы."
+
+#. module: student
+#: model:mail.template,subject:student.email_template_reviewer_assigned
+msgid ""
+"You were assigned as a reviewer for project «{{object.project_id.name}}»"
+msgstr "Вы были назначены рецензентом проекта «{{object.project_id.name}}»."
 
 #. module: student
 #: model:ir.model.fields,field_description:student.field_student_defense__personal_grade
@@ -3764,27 +4882,17 @@ msgid "Your proposal «{{object.project_id.name}}» is rejected"
 msgstr "Ваше предложение «{{object.project_id.name}}» отклонено"
 
 #. module: student
-#: model_terms:ir.ui.view,arch_db:student.student_manager_view_search
-msgid "manager"
-msgstr "менеджер"
-
-#. module: student
-#: model_terms:ir.ui.view,arch_db:student.student_manager_view_search
-msgid "manager List"
-msgstr "Список менеджеров"
-
-#. module: student
 #: model:mail.template,subject:student.email_template_application_send
 msgid ""
-"{{object.applicant_account.name}} sent a an application for «{{object."
-"project_id.name}}»"
+"{{object.applicant_account.name}} sent an application for "
+"«{{object.project_id.name}}»"
 msgstr ""
-"{{object.applicant_account.name}} отправил(а) заявку на «{{object."
-"project_id.name}}»"
+"{{object.applicant_account.name}} отправил(а) заявку на "
+"«{{object.project_id.name}}»"
 
 #. module: student
 #: model:mail.template,subject:student.email_template_proposal_send
-msgid "{{object.proponent.name}} sent a a proposal"
+msgid "{{object.proponent.name}} sent a proposal"
 msgstr "{{object.proponent.name}} отправил(а) предложение"
 
 #. module: student
@@ -3808,17 +4916,6 @@ msgid "«{{object.name}}» is submitted for review"
 msgstr "«{{object.name}}» отправлено на рассмотрение"
 
 #. module: student
-#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_evaluation
+#: model_terms:ir.ui.view,arch_db:student.student_project_kanban_view_state
 msgid "• Approved:"
-msgstr "• Одобрено:"
-
-#. module: student
-#: model:ir.actions.server,name:student.student_project_view_personal
-#: model:ir.ui.menu,name:student.personal_project_student
-msgid "𝗠𝘆 𝗣𝗿𝗼𝗷𝗲𝗰𝘁"
-msgstr "Мой проект"
-
-#. module: student
-#: model:ir.ui.menu,name:student.student_menu_root
-msgid "𝗣𝗮𝗟𝗠𝗦"
-msgstr "𝗣𝗮𝗟𝗠𝗦"
+msgstr "• Утверждено:"
